@@ -4,5 +4,6 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: '/growurdhan-web/',
+  // Custom domain in CNAME: growurdhan.com
+  base: '/',
 });

@@ -2,9 +2,7 @@
 
 Public face of GrowUrDhan. Static HTML/CSS plus a small banner script.
 
-Canonical host: [growurdhan.com](https://growurdhan.com)
-
-Four pages, matching the product brief:
+Canonical host: https://growurdhan.com
 
 | Path | Role |
 | --- | --- |
@@ -13,4 +11,4 @@ Four pages, matching the product brief:
 | `/terms/` | Terms v2 |
 | `/delete-account/` | Deletion instructions |
 
-GitHub Pages deploys the `site/` folder on push to `main`. No WordPress, no waitlist, no APK.
+GitHub Pages serves this repository root. No WordPress, no waitlist, no APK.

@@ -75,3 +75,14 @@
 .play-state { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.85rem; }
 .play-state span { font-size: 0.72rem; font-weight: 700; border: 1px solid var(--line); border-radius: 999px; padding: 0.2rem 0.55rem; color: var(--muted); }
 .play-state span.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+.header-inner { position: relative; }
+.brand { min-width: 0; }
+@media (max-width: 720px) {
+  .site-header .header-actions .cta { display: none; }
+  .tag { display: none; }
+}
+.launch-bar { background: #1c1917; color: #faf7f1; font-size: 0.82rem; }
+.launch-bar .wrap { padding: 0.42rem 0; }
+.launch-bar a { color: #f6d48a; font-weight: 700; }
+.illustrative { margin: 0.45rem 0 0; color: var(--muted); font-size: 0.78rem; }

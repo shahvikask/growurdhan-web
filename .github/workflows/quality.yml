@@ -70,3 +70,16 @@ jobs:
         run: |
           grep -q 'data-menu' assets/banner.js
           grep -q 'data-demo' assets/banner.js
+
+      - name: No internal review copy on the site
+        run: |
+          if grep -R --include='*.html' -n 'homepage should feel' .; then
+            echo "Internal review sentence is visible to visitors"
+            exit 1
+          fi
+      - name: Key pages have a meta description
+        run: |
+          set -e
+          for p in index.html features/index.html family/index.html how-it-works/index.html security/index.html pricing/index.html faq/index.html about/index.html privacy/index.html terms/index.html delete-account/index.html guides/cas-statement/index.html; do
+            grep -q 'name="description"' "$p"
+          done

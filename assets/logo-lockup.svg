@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" role="img" aria-label="GrowUrDhan">
+  <rect width="64" height="64" rx="16" fill="#16382f"/>
+  <g fill="none" stroke-linecap="round">
+    <path d="M16 14v20c0 8.4 6.7 15.2 14.8 15.2S45.6 42.4 45.6 34V14" stroke="#F59E0B" stroke-width="4.4"/>
+    <path d="M16 24h22.4M16 14h22.4" stroke="#FBBF24" stroke-width="4"/>
+    <path d="M30.8 32L48 52" stroke="#10B981" stroke-width="4.6"/>
+  </g>
+  <text x="76" y="42" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="28" font-weight="800">
+    <tspan fill="#111827">Grow</tspan><tspan fill="#F59E0B">Ur</tspan><tspan fill="#14B8A6">Dhan</tspan>
+  </text>
+</svg>

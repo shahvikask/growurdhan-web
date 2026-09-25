@@ -24,7 +24,7 @@ jobs:
           mkdir -p /tmp/pages
           cp -a index.html 404.html robots.txt sitemap.xml CNAME .nojekyll site.webmanifest /tmp/pages/
           cp -a assets privacy terms delete-account features how-it-works security family pricing faq about guides /tmp/pages/
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: /tmp/pages
 

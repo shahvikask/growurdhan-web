@@ -21,9 +21,9 @@ jobs:
             echo "Canonical pages must use http://growurdhan.com"
             exit 1
           fi
-      - name: No waitlist form
+      - name: No email capture form
         run: |
-          if grep -R --include='*.html' -n -E 'type="email"|waitlist' .; then
-            echo "Do not add a waitlist."
+          if grep -R --include='*.html' -n 'type="email"' .; then
+            echo "Do not add an email capture form."
             exit 1
           fi

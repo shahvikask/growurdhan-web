@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="GrowUrDhan mark on dark">
+  <rect width="64" height="64" rx="16" fill="#f3eee4"/>
+  <g fill="none" stroke-linecap="round">
+    <path d="M16 14v20c0 8.4 6.7 15.2 14.8 15.2S45.6 42.4 45.6 34V14" stroke="#0f766e" stroke-width="4.4"/>
+    <path d="M16 24h22.4M16 14h22.4" stroke="#9a5b08" stroke-width="4"/>
+    <path d="M30.8 32L48 52" stroke="#9a5b08" stroke-width="4.6"/>
+  </g>
+</svg>

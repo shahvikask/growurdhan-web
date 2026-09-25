@@ -110,10 +110,10 @@
     const out = box.querySelector("[data-demo-out]");
     const inputs = Array.from(box.querySelectorAll("input[type=checkbox]"));
     const map = {
-      self: { inv: 124, other: 18 },
-      spouse: { inv: 42, other: 9 },
-      child: { inv: 6, other: 4 },
-      huf: { inv: 12, other: 11 }
+      self: { inv: 160, other: 24 },
+      spouse: { inv: 52, other: 16 },
+      child: { inv: 14, other: 8 },
+      huf: { inv: 22, other: 11 }
     };
     function rupee(n) {
       if (n >= 100) return "₹" + (n / 100).toFixed(2) + " Cr";

@@ -3,15 +3,41 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Security &amp; privacy — GrowUrDhan</title>
-  <meta name="description" content="Where CAS data goes: on-device vault, encryption, backup, Play Billing.">
+  <title>Security & privacy — GrowUrDhan</title>
+  <meta name="description" content="Where CAS data goes: on-device vault, encryption, backup, Play Billing, and what never leaves the phone.">
   <link rel="canonical" href="https://growurdhan.com/security/">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../assets/site.css">
+  <link rel="stylesheet" href="../assets/product.css">
 </head>
 <body>
-  <main id="main" class="wrap legal-page">
+  <header class="site-header"><div class="wrap header-inner">
+    <a class="brand" href="../"><img class="mark" src="../assets/logo-mark.svg" width="40" height="40" alt="GrowUrDhan"><span><div class="brand-name">Grow<span class="ur">Ur</span><span class="dhan">Dhan</span></div></span></a>
+    <nav class="site-nav" id="primary-nav" data-nav aria-label="Primary">
+      <a href="../features/">Features</a><a href="../family/">Family</a><a href="../how-it-works/">How it works</a>
+      <a href="../security/" aria-current="page">Security</a><a href="../pricing/">Pricing</a><a href="../faq/">FAQ</a>
+    </nav>
+    <div class="header-actions"><button class="menu-toggle" type="button" data-menu>Menu</button><a class="cta" href="../#coming-soon">Get GrowUrDhan</a></div>
+  </div></header>
+  <main id="main" class="page-hero"><div class="wrap legal-page" style="padding-top:0;max-width:46rem;margin:0">
+    <p class="crumb"><a href="../">Home</a> · Security</p>
     <h1>Your financial data stays with you.</h1>
-    <p>No GrowUrDhan cloud database. CAS is parsed on the device. Keys stay in Android Keystore. Optional backup is a file in a folder you pick.</p>
-    <p>Play updates, optional NAV requests you start, and Play Billing may go online. The app does not take brokerage credentials or connect to your bank.</p>
-  </main>
+    <p class="section-lead">If you give GrowUrDhan a CAS statement, this page is the answer to where that information goes.</p>
+    <div class="arch">
+      <div class="arch-node"><b>Phone</b><span>Vault + Keystore</span></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node"><b>Parser</b><span>On-device CAS / NPS</span></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node"><b>You</b><span>Optional encrypted backup</span></div>
+      <div class="arch-arrow">↛</div>
+      <div class="arch-node mute"><b>Our servers</b><span>No books database</span></div>
+    </div>
+    <h2>Local data storage</h2><p>There is no GrowUrDhan cloud database and no server-side CAS processing.</p>
+    <h2>Encryption at rest</h2><p>The vault is encrypted on the device. Keys stay with Android Keystore.</p>
+    <h2>Backup encryption</h2><p>Optional encrypted backup to a folder you pick. GrowUrDhan does not keep a copy.</p>
+    <h2>Statement processing</h2><p>CAS, NPS and broker files are parsed on the device.</p>
+    <h2>No brokerage credentials</h2><p>No demat password, bank login or OTP. No bank connection.</p>
+    <p class="note"><a href="../privacy/">Privacy</a> · <a href="../delete-account/">Delete account</a></p>
+  </div></main>
+  <script src="../assets/banner.js"></script>
 </body></html>

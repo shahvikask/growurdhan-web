@@ -12,13 +12,19 @@ jobs:
       - name: Required paths exist
         run: |
           set -e
-          for p in index.html assets/site.css assets/banner.js privacy/index.html terms/index.html delete-account/index.html security/index.html faq/index.html sitemap.xml robots.txt; do
+          for p in index.html assets/site.css assets/banner.js assets/phone-slides.html privacy/index.html terms/index.html delete-account/index.html security/index.html faq/index.html sitemap.xml robots.txt; do
             test -f "$p"
           done
-      - name: Canonical host is HTTP
+      - name: Canonical host is HTTPS
         run: |
-          if grep -R --include='*.html' --include='*.xml' --include='robots.txt' --include='*.md' -n 'https://growurdhan.com' .; then
-            echo "Canonical pages must use http://growurdhan.com"
+          if grep -R --exclude-dir=.github --include='*.html' --include='*.xml' --include='robots.txt' --include='*.md' -n 'http://growurdhan.com' .; then
+            echo "Canonical pages must use https://growurdhan.com"
+            exit 1
+          fi
+      - name: No unfinished placeholder copy
+        run: |
+          if grep -R --include='*.html' -n 'Product screens rotate on the full page' .; then
+            echo "Homepage still contains development placeholder text"
             exit 1
           fi
       - name: No email capture form

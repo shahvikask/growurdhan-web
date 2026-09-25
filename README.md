@@ -1,9 +1,9 @@
 # growurdhan.com
 
-Public face of GrowUrDhan. Static HTML/CSS plus a small banner script.
+Public face of GrowUrDhan. Static HTML, CSS, and a small banner script.
 
-Canonical host: **https://growurdhan.com**
+Canonical host in the code: **http://growurdhan.com**
 
-The homepage is the product experience: phone UI, family story, holdings, privacy architecture, lifetime licence, then Play CTA.
+The homepage shows the real app screens (illustrative Kapoor household), then family, import, privacy, backup, and pricing. Android is pre-launch. There is no APK and no email capture.
 
-No WordPress, no waitlist, no APK, no React.
+No WordPress, no waitlist, no React.

@@ -12,47 +12,56 @@ jobs:
       - name: Required paths exist
         run: |
           set -e
-          for p in index.html assets/site.css assets/product.css assets/banner.js assets/phone-slides.html privacy/index.html terms/index.html delete-account/index.html security/index.html faq/index.html family/index.html features/index.html how-it-works/index.html pricing/index.html sitemap.xml robots.txt CNAME; do
+          for p in index.html assets/site.css assets/product.css assets/banner.js assets/phone-slides.html assets/app-ui/01-home.jpg assets/app-ui/09-family-scroll-2.jpg privacy/index.html terms/index.html delete-account/index.html security/index.html faq/index.html family/index.html features/index.html how-it-works/index.html pricing/index.html guides/index.html guides/cas-statement/index.html sitemap.xml robots.txt CNAME; do
             test -f "$p"
           done
-      - name: Canonical host is HTTPS
+      - name: Canonical host is HTTP
         run: |
-          if grep -R --exclude-dir=.github --include='*.html' --include='*.xml' --include='robots.txt' --include='*.md' -n 'http://growurdhan.com' .; then
-            echo "Canonical pages must use https://growurdhan.com"
+          if grep -R --exclude-dir=.github --include='*.html' --include='*.xml' --include='robots.txt' --include='*.md' -n 'https://growurdhan.com' .; then
+            echo "Use http://growurdhan.com in canonicals, sitemap, and docs"
             exit 1
           fi
-      - name: Every HTML page has HTTPS canonical
+      - name: Every HTML page has an HTTP canonical
         run: |
           set -e
           missing=0
           while IFS= read -r f; do
-            if ! grep -q 'rel="canonical" href="https://growurdhan.com' "$f"; then
-              echo "Missing HTTPS canonical: $f"
+            if ! grep -q 'rel="canonical" href="http://growurdhan.com' "$f"; then
+              echo "Missing HTTP canonical: $f"
               missing=1
             fi
           done < <(find . -name '*.html' -not -path './.github/*' -not -path './assets/*')
           test "$missing" -eq 0
       - name: No unfinished placeholder copy
         run: |
-          if grep -R --include='*.html' -n 'Product screens rotate on the full page' .; then
-            echo "Homepage still contains development placeholder text"
+          if grep -R --include='*.html' --include='*.js' -n -E 'Product screens rotate on the full page|Dummy household|dummy UI' .; then
+            echo "Placeholder or dummy-UI copy is still visible"
             exit 1
           fi
-      - name: Homepage ships a product phone frame
+      - name: Homepage ships real app screenshots
         run: |
+          set -e
           grep -q 'data-carousel' index.html
-          grep -q 'data-slide' index.html
           grep -q 'data-slide' assets/phone-slides.html
-          grep -q '₹3,07,15,934' assets/phone-slides.html
+          test "$(grep -c 'data-slide' assets/phone-slides.html)" -ge 9
+          grep -q 'assets/app-ui/01-home.jpg' assets/phone-slides.html
+          grep -q 'assets/app-ui/04-holdings.jpg' assets/phone-slides.html
+          grep -q 'assets/app-ui/07-family.jpg' assets/phone-slides.html
+          grep -q 'alt="GrowUrDhan home screen"' assets/phone-slides.html
+          grep -q 'alt="GrowUrDhan family screen — further down"' assets/phone-slides.html
       - name: Primary nav pages exist
         run: |
-          for href in features family how-it-works security pricing faq; do
+          for href in features family how-it-works security pricing faq guides; do
             test -f "$href/index.html"
           done
-      - name: Sitemap and robots use HTTPS
+      - name: Sitemap and robots use HTTP
         run: |
-          grep -q 'https://growurdhan.com/sitemap.xml' robots.txt
-          ! grep -q 'http://growurdhan.com' sitemap.xml
+          grep -q 'http://growurdhan.com/sitemap.xml' robots.txt
+          grep -q 'http://growurdhan.com/guides/' sitemap.xml
+          if grep -q 'https://growurdhan.com' sitemap.xml; then
+            echo "sitemap still has https"
+            exit 1
+          fi
       - name: No email capture form
         run: |
           if grep -R --include='*.html' -n 'type="email"' .; then
@@ -65,12 +74,14 @@ jobs:
           while IFS= read -r f; do
             grep -q 'lang="en"' "$f"
             grep -q 'name="viewport"' "$f"
+            grep -q 'class="skip"' "$f"
+            grep -q 'id="main"' "$f"
           done < <(find . -name '*.html' -not -path './.github/*' -not -path './assets/*')
       - name: Banner script still owns menu and demo
         run: |
           grep -q 'data-menu' assets/banner.js
           grep -q 'data-demo' assets/banner.js
-
+          grep -q 'Household net worth' assets/banner.js
       - name: No internal review copy on the site
         run: |
           if grep -R --include='*.html' -n 'homepage should feel' .; then
@@ -80,6 +91,8 @@ jobs:
       - name: Key pages have a meta description
         run: |
           set -e
-          for p in index.html features/index.html family/index.html how-it-works/index.html security/index.html pricing/index.html faq/index.html about/index.html privacy/index.html terms/index.html delete-account/index.html guides/cas-statement/index.html; do
+          for p in index.html features/index.html family/index.html how-it-works/index.html security/index.html pricing/index.html faq/index.html about/index.html privacy/index.html terms/index.html delete-account/index.html guides/index.html guides/cas-statement/index.html; do
             grep -q 'name="description"' "$p"
           done
+      - name: Local links resolve
+        run: python3 .github/check_site.py

@@ -26,7 +26,12 @@
         el.tabIndex = on ? 0 : -1;
       });
       const live = root.querySelector("[data-slide-status]");
-      if (live) live.textContent = "Screen " + (i + 1) + " of " + slides.length;
+      const label = slides[i].querySelector("img");
+      if (live) {
+        live.textContent = label && label.alt
+          ? label.alt + ". Screen " + (i + 1) + " of " + slides.length
+          : "Screen " + (i + 1) + " of " + slides.length;
+      }
     }
     function start() {
       if (reduce || paused || slides.length < 2) return;
@@ -98,6 +103,10 @@
     btn.addEventListener("click", () => {
       const open = nav.classList.toggle("is-open");
       btn.setAttribute("aria-expanded", open ? "true" : "false");
+      if (open) {
+        const first = nav.querySelector("a");
+        if (first) first.focus();
+      }
     });
     document.addEventListener("click", (e) => {
       if (!nav.classList.contains("is-open")) return;
@@ -105,34 +114,38 @@
       nav.classList.remove("is-open");
       btn.setAttribute("aria-expanded", "false");
     });
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape" || !nav.classList.contains("is-open")) return;
+      nav.classList.remove("is-open");
+      btn.setAttribute("aria-expanded", "false");
+      btn.focus();
+    });
   }
   document.querySelectorAll("[data-demo]").forEach((box) => {
     const out = box.querySelector("[data-demo-out]");
     const inputs = Array.from(box.querySelectorAll("input[type=checkbox]"));
-    const map = {
-      self: { inv: 160, other: 24 },
-      spouse: { inv: 52, other: 16 },
-      child: { inv: 14, other: 8 },
-      huf: { inv: 22, other: 11 }
-    };
-    function rupee(n) {
+    const map = { self: 184, spouse: 68, child: 22, huf: 33 };
+    function rupeeLakh(n) {
       if (n >= 100) return "₹" + (n / 100).toFixed(2) + " Cr";
       return "₹" + n + " L";
     }
     function render() {
-      let inv = 0, other = 0, people = 0;
+      let total = 0;
+      let people = 0;
       inputs.forEach((el) => {
         if (!el.checked) return;
         people += 1;
-        const row = map[el.value] || { inv: 0, other: 0 };
-        inv += row.inv;
-        other += row.other;
+        total += map[el.value] || 0;
       });
-      if (out) {
-        out.innerHTML = people
-          ? "<div><b>" + people + " in the house</b></div><div>Investments " + rupee(inv) + "</div><div>Other assets " + rupee(other) + "</div><div><strong>Net worth " + rupee(inv + other) + "</strong></div><p>Dummy Kapoor household. Nothing is sent anywhere.</p>"
-          : "<p>Tick who is in the house. Numbers stay on this page.</p>";
+      if (!out) return;
+      if (!people) {
+        out.innerHTML = "<p>Tick who is in the house. Numbers stay on this page.</p>";
+        return;
       }
+      const full = people === inputs.length;
+      out.innerHTML = full
+        ? "<div><b>Household net worth ₹2.61 Cr</b></div><div>Assets ₹3.07 Cr · Loans ₹46.0 L</div><div>Member amounts on the family screen add to " + rupeeLakh(total) + " of assets.</div><p>Illustrative Kapoor household. Nothing is sent anywhere.</p>"
+        : "<div><b>" + people + " members selected</b></div><div>Member amounts on the family screen: " + rupeeLakh(total) + "</div><p>That selection is not household net worth. Net worth is assets minus loans. For the full illustrative house it is ₹2.61 Cr.</p>";
     }
     inputs.forEach((el) => el.addEventListener("change", render));
     render();

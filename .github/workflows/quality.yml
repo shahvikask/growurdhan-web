@@ -12,7 +12,7 @@ jobs:
       - name: Required paths exist
         run: |
           set -e
-          for p in index.html assets/site.css assets/banner.js assets/phone-slides.html privacy/index.html terms/index.html delete-account/index.html security/index.html faq/index.html sitemap.xml robots.txt; do
+          for p in index.html assets/site.css assets/product.css assets/banner.js assets/phone-slides.html privacy/index.html terms/index.html delete-account/index.html security/index.html faq/index.html family/index.html features/index.html how-it-works/index.html pricing/index.html sitemap.xml robots.txt CNAME; do
             test -f "$p"
           done
       - name: Canonical host is HTTPS
@@ -21,15 +21,52 @@ jobs:
             echo "Canonical pages must use https://growurdhan.com"
             exit 1
           fi
+      - name: Every HTML page has HTTPS canonical
+        run: |
+          set -e
+          missing=0
+          while IFS= read -r f; do
+            if ! grep -q 'rel="canonical" href="https://growurdhan.com' "$f"; then
+              echo "Missing HTTPS canonical: $f"
+              missing=1
+            fi
+          done < <(find . -name '*.html' -not -path './.github/*' -not -path './assets/*')
+          test "$missing" -eq 0
       - name: No unfinished placeholder copy
         run: |
           if grep -R --include='*.html' -n 'Product screens rotate on the full page' .; then
             echo "Homepage still contains development placeholder text"
             exit 1
           fi
+      - name: Homepage ships a product phone frame
+        run: |
+          grep -q 'data-carousel' index.html
+          grep -q 'data-slide' index.html
+          grep -q 'data-slide' assets/phone-slides.html
+          grep -q '₹3,07,15,934' assets/phone-slides.html
+      - name: Primary nav pages exist
+        run: |
+          for href in features family how-it-works security pricing faq; do
+            test -f "$href/index.html"
+          done
+      - name: Sitemap and robots use HTTPS
+        run: |
+          grep -q 'https://growurdhan.com/sitemap.xml' robots.txt
+          ! grep -q 'http://growurdhan.com' sitemap.xml
       - name: No email capture form
         run: |
           if grep -R --include='*.html' -n 'type="email"' .; then
             echo "Do not add an email capture form."
             exit 1
           fi
+      - name: HTML documents declare language and viewport
+        run: |
+          set -e
+          while IFS= read -r f; do
+            grep -q 'lang="en"' "$f"
+            grep -q 'name="viewport"' "$f"
+          done < <(find . -name '*.html' -not -path './.github/*' -not -path './assets/*')
+      - name: Banner script still owns menu and demo
+        run: |
+          grep -q 'data-menu' assets/banner.js
+          grep -q 'data-demo' assets/banner.js

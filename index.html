@@ -4,12 +4,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>GrowUrDhan — Private family wealth tracker for India</title>
-  <meta name="description" content="Your family's complete wealth, organized in one private place. Track mutual funds, stocks, NPS, PPF, FD and gold on the device. ₹249 lifetime.">
-  <link rel="canonical" href="http://growurdhan.com/">
+  <meta name="description" content="Your family's complete wealth, organised in one private place. Track mutual funds, stocks, NPS, PPF, FD and gold on the device. ₹249 lifetime.">
+  <link rel="canonical" href="https://growurdhan.com/">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#f3eee4">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GrowUrDhan">
+  <meta property="og:title" content="GrowUrDhan — Private family wealth tracker for India">
+  <meta property="og:description" content="Track mutual funds, stocks, NPS, PPF, FD and gold privately on the device. ₹249 lifetime.">
+  <meta property="og:url" content="https://growurdhan.com/">
+  <meta property="og:image" content="https://growurdhan.com/assets/logo-mark.svg">
+  <meta name="twitter:card" content="summary">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="assets/product.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"GrowUrDhan","applicationCategory":"FinanceApplication","operatingSystem":"Android","offers":{"@type":"Offer","price":"249","priceCurrency":"INR"},"url":"https://growurdhan.com/","description":"Private local-first family wealth tracker for India."}
+  </script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -22,15 +36,17 @@
           <p class="tag">Private family wealth tracker for India</p>
         </span>
       </a>
-      <nav class="site-nav" data-nav aria-label="Primary">
+      <nav class="site-nav" id="primary-nav" data-nav aria-label="Primary">
+        <a href="features/">Features</a>
+        <a href="family/">Family</a>
         <a href="how-it-works/">How it works</a>
         <a href="security/">Security</a>
         <a href="pricing/">Pricing</a>
         <a href="faq/">FAQ</a>
       </nav>
       <div class="header-actions">
-        <button class="menu-toggle" type="button" aria-expanded="false" data-menu>Menu</button>
-        <a class="cta" href="#coming-soon">Coming to Google Play</a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu>Menu</button>
+        <a class="cta" href="#coming-soon">Get GrowUrDhan</a>
       </div>
     </div>
   </header>
@@ -39,7 +55,7 @@
       <div>
         <p class="kicker">Private by design · on the phone</p>
         <h1>Your family's complete wealth, organised in one private place.</h1>
-        <p class="lede">Track mutual funds, stocks, NPS, PPF, FD, gold and other family assets — privately on your device. Not another brokerage login.</p>
+        <p class="lede">Track mutual funds, stocks, NPS, PPF, FD, gold and other family assets — privately on your device.</p>
         <div class="proof">
           <span>₹249 lifetime</span>
           <span>No subscription</span>
@@ -50,42 +66,170 @@
           <a class="cta" href="#coming-soon">Get GrowUrDhan</a>
           <a class="cta ghost" href="how-it-works/">See how it works</a>
         </div>
-      </div>
-      <div class="stage">
-        <p>Product screens rotate on the full page after CSS and remaining files land. Open how-it-works, security, pricing and faq from the header once those folders are published.</p>
-      </div>
-    </div>
-    <section>
-      <div class="wrap">
-        <div class="strip">
-          <div><b>No cloud account</b><span>Nothing to log into</span></div>
-          <div><b>Local-first</b><span>Books stay on the phone</span></div>
-          <div><b>Encrypted</b><span>Keystore holds the key</span></div>
-          <div><b>₹249 lifetime</b><span>Support is optional</span></div>
+        <div class="slide-copy" data-slide-copy>
+          <strong>One house. Every PAN.</strong>
+          <p>Family net worth on one home screen. Dummy Kapoor household.</p>
+        </div>
+        <div class="slide-copy" data-slide-copy hidden>
+          <strong>Every holding in one list.</strong>
+          <p>Cost, current value and return — without a brokerage login.</p>
+        </div>
+        <div class="slide-copy" data-slide-copy hidden>
+          <strong>Self, spouse, child, HUF.</strong>
+          <p>The household, not a single login. Ownership stays on the member.</p>
         </div>
       </div>
-    </section>
-    <section id="coming-soon">
-      <div class="wrap">
-        <div class="coming">
-          <div>
-            <p class="kicker">Android</p>
-            <h2 class="section-title">Coming soon on Google Play</h2>
-            <p>There is no APK on this site.</p>
+      <div class="stage" data-carousel>
+        <p class="sr-only" data-slide-status aria-live="polite"></p>
+        <div class="phone" tabindex="0" aria-roledescription="carousel" aria-label="Product screens">
+          <div class="phone-screen">
+            <div class="carousel" data-slide-host>
+              <article class="slide is-on" data-slide>
+                <div class="os-bar"><span>9:41</span><span>4G</span></div>
+                <div class="app-head">
+                  <img class="mini-mark" src="/assets/logo-mark.svg" alt="">
+                  <div class="family-chip"><span class="letter blue">F</span>Whole family<span class="caret">▾</span></div>
+                  <div class="head-tools"><span class="add-btn">+</span></div>
+                </div>
+                <div class="app-body">
+                  <div class="nw-card">
+                    <div class="who">The family · Net worth</div>
+                    <div class="amt">₹3,07,15,934</div>
+                    <div class="chip-row"><span class="chip">Dummy household</span></div>
+                    <div class="water">
+                      <div class="wrow"><span>Invested</span><div class="bar"><i style="width:88%;background:var(--brass)"></i></div><b>₹2.69 Cr</b></div>
+                      <div class="wrow"><span>Assets</span><div class="bar"><i style="width:100%;background:var(--forest)"></i></div><b>₹3.07 Cr</b></div>
+                      <div class="wrow"><span>Net worth</span><div class="bar"><i style="width:100%;background:var(--shares)"></i></div><b>₹3.07 Cr</b></div>
+                    </div>
+                  </div>
+                  <div class="actions">
+                    <div class="act"><b>Read a statement</b><span>CDSL, CAMS, KFin</span></div>
+                    <div class="act"><b>Add manually</b><span>PPF, FD, gold</span></div>
+                    <div class="act"><b>See holdings</b><span>Search</span></div>
+                    <div class="act"><b>Demat &amp; folios</b><span>Where it sits</span></div>
+                  </div>
+                </div>
+                <nav class="tabbar"><span class="tab on">Home</span><span class="tab">Holdings</span><span class="tab">Accounts</span><span class="tab">Documents</span><span class="tab">Family</span></nav>
+              </article>
+            </div>
           </div>
         </div>
+        <div class="controls">
+          <button class="navbtn" type="button" data-prev aria-label="Previous">‹</button>
+          <div class="dots" role="tablist">
+            <button class="dot-btn is-on" type="button" data-dot aria-label="Home"></button>
+            <button class="dot-btn" type="button" data-dot aria-label="Holdings"></button>
+            <button class="dot-btn" type="button" data-dot aria-label="Family"></button>
+          </div>
+          <button class="navbtn" type="button" data-next aria-label="Next">›</button>
+          <button class="pause-btn" type="button" data-pause>Pause</button>
+        </div>
       </div>
-    </section>
-  </main>
-  <footer class="site-footer">
-    <div class="wrap">
-      <nav class="foot-links">
-        <a href="privacy/">Privacy</a>
-        <a href="terms/">Terms</a>
-        <a href="delete-account/">Delete account</a>
-      </nav>
     </div>
-  </footer>
+    <section><div class="wrap"><div class="strip">
+      <div><b>No cloud account</b><span>Nothing to log into</span></div>
+      <div><b>Local-first</b><span>Books stay on the phone</span></div>
+      <div><b>Encrypted</b><span>Keystore holds the key</span></div>
+      <div><b>₹249 lifetime</b><span>Support is optional</span></div>
+    </div></div></section>
+    <section id="story"><div class="wrap">
+      <p class="story"><span>Family</span><span>Investments</span><span>Net worth</span><span>Privacy</span><span>Backup</span><span>₹249</span><span>Google Play</span></p>
+      <h2 class="section-title">Understand. Organise. Protect. Control.</h2>
+      <p class="section-lead">The homepage should feel like the product: one household, every holding, no GrowUrDhan cloud.</p>
+      <div class="story-grid">
+        <article class="story-card"><p class="kicker">Understand</p><h3>Your family's wealth</h3><p>One home screen for the household. Dummy figure: ₹3.07 Cr for the Kapoor house.</p></article>
+        <article class="story-card"><p class="kicker">Organise</p><h3>Every investment</h3><p>Mutual funds, stocks, NPS, PPF, FD and gold in one holdings list.</p></article>
+        <article class="story-card"><p class="kicker">Protect</p><h3>No cloud database</h3><p>Statements parse on the phone. Optional backup is a folder you pick.</p></article>
+        <article class="story-card"><p class="kicker">Control</p><h3>One licence</h3><p>30-day Play trial, then ₹249 lifetime. Support is a separate year.</p></article>
+      </div>
+    </div></section>
+    <section id="family"><div class="wrap">
+      <h2 class="section-title">One family. Multiple financial lives.</h2>
+      <p class="section-lead">See each person and the house together. Ownership never mixes.</p>
+      <div class="family-tree sig">
+        <div class="house">Family wealth · ₹3.07 Cr</div>
+        <div class="tree-stem" aria-hidden="true"></div>
+        <div class="members">
+          <div class="mem"><b>Self</b><span>Aarav · stocks · MF</span><em>₹1.42 Cr</em></div>
+          <div class="mem"><b>Spouse</b><span>Nisha · NPS · gold</span><em>₹51 L</em></div>
+          <div class="mem"><b>Children</b><span>Inaaya · Sukanya</span><em>₹10 L</em></div>
+          <div class="mem"><b>HUF</b><span>Kapoor HUF · demat</span><em>₹23 L</em></div>
+        </div>
+      </div>
+      <div class="demo" data-demo>
+        <h3>Build a family view</h3>
+        <p>Dummy Kapoor household. Tick who is in the house. Nothing is stored or sent.</p>
+        <div class="demo-grid">
+          <label><input type="checkbox" value="self" checked> Self</label>
+          <label><input type="checkbox" value="spouse" checked> Spouse</label>
+          <label><input type="checkbox" value="child"> Children</label>
+          <label><input type="checkbox" value="huf" checked> HUF</label>
+        </div>
+        <div class="demo-out" data-demo-out></div>
+      </div>
+    </div></section>
+    <section id="holdings"><div class="wrap">
+      <h2 class="section-title">Every investment in one place</h2>
+      <p class="section-lead">Illustrative holdings from the dummy household. Not a live portfolio.</p>
+      <div class="hold-table">
+        <div class="hold-row"><span>India Discovery Fund II</span><b>₹42.50 L</b></div>
+        <div class="hold-row"><span>Edelweiss Multi Cap</span><b>₹34.98 L</b></div>
+        <div class="hold-row"><span>NPS Tier I · Nisha</span><b>₹18.40 L</b></div>
+        <div class="hold-row"><span>PPF · Aarav</span><b>₹12.10 L</b></div>
+        <div class="hold-row"><span>Sukanya · Inaaya</span><b>₹6.20 L</b></div>
+        <div class="hold-row"><span>HUF demat basket</span><b>₹23.00 L</b></div>
+      </div>
+      <p class="note"><a href="features/">All product surfaces</a></p>
+    </div></section>
+    <section id="privacy"><div class="wrap">
+      <h2 class="section-title">Your data never needs our cloud</h2>
+      <p class="section-lead">If you give the app a CAS file, this is where that information goes.</p>
+      <div class="arch">
+        <div class="arch-node"><b>Phone</b><span>Vault + Keystore</span></div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node"><b>Parser</b><span>On-device CAS / NPS</span></div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node"><b>You</b><span>Optional encrypted backup</span></div>
+        <div class="arch-arrow">↛</div>
+        <div class="arch-node mute"><b>Our servers</b><span>No books database</span></div>
+      </div>
+      <p class="note"><a href="security/">Security page</a></p>
+    </div></section>
+    <section id="licences"><div class="wrap">
+      <h2 class="section-title">One payment. Lifetime access.</h2>
+      <div class="price-grid">
+        <article class="price-card featured"><p class="kicker">Licence</p><div class="amt">₹249</div><p>One-time Play purchase. Unlimited family members.</p></article>
+        <article class="price-card"><p class="kicker">Trial</p><div class="amt">30 days</div><p>Genuine Play install. Clock is device-bound.</p></article>
+        <article class="price-card"><p class="kicker">Support</p><div class="amt">₹299</div><p>Optional year after lifetime. Vault still opens if it lapses.</p></article>
+      </div>
+      <p class="note"><a href="pricing/">What lifetime means</a></p>
+    </div></section>
+    <section id="faq"><div class="wrap">
+      <h2 class="section-title">Questions before you install</h2>
+      <div class="faq">
+        <details><summary>Is GrowUrDhan a brokerage?</summary><p>No. It does not open a demat, take orders or hold funds.</p></details>
+        <details><summary>Does it store my books on a server?</summary><p>No mandatory cloud database. Statements are parsed on the phone.</p></details>
+        <details><summary>Do I need a phone number?</summary><p>No OTP login and no GrowUrDhan cloud account.</p></details>
+      </div>
+      <p class="note"><a href="faq/">More answers</a></p>
+    </div></section>
+    <section><div class="wrap"><div class="disclaimer"><strong>Disclaimer.</strong> GrowUrDhan is a personal wealth organisation tool. It does not execute trades, hold funds, or give investment advice. Not a SEBI-registered adviser, broker or bank. 18+.</div></div></section>
+    <section id="coming-soon"><div class="wrap"><div class="coming">
+      <div>
+        <p class="kicker">Android · pre-launch</p>
+        <h2 class="section-title">Coming soon on Google Play</h2>
+        <p>There is no APK on this site. When the listing is public, this block becomes “Get it on Google Play” for <code>in.growurdhan.app</code>.</p>
+        <div class="play-state"><span class="on">Pre-launch</span><span>Launch</span><span>Installed</span></div>
+      </div>
+      <div class="qr-slot"><b>Play QR</b>Reserved for the listing</div>
+    </div></div></section>
+  </main>
+  <footer class="site-footer"><div class="wrap"><div class="foot-grid">
+    <div><h3>GrowUrDhan</h3><p style="margin:0">On the phone, not in our cloud.</p></div>
+    <div><h3>Product</h3><a href="features/">Features</a><a href="family/">Family</a><a href="how-it-works/">How it works</a><a href="pricing/">Pricing</a></div>
+    <div><h3>Trust</h3><a href="security/">Security</a><a href="faq/">FAQ</a><a href="about/">About</a></div>
+    <div><h3>Legal</h3><a href="privacy/">Privacy</a><a href="terms/">Terms</a><a href="delete-account/">Delete account</a></div>
+  </div></div></footer>
   <script src="assets/banner.js"></script>
 </body>
 </html>

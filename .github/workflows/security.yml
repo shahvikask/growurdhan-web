@@ -1,0 +1,23 @@
+name: Security
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "17 4 * * 1"
+
+jobs:
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reject private key material
+        run: |
+          if grep -R -n -E 'BEGIN (RSA |OPENSSH |PRIVATE )' --exclude-dir=.git .; then
+            echo "Possible private key in the tree"
+            exit 1
+          fi
+          if grep -R -n -E 'AKIA[0-9A-Z]{16}' --exclude-dir=.git .; then
+            echo "Possible cloud key in the tree"
+            exit 1
+          fi

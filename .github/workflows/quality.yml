@@ -1,0 +1,29 @@
+name: Quality
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Required paths exist
+        run: |
+          set -e
+          for p in index.html assets/site.css assets/banner.js privacy/index.html terms/index.html delete-account/index.html security/index.html faq/index.html sitemap.xml robots.txt; do
+            test -f "$p"
+          done
+      - name: Canonical host is HTTP
+        run: |
+          if grep -R --include='*.html' --include='*.xml' --include='robots.txt' --include='*.md' -n 'https://growurdhan.com' .; then
+            echo "Canonical pages must use http://growurdhan.com"
+            exit 1
+          fi
+      - name: No waitlist form
+        run: |
+          if grep -R --include='*.html' -n -E 'type="email"|waitlist' .; then
+            echo "Do not add a waitlist."
+            exit 1
+          fi

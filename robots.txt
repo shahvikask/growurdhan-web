@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: http://growurdhan.com/sitemap.xml
+Sitemap: http://www.growurdhan.com/sitemap.xml

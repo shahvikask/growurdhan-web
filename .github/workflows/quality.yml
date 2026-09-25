@@ -17,8 +17,8 @@ jobs:
           done
       - name: Canonical host is HTTP
         run: |
-          if grep -R --exclude-dir=.github --include='*.html' --include='*.xml' --include='robots.txt' --include='*.md' -n 'https://growurdhan.com' .; then
-            echo "Use http://growurdhan.com in canonicals, sitemap, and docs"
+          if grep -R --exclude-dir=.github --include='*.html' --include='*.xml' --include='robots.txt' --include='*.md' -n -E 'https://(www\.)?growurdhan\.com' .; then
+            echo "Use http://www.growurdhan.com in canonicals, sitemap, and docs"
             exit 1
           fi
       - name: Every HTML page has an HTTP canonical
@@ -26,7 +26,7 @@ jobs:
           set -e
           missing=0
           while IFS= read -r f; do
-            if ! grep -q 'rel="canonical" href="http://growurdhan.com' "$f"; then
+            if ! grep -q 'rel="canonical" href="http://www.growurdhan.com' "$f"; then
               echo "Missing HTTP canonical: $f"
               missing=1
             fi
@@ -56,9 +56,9 @@ jobs:
           done
       - name: Sitemap and robots use HTTP
         run: |
-          grep -q 'http://growurdhan.com/sitemap.xml' robots.txt
-          grep -q 'http://growurdhan.com/guides/' sitemap.xml
-          if grep -q 'https://growurdhan.com' sitemap.xml; then
+          grep -q 'http://www.growurdhan.com/sitemap.xml' robots.txt
+          grep -q 'http://www.growurdhan.com/guides/' sitemap.xml
+          if grep -E -q 'https://(www\.)?growurdhan\.com' sitemap.xml; then
             echo "sitemap still has https"
             exit 1
           fi

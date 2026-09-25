@@ -6,42 +6,65 @@
   <title>Family wealth — GrowUrDhan</title>
   <meta name="description" content="One family, multiple financial lives: self, spouse, children and HUF without mixing ownership.">
   <link rel="canonical" href="https://growurdhan.com/family/">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/site.css">
   <link rel="stylesheet" href="../assets/product.css">
 </head>
 <body>
+  <a class="skip" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="wrap header-inner">
-      <a class="brand" href="../"><img class="mark" src="../assets/logo-mark.svg" width="40" height="40" alt="GrowUrDhan"><span><div class="brand-name">Grow<span class="ur">Ur</span><span class="dhan">Dhan</span></div></span></a>
-      <nav class="site-nav" data-nav aria-label="Primary"><a href="../features/">Features</a><a href="../family/" aria-current="page">Family</a><a href="../how-it-works/">How it works</a><a href="../security/">Security</a><a href="../pricing/">Pricing</a><a href="../faq/">FAQ</a></nav>
-      <div class="header-actions"><button class="menu-toggle" type="button" data-menu>Menu</button><a class="cta" href="../#coming-soon">Get GrowUrDhan</a></div>
+      <a class="brand" href="../">
+        <img class="mark" src="../assets/logo-mark.svg" width="40" height="40" alt="GrowUrDhan">
+        <span><div class="brand-name">Grow<span class="ur">Ur</span><span class="dhan">Dhan</span></div></span>
+      </a>
+      <nav class="site-nav" id="primary-nav" data-nav aria-label="Primary">
+        <a href="../features/">Features</a>
+        <a href="../family/" aria-current="page">Family</a>
+        <a href="../how-it-works/">How it works</a>
+        <a href="../security/">Security</a>
+        <a href="../pricing/">Pricing</a>
+        <a href="../faq/">FAQ</a>
+      </nav>
+      <div class="header-actions">
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu>Menu</button>
+        <a class="cta" href="../#coming-soon">Get GrowUrDhan</a>
+      </div>
     </div>
   </header>
-  <main id="main" class="page-hero">
-    <div class="wrap">
-      <p class="crumb"><a href="../">Home</a> · Family</p>
-      <h1>One family. Multiple financial lives.</h1>
-      <div class="family-tree">
-        <div class="house">Family</div>
-        <div class="members">
-          <div class="mem"><b>Self</b><span>Stocks · MF · FD</span></div>
-          <div class="mem"><b>Spouse</b><span>NPS · funds · gold</span></div>
-          <div class="mem"><b>Children</b><span>Sukanya · gifts</span></div>
-          <div class="mem"><b>HUF</b><span>HUF demat · MF</span></div>
+  <main id="main">
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="crumb"><a href="../">Home</a> · Family</p>
+        <h1>One family. Multiple financial lives.</h1>
+        <p class="section-lead">Individual wealth and combined family wealth, without mixing ownership. Dummy Kapoor household.</p>
+        <div class="family-tree sig">
+          <div class="house">Family · ₹3.07 Cr</div>
+          <div class="tree-stem" aria-hidden="true"></div>
+          <div class="members">
+            <div class="mem"><b>Self</b><span>Stocks · MF · FD</span><em>₹1.42 Cr</em></div>
+            <div class="mem"><b>Spouse</b><span>NPS · funds · gold</span><em>₹51 L</em></div>
+            <div class="mem"><b>Children</b><span>Sukanya · gifts</span><em>₹10 L</em></div>
+            <div class="mem"><b>HUF</b><span>HUF demat · MF</span><em>₹23 L</em></div>
+          </div>
+        </div>
+        <div class="demo" data-demo>
+          <h2 style="font-family:var(--sans);font-size:1.05rem;margin:0 0 .35rem">Build a family view</h2>
+          <p class="section-lead">Tick who is in the house. Numbers stay on this page.</p>
+          <div class="demo-grid">
+            <label><input type="checkbox" value="self" checked> Self</label>
+            <label><input type="checkbox" value="spouse" checked> Spouse</label>
+            <label><input type="checkbox" value="child" checked> Children</label>
+            <label><input type="checkbox" value="huf" checked> HUF</label>
+          </div>
+          <div class="demo-out" data-demo-out></div>
         </div>
       </div>
-      <div class="demo" data-demo>
-        <h2>Build a family view</h2>
-        <p>Dummy Kapoor household. Nothing is sent anywhere.</p>
-        <div class="demo-grid">
-          <label><input type="checkbox" value="self" checked> Self</label>
-          <label><input type="checkbox" value="spouse" checked> Spouse</label>
-          <label><input type="checkbox" value="child" checked> Children</label>
-          <label><input type="checkbox" value="huf" checked> HUF</label>
-        </div>
-        <div class="demo-out" data-demo-out></div>
-      </div>
-    </div>
+    </section>
   </main>
   <script src="../assets/banner.js"></script>
-</body></html>
+</body>
+</html>

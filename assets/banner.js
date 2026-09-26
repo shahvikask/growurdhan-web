@@ -73,7 +73,7 @@
     show(0);
     if (pauseBtn) {
       pauseBtn.setAttribute("aria-pressed", paused ? "true" : "false");
-      pauseBtn.textContent = paused ? "Play" : "Pause";
+      pauseBtn.textContent = paused ? "Auto-play" : "Pause rotation";
     }
     start();
   }

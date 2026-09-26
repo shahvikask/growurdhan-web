@@ -143,7 +143,7 @@
       }
       const full = people === inputs.length;
       out.innerHTML = full
-        ? "<div><b>Household net worth ₹1.86 Cr</b></div><div>Assets ₹2.24 Cr · Loans ₹38.0 L</div><div>Member amounts add to " + rupeeLakh(total) + " of sample assets.</div><p>Sample Kapoor household. Nothing is sent anywhere.</p>"
+        ? "<div><b>Household net worth ₹1.86 Cr</b></div><div>Assets ₹2.24 Cr · Loans ₹38.0 L</div><div>Member amounts add to " + rupeeLakh(total) + " of sample assets.</div><p>Illustrative household. Nothing is sent anywhere.</p>"
         : "<div><b>" + people + " members selected</b></div><div>Sample member amounts: " + rupeeLakh(total) + "</div><p>That selection is not household net worth. Net worth is assets minus loans. For the full sample house it is ₹1.86 Cr.</p>";
     }
     inputs.forEach((el) => el.addEventListener("change", render));

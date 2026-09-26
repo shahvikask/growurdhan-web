@@ -26,10 +26,10 @@
         el.tabIndex = on ? 0 : -1;
       });
       const live = root.querySelector("[data-slide-status]");
-      const label = slides[i].querySelector("img");
+      const label = slides[i].getAttribute("aria-label");
       if (live) {
-        live.textContent = label && label.alt
-          ? label.alt + ". Screen " + (i + 1) + " of " + slides.length
+        live.textContent = label
+          ? label + ". Screen " + (i + 1) + " of " + slides.length
           : "Screen " + (i + 1) + " of " + slides.length;
       }
     }

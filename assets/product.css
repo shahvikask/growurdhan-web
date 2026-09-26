@@ -133,3 +133,91 @@
 @media (min-width: 800px) { .guide-list { grid-template-columns: 1fr 1fr; } }
 .guide-list a { text-decoration: none; color: inherit; }
 .guide-list h2 { font-family: var(--sans); font-size: 1.02rem; margin: 0 0 0.3rem; }
+
+
+/* Product preview polish: make the code-drawn phone a primary visual, not a thumbnail. */
+@media (min-width: 960px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr) minmax(350px, 400px);
+    gap: 2.4rem;
+  }
+}
+.stage {
+  width: 100%;
+  min-width: 0;
+}
+.phone {
+  width: min(372px, calc(100vw - 2.5rem));
+  aspect-ratio: 9 / 19.5;
+  border-radius: 2rem;
+  padding: 0.44rem;
+  box-shadow: 0 30px 64px rgba(28, 24, 20, 0.30), 0 0 0 1px #3a3228;
+}
+.phone-screen {
+  border-radius: 1.62rem;
+}
+.carousel,
+.slide {
+  height: 100%;
+}
+.slide {
+  overflow: hidden;
+}
+.app-head {
+  padding: 0.2rem 0.45rem 0.3rem;
+}
+.app-body {
+  min-height: 0;
+  padding: 0.46rem 0.5rem 0.34rem;
+}
+.nw-card {
+  padding: 0.48rem 0.52rem 0.54rem;
+}
+.metrics {
+  gap: 0.24rem;
+  margin-top: 0.36rem;
+}
+.metric-mini {
+  padding: 0.26rem 0.3rem;
+}
+.actions {
+  gap: 0.3rem;
+  margin-top: 0.4rem;
+}
+.act {
+  min-height: 3.65rem;
+  padding: 0.36rem 0.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.soft-card {
+  padding: 0.42rem 0.46rem;
+}
+.tabbar {
+  min-height: 2.1rem;
+}
+.tab {
+  font-size: 0.40rem;
+}
+@media (max-width: 959px) {
+  .phone {
+    width: min(360px, calc(100vw - 2.5rem));
+  }
+}
+@media (max-width: 420px) {
+  .phone {
+    width: min(340px, calc(100vw - 1.6rem));
+  }
+  .app-body {
+    padding-inline: 0.42rem;
+  }
+  .act {
+    min-height: 3.35rem;
+  }
+}
+@media (max-width: 340px) {
+  .phone {
+    width: min(320px, calc(100vw - 1.2rem));
+  }
+}

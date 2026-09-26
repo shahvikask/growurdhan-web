@@ -9,7 +9,7 @@
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let i = 0;
     let timer = null;
-    let paused = reduce;
+    let paused = true;
     function show(n) {
       if (!slides.length) return;
       i = (n + slides.length) % slides.length;
@@ -46,7 +46,7 @@
       paused = nextState;
       if (pauseBtn) {
         pauseBtn.setAttribute("aria-pressed", paused ? "true" : "false");
-        pauseBtn.textContent = paused ? "Play" : "Pause";
+        pauseBtn.textContent = paused ? "Auto-play" : "Pause rotation";
       }
       if (paused) stop(); else start();
     }

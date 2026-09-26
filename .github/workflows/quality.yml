@@ -45,7 +45,8 @@ jobs:
           grep -q 'data-slide' assets/phone-slides.html
           test "$(grep -c 'data-slide' assets/phone-slides.html)" -ge 6
           grep -q '₹1.86 Cr' assets/phone-slides.html
-          grep -q 'tabbar four' assets/phone-slides.html
+          test "$(grep -c 'tabbar' assets/phone-slides.html)" -ge 6
+          grep -q 'Documents' assets/phone-slides.html
           if grep -R --include='*.html' --include='*.js' --include='*.md' -n -E 'app-ui/|₹2,61,16,000|₹3,07,15,934|₹2\.61 Cr|₹3\.07 Cr' .; then
             echo "Personal screenshot figures or image paths are still published"
             exit 1

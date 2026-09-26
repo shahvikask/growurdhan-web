@@ -6,7 +6,6 @@
     const prev = root.querySelector("[data-prev]");
     const next = root.querySelector("[data-next]");
     const pauseBtn = root.querySelector("[data-pause]");
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let i = 0;
     let timer = null;
     let paused = true;
@@ -34,7 +33,7 @@
       }
     }
     function start() {
-      if (reduce || paused || slides.length < 2) return;
+      if (paused || slides.length < 2) return;
       stop();
       timer = window.setInterval(() => show(i + 1), 7000);
     }

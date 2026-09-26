@@ -124,7 +124,7 @@
   document.querySelectorAll("[data-demo]").forEach((box) => {
     const out = box.querySelector("[data-demo-out]");
     const inputs = Array.from(box.querySelectorAll("input[type=checkbox]"));
-    const map = { self: 184, spouse: 68, child: 22, huf: 33 };
+    const map = { self: 112, spouse: 58, child: 18, huf: 36 };
     function rupeeLakh(n) {
       if (n >= 100) return "₹" + (n / 100).toFixed(2) + " Cr";
       return "₹" + n + " L";
@@ -144,8 +144,8 @@
       }
       const full = people === inputs.length;
       out.innerHTML = full
-        ? "<div><b>Household net worth ₹2.61 Cr</b></div><div>Assets ₹3.07 Cr · Loans ₹46.0 L</div><div>Member amounts on the family screen add to " + rupeeLakh(total) + " of assets.</div><p>Illustrative Kapoor household. Nothing is sent anywhere.</p>"
-        : "<div><b>" + people + " members selected</b></div><div>Member amounts on the family screen: " + rupeeLakh(total) + "</div><p>That selection is not household net worth. Net worth is assets minus loans. For the full illustrative house it is ₹2.61 Cr.</p>";
+        ? "<div><b>Household net worth ₹1.86 Cr</b></div><div>Assets ₹2.24 Cr · Loans ₹38.0 L</div><div>Member amounts add to " + rupeeLakh(total) + " of sample assets.</div><p>Sample Kapoor household. Nothing is sent anywhere.</p>"
+        : "<div><b>" + people + " members selected</b></div><div>Sample member amounts: " + rupeeLakh(total) + "</div><p>That selection is not household net worth. Net worth is assets minus loans. For the full sample house it is ₹1.86 Cr.</p>";
     }
     inputs.forEach((el) => el.addEventListener("change", render));
     render();

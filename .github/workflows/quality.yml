@@ -12,7 +12,7 @@ jobs:
       - name: Required paths exist
         run: |
           set -e
-          for p in index.html assets/site.css assets/product.css assets/banner.js assets/phone-slides.html assets/app-ui/01-home.jpg assets/app-ui/09-family-scroll-2.jpg privacy/index.html terms/index.html delete-account/index.html security/index.html faq/index.html family/index.html features/index.html how-it-works/index.html pricing/index.html guides/index.html guides/cas-statement/index.html sitemap.xml robots.txt CNAME; do
+          for p in index.html assets/site.css assets/product.css assets/banner.js assets/phone-slides.html privacy/index.html terms/index.html delete-account/index.html security/index.html faq/index.html family/index.html features/index.html how-it-works/index.html pricing/index.html guides/index.html guides/cas-statement/index.html sitemap.xml robots.txt CNAME; do
             test -f "$p"
           done
       - name: Canonical host is HTTP
@@ -38,17 +38,22 @@ jobs:
             echo "Placeholder or dummy-UI copy is still visible"
             exit 1
           fi
-      - name: Homepage ships real app screenshots
+      - name: Homepage ships a coded phone, not personal screenshots
         run: |
           set -e
           grep -q 'data-carousel' index.html
           grep -q 'data-slide' assets/phone-slides.html
-          test "$(grep -c 'data-slide' assets/phone-slides.html)" -ge 9
-          grep -q 'assets/app-ui/01-home.jpg' assets/phone-slides.html
-          grep -q 'assets/app-ui/04-holdings.jpg' assets/phone-slides.html
-          grep -q 'assets/app-ui/07-family.jpg' assets/phone-slides.html
-          grep -q 'alt="GrowUrDhan home screen"' assets/phone-slides.html
-          grep -q 'alt="GrowUrDhan family screen — further down"' assets/phone-slides.html
+          test "$(grep -c 'data-slide' assets/phone-slides.html)" -ge 6
+          grep -q '₹1.86 Cr' assets/phone-slides.html
+          grep -q 'tabbar four' assets/phone-slides.html
+          if grep -R --include='*.html' --include='*.js' --include='*.md' -n -E 'app-ui/|₹2,61,16,000|₹3,07,15,934|₹2\.61 Cr|₹3\.07 Cr' .; then
+            echo "Personal screenshot figures or image paths are still published"
+            exit 1
+          fi
+          if find assets \( -name '*.jpg' -o -name '*.jpeg' -o -name '*.png' \) | grep -q .; then
+            echo "Do not publish screenshot images"
+            exit 1
+          fi
       - name: Primary nav pages exist
         run: |
           for href in features family how-it-works security pricing faq guides; do

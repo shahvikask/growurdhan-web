@@ -67,43 +67,31 @@
         <div class="hero-actions">
           <a class="cta" href="features/">Explore GrowUrDhan</a>
           <a class="cta ghost" href="how-it-works/">See how it works</a>
-          <a class="cta ghost" href="#app">View the real app</a>
+          <a class="cta ghost" href="#app">View the app</a>
         </div>
         <div class="slide-copy" data-slide-copy>
           <strong>Household net worth, owners still listed.</strong>
-          <p>The home screen shows assets, loans, and net worth. Net worth is assets minus loans.</p>
+          <p>Sample home screen. Net worth is assets minus loans — not the asset total.</p>
         </div>
         <div class="slide-copy" data-slide-copy hidden>
-          <strong>Allocation, accounts, and goals.</strong>
-          <p>Further down home: where assets sit, which accounts they belong to, and goals you set.</p>
-        </div>
-        <div class="slide-copy" data-slide-copy hidden>
-          <strong>Family, documents, and settings.</strong>
-          <p>Members, files you imported, and choices that stay on the phone.</p>
-        </div>
-        <div class="slide-copy" data-slide-copy hidden>
-          <strong>Holdings, with cost and value.</strong>
-          <p>Each line keeps its owner. This is not a live market feed.</p>
+          <strong>Holdings stay with a person.</strong>
+          <p>Sample lines only. Not a live portfolio and not a fund recommendation.</p>
         </div>
         <div class="slide-copy" data-slide-copy hidden>
           <strong>Accounts, including a loan.</strong>
-          <p>A home loan is why net worth is not the same number as total assets.</p>
+          <p>The sample home loan is why net worth is lower than total assets.</p>
         </div>
         <div class="slide-copy" data-slide-copy hidden>
-          <strong>Documents you chose to import.</strong>
-          <p>CAS, NPS, and other files. The app does not fetch them for you.</p>
+          <strong>Documents you choose.</strong>
+          <p>Sample files. The app does not fetch a statement for you.</p>
         </div>
         <div class="slide-copy" data-slide-copy hidden>
-          <strong>The family screen.</strong>
-          <p>Household net worth at the top. Each member stays a separate record.</p>
+          <strong>Each member is a separate record.</strong>
+          <p>Aarav, Nisha, and Inaaya are a sample household, not a customer.</p>
         </div>
         <div class="slide-copy" data-slide-copy hidden>
-          <strong>Aarav, Nisha, and Inaaya.</strong>
-          <p>Amounts on the member cards. Ownership is not blended.</p>
-        </div>
-        <div class="slide-copy" data-slide-copy hidden>
-          <strong>HUF, ownership, and backup.</strong>
-          <p>Kapoor HUF is its own member. Backup is a file you hold.</p>
+          <strong>HUF stays its own member.</strong>
+          <p>Ownership bars add to 100% of the sample asset side. Backup is a file you hold.</p>
         </div>
       </div>
       <div class="stage" id="app" data-carousel>
@@ -112,7 +100,19 @@
           <div class="phone-screen">
             <div class="carousel" data-slide-host>
               <article class="slide is-on" data-slide>
-                <img class="shot" src="/assets/app-ui/01-home.jpg" width="675" height="1500" alt="GrowUrDhan home screen">
+                <div class="os-bar"><span>9:41</span><span>LTE</span></div>
+                <div class="app-head">
+                  <img class="mini-mark" src="/assets/logo-mark.svg" alt="">
+                  <div class="family-chip"><span class="letter blue">K</span>Kapoor household<span class="caret">▾</span></div>
+                </div>
+                <div class="app-body">
+                  <div class="nw-card">
+                    <div class="who">Net worth</div>
+                    <div class="amt">₹1.86 Cr</div>
+                    <p class="sub">Assets ₹2.24 Cr · Loans ₹38.0 L</p>
+                  </div>
+                </div>
+                <nav class="tabbar four" aria-hidden="true"><span class="tab on">Home</span><span class="tab">Holdings</span><span class="tab">Accounts</span><span class="tab">Family</span></nav>
               </article>
             </div>
           </div>
@@ -121,19 +121,16 @@
           <button class="navbtn" type="button" data-prev aria-label="Previous screen">‹</button>
           <div class="dots" role="tablist" aria-label="App screens">
             <button class="dot-btn is-on" type="button" role="tab" data-dot aria-label="Home"></button>
-            <button class="dot-btn" type="button" role="tab" data-dot aria-label="Home, lower section"></button>
-            <button class="dot-btn" type="button" role="tab" data-dot aria-label="Home, further down"></button>
             <button class="dot-btn" type="button" role="tab" data-dot aria-label="Holdings"></button>
             <button class="dot-btn" type="button" role="tab" data-dot aria-label="Accounts"></button>
             <button class="dot-btn" type="button" role="tab" data-dot aria-label="Documents"></button>
             <button class="dot-btn" type="button" role="tab" data-dot aria-label="Family"></button>
-            <button class="dot-btn" type="button" role="tab" data-dot aria-label="Family, lower section"></button>
-            <button class="dot-btn" type="button" role="tab" data-dot aria-label="Family, further down"></button>
+            <button class="dot-btn" type="button" role="tab" data-dot aria-label="Family ownership"></button>
           </div>
           <button class="navbtn" type="button" data-next aria-label="Next screen">›</button>
           <button class="pause-btn" type="button" data-pause>Pause</button>
         </div>
-        <p class="screen-note">Screens from the GrowUrDhan app. Illustrative Kapoor household, not a customer.</p>
+        <p class="screen-note">Illustrated app screens with sample figures. Not a customer and not your portfolio.</p>
       </div>
     </div>
     <section><div class="wrap"><div class="strip">
@@ -149,23 +146,23 @@
         <article class="story-card"><p class="kicker">The gap</p><h3>More than one financial life</h3><p>Self, spouse, a child, sometimes an HUF. Different PANs, different statements, one kitchen table.</p></article>
         <article class="story-card"><p class="kicker">The picture</p><h3>A household, not a blend</h3><p>See the house, then open a person. Ownership stays on the member.</p></article>
         <article class="story-card"><p class="kicker">The boundary</p><h3>The phone holds the books</h3><p>You choose a statement file. Parsing happens on the device. There is no GrowUrDhan database of your holdings.</p></article>
-        <article class="story-card"><p class="kicker">Net worth</p><h3>Assets minus loans</h3><p>On the home screen the illustrative house is ₹2.61 Cr: assets ₹3.07 Cr, loans ₹46.0 L. An asset total is not called net worth.</p></article>
+        <article class="story-card"><p class="kicker">Net worth</p><h3>Assets minus loans</h3><p>On the sample home screen that is ₹1.86 Cr: assets ₹2.24 Cr, loans ₹38.0 L. An asset total is not called net worth.</p></article>
       </div>
     </div></section>
     <section id="family"><div class="wrap">
       <h2 class="section-title">One family. Four records.</h2>
       <p class="section-lead">The family screen keeps a household net worth and a card for each member. This is the same illustrative household as the screens above.</p>
       <div class="family-tree sig">
-        <div class="house">Household net worth · ₹2.61 Cr</div>
+        <div class="house">Household net worth · ₹1.86 Cr</div>
         <div class="tree-stem" aria-hidden="true"></div>
         <div class="members">
-          <div class="mem"><b>Aarav Kapoor</b><span>Self · 60%</span><em>₹1.84 Cr</em></div>
-          <div class="mem"><b>Nisha Kapoor</b><span>Spouse · 22%</span><em>₹68.0 L</em></div>
-          <div class="mem"><b>Inaaya Kapoor</b><span>Child · 7%</span><em>₹22.0 L</em></div>
-          <div class="mem"><b>Kapoor HUF</b><span>HUF · 11%</span><em>₹33.0 L</em></div>
+          <div class="mem"><b>Aarav Kapoor</b><span>Self · 50%</span><em>₹1.12 Cr</em></div>
+          <div class="mem"><b>Nisha Kapoor</b><span>Spouse · 26%</span><em>₹58 L</em></div>
+          <div class="mem"><b>Inaaya Kapoor</b><span>Child · 8%</span><em>₹18 L</em></div>
+          <div class="mem"><b>Kapoor HUF</b><span>HUF · 16%</span><em>₹36 L</em></div>
         </div>
       </div>
-      <p class="illustrative">Illustrative household, not a customer. Member amounts are the figures on the family screen. Together they are the asset side, about ₹3.07 Cr. Household net worth is that minus loans of ₹46.0 L.</p>
+      <p class="illustrative">Sample Kapoor household, not a customer and not taken from a real portfolio. Member amounts are the asset side and add to ₹2.24 Cr. Household net worth is that minus loans of ₹38.0 L.</p>
       <div class="demo" data-demo>
         <h3>Who is in the house</h3>
         <p>Tick members. The full house matches the family screen. A subset is not a second net-worth formula.</p>
@@ -183,13 +180,12 @@
       <h2 class="section-title">Holdings stay attached to a person</h2>
       <p class="section-lead">A few lines from the holdings screen. Illustrative names and amounts, not a live portfolio and not a recommendation.</p>
       <div class="hold-table">
-        <div class="hold-row"><span>India Discovery Fund II</span><b>₹42.50 L</b></div>
-        <div class="hold-row"><span>Edelweiss Multi Cap Fund</span><b>₹34.98 L</b></div>
-        <div class="hold-row"><span>ICICI Pru Bluechip Fund</span><b>₹28.40 L</b></div>
-        <div class="hold-row"><span>HDFC Flexi Cap Fund</span><b>₹23.12 L</b></div>
-        <div class="hold-row"><span>NPS Tier I · Nisha Kapoor</span><b>₹18.40 L</b></div>
-        <div class="hold-row"><span>PPF · Aarav Kapoor</span><b>₹12.10 L</b></div>
-        <div class="hold-row"><span>Sukanya Samriddhi · Inaaya</span><b>₹6.20 L</b></div>
+        <div class="hold-row"><span>Index Equity Fund · Aarav</span><b>₹32.00 L</b></div>
+        <div class="hold-row"><span>Balanced Fund · Nisha</span><b>₹18.40 L</b></div>
+        <div class="hold-row"><span>NPS Tier I · Nisha</span><b>₹11.20 L</b></div>
+        <div class="hold-row"><span>PPF · Aarav</span><b>₹8.50 L</b></div>
+        <div class="hold-row"><span>Gold · Nisha</span><b>₹7.20 L</b></div>
+        <div class="hold-row"><span>Sukanya · Inaaya</span><b>₹5.40 L</b></div>
       </div>
       <p class="note"><a href="features/">What you can see, organise, and protect</a></p>
     </div></section>

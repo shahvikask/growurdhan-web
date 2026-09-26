@@ -221,3 +221,28 @@
     width: min(320px, calc(100vw - 1.2rem));
   }
 }
+
+
+/* Final device proportions: mirror the supplied app canvas ratio (675×1500) and use the available hero column. */
+.phone {
+  width: min(390px, calc(100vw - 2.5rem));
+  aspect-ratio: 9 / 20;
+}
+@media (max-width: 959px) {
+  .phone {
+    width: min(360px, calc(100vw - 2.5rem));
+  }
+  .phone {
+    aspect-ratio: 9 / 20;
+  }
+}
+@media (max-width: 420px) {
+  .phone {
+    width: min(340px, calc(100vw - 1.6rem));
+  }
+}
+@media (max-width: 340px) {
+  .phone {
+    width: min(320px, calc(100vw - 1.2rem));
+  }
+}

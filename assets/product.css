@@ -246,3 +246,60 @@
     width: min(320px, calc(100vw - 1.2rem));
   }
 }
+
+
+/* Hero refinement: align the headline with the top of the product preview. */
+@media (min-width: 960px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr) minmax(340px, 390px);
+    align-items: start;
+    gap: clamp(2rem, 4vw, 4rem);
+    padding-top: 1.65rem;
+  }
+  .hero > :first-child {
+    padding-top: 0.25rem;
+  }
+  .stage {
+    align-self: start;
+  }
+  .phone {
+    width: min(360px, calc(100vw - 2.5rem));
+  }
+}
+
+/* Let each app screen use its available canvas without distorting its cards. */
+.app-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.36rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+.app-body::-webkit-scrollbar { display: none; }
+.slide[aria-label="GrowUrDhan home screen"] .app-body .soft-card:last-child {
+  margin-top: auto;
+}
+.slide[aria-label="GrowUrDhan family ownership screen"] .app-body {
+  gap: 0.42rem;
+}
+.slide[aria-label="GrowUrDhan family ownership screen"] .app-body > .soft-card:last-child {
+  margin-top: auto;
+}
+@media (min-width: 960px) {
+  .phone {
+    width: min(360px, calc(100vw - 2.5rem));
+    aspect-ratio: 9 / 20;
+  }
+  .app-body {
+    padding: 0.5rem 0.52rem 0.42rem;
+  }
+  .nw-card {
+    padding: 0.58rem 0.6rem 0.62rem;
+  }
+  .nw-card .amt { font-size: 1.12rem; }
+  .metrics { gap: 0.28rem; }
+  .metric-mini { padding: 0.3rem 0.34rem; }
+  .actions { gap: 0.34rem; }
+  .act { min-height: 3.8rem; padding: 0.42rem 0.46rem; }
+}

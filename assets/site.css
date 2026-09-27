@@ -358,3 +358,91 @@ td.no { color: #8a3b32; font-weight: 700; }
 .legal-page h2 { font-size: 1.12rem; margin: 1.4rem 0 0.4rem; }
 .updated { color: var(--subtle); font-size: 0.85rem; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .slide { transition: none; } }
+
+
+/* GrowUrDhan visual refinement — shared design system */
+:root {
+  --cream: #f5f1e8;
+  --paper: #fcfaf5;
+  --stone: #e9e1d4;
+  --ink: #201d19;
+  --muted: #655e54;
+  --subtle: #8b8175;
+  --brass: #c47a16;
+  --brass-deep: #88520d;
+  --forest: #176b60;
+  --line: #e6dccd;
+  --card: #fffefa;
+  --shadow: 0 10px 28px rgba(45, 34, 20, 0.055);
+  --radius: 1.1rem;
+  --max: 72rem;
+  --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+}
+html { scroll-padding-top: 5.5rem; }
+body {
+  background:
+    radial-gradient(900px 440px at 4% -14%, rgba(196, 122, 22, 0.075), transparent 62%),
+    linear-gradient(180deg, #faf7f0 0%, var(--cream) 52%, #f1eadf 100%);
+}
+a { text-underline-offset: 0.18em; }
+a:hover { text-decoration-thickness: 1.5px; }
+:focus-visible { outline-color: var(--forest); outline-offset: 4px; }
+.wrap { width: min(var(--max), calc(100% - 3rem)); }
+.site-header {
+  background: rgba(252, 250, 245, 0.92);
+  border-bottom-color: rgba(133, 105, 67, 0.16);
+  box-shadow: 0 3px 18px rgba(45, 34, 20, 0.025);
+}
+.header-inner { min-height: 4.4rem; gap: clamp(0.75rem, 1.6vw, 1.5rem); }
+.mark { width: 2.45rem; height: 2.45rem; border-radius: 0.72rem; }
+.brand-name { font-size: 1.15rem; color: var(--ink); }
+.brand-name .ur { color: var(--brass-deep); }
+.brand-name .dhan { color: var(--forest); }
+.tag { font-size: 0.68rem; }
+.cta {
+  min-height: 44px;
+  padding: 0.68rem 1.05rem;
+  font-size: 0.82rem;
+  letter-spacing: -0.01em;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.04);
+  transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease;
+}
+.cta:hover { transform: translateY(-1px); background: #302b25; }
+.cta.ghost { background: rgba(255,254,250,0.58); border-color: #d9cbb7; }
+.cta.ghost:hover { background: #fffefa; border-color: #bca17b; color: var(--ink); }
+.site-nav { gap: clamp(0.6rem, 1.25vw, 1.1rem); }
+.site-nav a { font-size: 0.78rem; }
+.menu-toggle { width: 42px; height: 42px; border-radius: 0.7rem; }
+.launch-bar { background: #25221e; font-size: 0.8rem; letter-spacing: 0.005em; }
+.launch-bar .wrap { padding: 0.55rem 0; }
+.kicker { color: var(--brass-deep); letter-spacing: 0.14em; font-size: 0.7rem; }
+h1, h2, h3 { letter-spacing: -0.035em; }
+.section-title { line-height: 1.15; }
+section { padding: clamp(2.25rem, 5vw, 4rem) 0; }
+.section-lead { line-height: 1.75; max-width: 43rem; }
+.card, .step, .story-card, .price-card, .family-tree, .table-wrap, .coming, .demo {
+  box-shadow: 0 5px 20px rgba(45, 34, 20, 0.035);
+  border-color: #e5dac9;
+}
+.card, .step, .story-card, .price-card { border-radius: 1.1rem; }
+.card { padding: 1.2rem 1.25rem 1.3rem; transition: transform 160ms ease, box-shadow 160ms ease; }
+.card:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(45,34,20,0.075); }
+.faq details { border-color: #e5dac9; border-radius: 0.9rem; padding: 0.9rem 1rem; }
+.faq summary { line-height: 1.5; }
+.faq details[open] { background: #fffefa; border-color: #d8c5a8; }
+.site-footer { background: rgba(252,250,245,0.62); border-top-color: #e1d6c6; padding: 2.2rem 0 2.5rem; }
+.foot-grid { gap: 1.2rem; }
+.foot-grid a { transition: color 140ms ease; }
+.foot-grid a:hover { color: var(--brass-deep); }
+@media (max-width: 720px) {
+  .wrap { width: min(var(--max), calc(100% - 1.5rem)); }
+  .header-inner { min-height: 3.9rem; }
+  .mark { width: 2.1rem; height: 2.1rem; }
+  .brand-name { font-size: 1.05rem; }
+  .menu-toggle { width: 40px; height: 40px; }
+  .launch-bar .wrap { line-height: 1.5; }
+  section { padding: 2.2rem 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+}

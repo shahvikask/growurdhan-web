@@ -71,16 +71,22 @@ p { text-wrap: pretty; }
 }
 .brand { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; color: inherit; }
 .mark {
-  width: 2.2rem; height: 2.2rem; border-radius: 0.65rem; flex-shrink: 0;
-  box-shadow: 0 6px 12px rgba(12, 18, 24, 0.2);
+  width: 2.2rem; height: 2.2rem; border-radius: 22%; flex-shrink: 0;
 }
 .brand-name {
-  font-size: 1.08rem; font-weight: 800; letter-spacing: -0.035em;
-  line-height: 1; color: #111827;
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-size: 1.08rem; font-weight: 800; letter-spacing: -0.045em;
+  line-height: 1.05; color: #1c1917;
 }
-.brand-name .ur { color: #F59E0B; }
-.brand-name .dhan { color: #14B8A6; }
-.tag { margin: 0.18rem 0 0; font-size: 0.64rem; color: var(--muted); font-weight: 500; white-space: nowrap; }
+.brand-name .ur {
+  color: #d97706;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.14em;
+  text-decoration-color: #d97706;
+}
+.brand-name .dhan { color: #0f766e; }
+.tag { margin: 0.2rem 0 0; font-size: 0.62rem; color: #6b5e52; font-weight: 500; letter-spacing: 0; line-height: 1.25; max-width: 15.5rem; }
 .cta {
   display: inline-flex; align-items: center; justify-content: center;
   background: var(--ink); color: var(--paper); text-decoration: none;
@@ -147,7 +153,7 @@ p { text-wrap: pretty; }
   display: flex; align-items: center; gap: 0.22rem; padding: 0.16rem 0.4rem 0.28rem;
   background: color-mix(in srgb, var(--chrome) 92%, transparent);
 }
-.app-head .mini-mark { width: 18px; height: 18px; border-radius: 5px; flex-shrink: 0; }
+.app-head .mini-mark { width: 18px; height: 18px; border-radius: 22%; flex-shrink: 0; }
 .family-chip {
   flex: 1; min-width: 0; display: flex; align-items: center; gap: 0.22rem;
   border: 1px solid var(--line); background: var(--card); border-radius: 999px;
@@ -394,11 +400,17 @@ a:hover { text-decoration-thickness: 1.5px; }
   box-shadow: 0 3px 18px rgba(45, 34, 20, 0.025);
 }
 .header-inner { min-height: 4.4rem; gap: clamp(0.75rem, 1.6vw, 1.5rem); }
-.mark { width: 2.45rem; height: 2.45rem; border-radius: 0.72rem; }
-.brand-name { font-size: 1.15rem; color: var(--ink); }
-.brand-name .ur { color: var(--brass-deep); }
-.brand-name .dhan { color: var(--forest); }
-.tag { font-size: 0.68rem; }
+.mark { width: 2.45rem; height: 2.45rem; border-radius: 22%; }
+.brand-name { font-size: 1.15rem; color: #1c1917; font-weight: 800; letter-spacing: -0.045em; }
+.brand-name .ur {
+  color: #d97706;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.14em;
+  text-decoration-color: #d97706;
+}
+.brand-name .dhan { color: #0f766e; }
+.tag { font-size: 0.66rem; color: #6b5e52; }
 .cta {
   min-height: 44px;
   padding: 0.68rem 1.05rem;

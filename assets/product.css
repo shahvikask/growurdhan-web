@@ -81,7 +81,7 @@
 .brand { min-width: 0; }
 @media (max-width: 720px) {
   .site-header .header-actions .cta { display: none; }
-  .tag { display: none; }
+  .tag { font-size: 0.58rem; max-width: 11.5rem; }
 }
 .launch-bar { background: #1c1917; color: #faf7f1; font-size: 0.82rem; }
 .launch-bar .wrap { padding: 0.42rem 0; }
@@ -212,7 +212,7 @@
   width: 1.16rem;
   height: 1.16rem;
   flex: 0 0 1.16rem;
-  border-radius: 0.25rem;
+  border-radius: 22%;
   object-fit: contain;
 }
 .app-square {

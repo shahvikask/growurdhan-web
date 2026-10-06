@@ -51,7 +51,7 @@ jobs:
             echo "Personal screenshot figures or image paths are still published"
             exit 1
           fi
-          if find assets \( -name '*.jpg' -o -name '*.jpeg' -o -name '*.png' \) | grep -q .; then
+          if find assets -type f \( -name '*.jpg' -o -name '*.jpeg' -o -name '*.png' \) ! -path 'assets/brand/*' | grep -q .; then
             echo "Do not publish screenshot images"
             exit 1
           fi

@@ -5,6 +5,3 @@ dist
 .env
 .env.*
 !.env.example
-tsconfig.tsbuildinfo
-tsconfig.app.tsbuildinfo
-tsconfig.node.tsbuildinfo

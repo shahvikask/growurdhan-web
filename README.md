@@ -1,9 +1,20 @@
-# growurdhan.com
+# GrowUrDhan — www.growurdhan.com
 
-Public face of GrowUrDhan. Static HTML, CSS, and a small banner script.
+Official product website for **GrowUrDhan**, the local-first Android family wealth and financial records tracker for Indian households.
 
-Canonical host in the code: **http://www.growurdhan.com**
+Built with React, TypeScript, Vite, and Tailwind CSS, featuring a live interactive GrowUrDhan mobile app preview, on-device security architecture, family & HUF ledger model, transparent Google Play pricing, and plain-language guides.
 
-The homepage draws the app in HTML (sample Kapoor household), then family, import, privacy, backup, and pricing. Android is pre-launch. There is no APK and no email capture. Do not commit screenshots of a real portfolio.
+## Local Development
 
-No WordPress, no waitlist, no React.
+```bash
+npm install
+npm run dev
+```
+
+## Production Build
+
+```bash
+npm run build
+```
+
+Deployable directly to GitHub Pages (`dist/` includes `CNAME` for `www.growurdhan.com`).

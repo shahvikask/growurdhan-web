@@ -149,8 +149,7 @@ export function DocumentModal({ guide, legal, onClose }: DocumentModalProps) {
 
           <div className="pt-5 border-t border-[#E3D9C8] dark:border-[#1C374F] flex flex-wrap items-center justify-between gap-4">
             <p className="text-xs text-[#6B5E52] dark:text-[#9BB3C7]">
-              GrowUrDhan (`in.growurdhan.app`) · Personal record-keeping software, not SEBI/ICAI
-              advice.
+              GrowUrDhan · Private family record-keeping app, not investment or tax advice.
             </p>
             <button
               type="button"

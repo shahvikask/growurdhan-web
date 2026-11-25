@@ -8,11 +8,9 @@ import {
   KeyRound,
   Lock,
   Mail,
-  Moon,
   RefreshCw,
   ShieldAlert,
   ShieldCheck,
-  Sun,
 } from 'lucide-react';
 import { Header } from './components/Header';
 import { BrandWordmark } from './components/BrandMark';
@@ -41,41 +39,41 @@ const APP_TOUR_DESTINATIONS: Array<{
   {
     id: 'home',
     step: '01',
-    title: 'Home Command Center',
-    summary: 'Net Worth, Owner Lens, Hide Mode (₹ •••••), and Linked Property Equity.',
+    title: 'Home Overview',
+    summary: 'See total family wealth, switch by member, hide balances in public, and view home equity.',
   },
   {
     id: 'portfolio',
     step: '02',
-    title: 'Portfolio & 8 Asset Classes',
-    summary: 'Color-coded categories, NSE/BSE/AMFI pricing, and truthful Cost Unknown flags.',
+    title: 'All 8 Investment Types',
+    summary: 'Shares, mutual funds, gold, PPF/FD, property, bank cash, and loans with official daily prices.',
   },
   {
     id: 'statements',
     step: '03',
-    title: 'Statements & Gmail Sync',
-    summary: 'On-device CAS/NPS parsing, 5 official senders, and CAMS/CDSL deduplication.',
+    title: 'Easy Statement Import',
+    summary: 'Add CAMS, KFintech, CDSL, NSDL, and NPS PDFs or turn on optional read-only Gmail Sync.',
   },
   {
     id: 'insights',
     step: '04',
-    title: 'Insights & Cash-Flow Calendar',
-    summary: 'Household goals progress, EMI due-day reminders, and Fixed Income accruals.',
+    title: 'Goals & EMI Calendar',
+    summary: 'Track education or retirement goals alongside upcoming monthly EMIs and interest dates.',
   },
   {
     id: 'family',
     step: '05',
-    title: 'Family, HUF & Custody Map',
-    summary: 'Individual, HUF & Minor books with AMC-first folios and eCAS Nominee status.',
+    title: 'Family & Nominees',
+    summary: 'Keep Self, Spouse, Children, and HUF separate and spot missing nominees in one glance.',
   },
 ];
 
 const FAQ_GROUPS: Array<'All' | FaqItem['group']> = [
   'All',
-  'Product',
-  'Sync & CAS',
-  'Privacy & D57',
-  'Pricing & FY Quota',
+  'Basics',
+  'Statements & Gmail',
+  'Privacy & Safety',
+  'Pricing & Plans',
   'Availability',
 ];
 
@@ -87,23 +85,23 @@ const QUOTA_SCENARIOS: Record<
 > = {
   trial: {
     label: '90-Day Trial → Free Forever',
-    headline: 'Trial parses never consume your Free Forever quota',
+    headline: 'Trial imports never reduce your Free Forever allowance',
     detail:
-      'Parse unlimited CAS and NPS PDFs during your 90-day free trial. When you transition to Free Forever on Day 91 with zero auto-charge, your Indian FY counter starts fresh at 0 / 3 used.',
-    remaining: '3 / 3 left in FY',
+      'Import as many monthly statements as you want during your 90-day free trial. When your trial ends on Day 91 with zero automatic charge, you still start Free Forever with all 3 yearly PDF imports available.',
+    remaining: '3 / 3 free left',
   },
   'pro-cancel': {
-    label: 'Pro Monthly (3+ PDFs) → Cancel',
-    headline: 'Paid-tier parses carry over within the same Indian FY',
+    label: 'Pro Monthly → Cancel',
+    headline: 'PDF imports on Pro count toward the same Financial Year',
     detail:
-      'Every PDF parsed while on Pro Monthly (₹20/month) increments your current Indian Financial Year tally. If you parse 3 or more PDFs and cancel to Free Forever in the same FY, Free Forever pauses new PDF parses until April 1.',
-    remaining: '0 / 3 until Apr 1',
+      'If you import 3 or more PDF statements while subscribed to Pro Monthly (₹20/month) and later cancel back to Free Forever in the same Indian Financial Year, free PDF imports pause until April 1. All your saved records stay 100% accessible.',
+    remaining: 'Resets Apr 1',
   },
   'april-reset': {
-    label: 'April 1 Financial Year Reset',
-    headline: 'Automatic annual reset every April 1',
+    label: 'Every April 1 Reset',
+    headline: 'Your 3 free PDF imports refresh every April 1',
     detail:
-      'On April 1 of the new Indian Financial Year (Apr 1 – Mar 31), your Free Forever allowance automatically resets to 0 / 3 used while every previously imported holding and ledger event remains intact.',
+      'At the start of every new Indian Financial Year (April 1 – March 31), your Free Forever plan automatically gets 3 fresh manual PDF imports while every past record stays safely on your phone.',
     remaining: '3 / 3 refreshed',
   },
 };
@@ -185,6 +183,8 @@ export default function App() {
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
+  const toggleTheme = () => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+
   const currentQuota = QUOTA_SCENARIOS[quotaScenario];
 
   return (
@@ -199,66 +199,24 @@ export default function App() {
         Skip to content
       </a>
 
-      <Header onExploreApp={scrollToPreview} />
+      <Header onExploreApp={scrollToPreview} theme={theme} onToggleTheme={toggleTheme} />
 
       <main id="main" className="flex-1">
-        {/* SECTION 1: HERO + LIVE 5-DESTINATION ANDROID PREVIEW */}
-        <section id="app-preview" className="pt-10 pb-14 lg:pt-14 lg:pb-20">
+        {/* SECTION 1: HERO + INTERACTIVE ANDROID APP PREVIEW */}
+        <section id="app-preview" className="pt-10 pb-14 lg:pt-16 lg:pb-20">
           <div className="mx-auto max-w-[1200px] px-5 sm:px-8">
-            {/* Quiet utility metadata line + Heritage Light/Dark Theme Switcher */}
-            <div className="flex flex-wrap items-center justify-between gap-4 pb-8 mb-8 border-b border-[#E3D9C8] dark:border-[#1C374F]">
-              <p className="text-xs sm:text-sm font-medium text-[#6B5E52] dark:text-[#9BB3C7]">
-                Native Android (<span className="font-mono">in.growurdhan.app</span>) · Offline-first
-                AES-256-GCM vault · Heritage Modern Wealth
-              </p>
-
-              <div
-                role="group"
-                aria-label="Preview Heritage Modern Wealth app theme"
-                className="inline-flex items-center gap-1 p-1 rounded-lg bg-[#EFE6D6] dark:bg-[#0C1C2C] border border-[#E3D9C8] dark:border-[#1C374F]"
-              >
-                <button
-                  type="button"
-                  onClick={() => setTheme('dark')}
-                  aria-pressed={theme === 'dark'}
-                  className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-md transition-colors cursor-pointer whitespace-nowrap ${
-                    theme === 'dark'
-                      ? 'bg-[#102536] text-[#F5C14A] shadow-xs'
-                      : 'text-[#6B5E52] hover:text-[#1C1917]'
-                  }`}
-                >
-                  <Moon className="w-3.5 h-3.5" />
-                  <span>Heritage Navy</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setTheme('light')}
-                  aria-pressed={theme === 'light'}
-                  className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-md transition-colors cursor-pointer whitespace-nowrap ${
-                    theme === 'light'
-                      ? 'bg-white text-[#0C2338] shadow-xs'
-                      : 'text-[#9BB3C7] hover:text-[#F4F7FB]'
-                  }`}
-                >
-                  <Sun className="w-3.5 h-3.5" />
-                  <span>Warm Ivory</span>
-                </button>
-              </div>
-            </div>
-
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-stretch">
-              {/* Left Column: Value Proposition + 5-Destination Tour */}
+              {/* Left Column: Clear Family Purpose + 5-Tab App Tour */}
               <div className="lg:col-span-7 flex flex-col justify-between gap-8">
                 <div className="space-y-5">
-                  <h1 className="text-[clamp(2.25rem,4.1vw,3.5rem)] font-extrabold tracking-[-0.035em] leading-[1.07] text-[#1C1917] dark:text-[#F4F7FB] max-w-2xl">
-                    Your private Indian family wealth intelligence platform.
+                  <h1 className="text-[clamp(2.25rem,4.1vw,3.5rem)] font-extrabold tracking-[-0.035em] leading-[1.08] text-[#1C1917] dark:text-[#F4F7FB] max-w-2xl">
+                    One private place to track your entire family’s wealth.
                   </h1>
 
-                  <p className="text-base sm:text-[1.05rem] text-[#6B5E52] dark:text-[#9BB3C7] leading-relaxed max-w-[60ch]">
-                    Unify all 8 Indian asset classes across Individual, HUF, and Minor books inside
-                    an encrypted local Android vault. Parse CAMS, KFintech, NSDL, CDSL, and Protean
-                    NPS PDFs on-device — or enable optional read-only Gmail Sync — with zero cloud
-                    database and zero ads.
+                  <p className="text-base sm:text-[1.06rem] text-[#6B5E52] dark:text-[#9BB3C7] leading-relaxed max-w-[58ch]">
+                    Bring together mutual funds, shares, gold, PPF, fixed deposits, property, and
+                    loans for yourself, your spouse, children, and family HUF — safely stored right
+                    on your Android phone with no cloud account and no ads.
                   </p>
 
                   <div className="flex flex-wrap items-center gap-4 pt-1">
@@ -266,26 +224,26 @@ export default function App() {
                       href="#pricing"
                       className="inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-bold text-[#F6EFE3] dark:text-[#07131F] bg-[#0C2338] hover:bg-[#143350] dark:bg-[#F5C14A] dark:hover:bg-[#EAB032] rounded-lg transition-colors whitespace-nowrap shrink-0 min-h-[44px]"
                     >
-                      <span>Compare 90-Day Trial &amp; Plans</span>
+                      <span>See 90-Day Free Trial &amp; Plans</span>
                       <ArrowRight className="w-4 h-4" />
                     </a>
                     <a
                       href="#sync-cas"
                       className="inline-flex items-center justify-center px-3 py-3 text-sm font-semibold text-[#0F766E] dark:text-[#2DD4BF] hover:underline underline-offset-4 transition-colors whitespace-nowrap shrink-0 min-h-[44px]"
                     >
-                      How on-device CAS &amp; Gmail Sync work
+                      See how statement import works
                     </a>
                   </div>
                 </div>
 
-                {/* 5-Destination App Tour Controls */}
+                {/* 5-Tab Interactive Tour Controls */}
                 <div className="pt-6 border-t border-[#E3D9C8] dark:border-[#1C374F] space-y-3">
                   <div className="flex flex-wrap items-baseline justify-between gap-2">
                     <h2 className="text-sm font-bold text-[#1C1917] dark:text-[#F4F7FB]">
-                      Five Native App Destinations
+                      Five Simple App Screens
                     </h2>
                     <span className="text-xs text-[#6B5E52] dark:text-[#9BB3C7]">
-                      Select any screen to inspect it live on the phone
+                      Tap any screen below to try it live on the phone
                     </span>
                   </div>
 
@@ -327,7 +285,7 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Right Column: Live 5-Destination Android Preview */}
+              {/* Right Column: Live Interactive Android Preview */}
               <div className="lg:col-span-5 flex flex-col items-center justify-center">
                 <MobileAppSimulator
                   activeDestination={activeDest}
@@ -336,41 +294,41 @@ export default function App() {
               </div>
             </div>
 
-            {/* Full-Width 4-Column Proof Strip */}
+            {/* Full-Width 4-Column Highlights Strip */}
             <div className="mt-12 lg:mt-16 grid grid-cols-2 lg:grid-cols-4 gap-5 bg-white dark:bg-[#0C1C2C] border border-[#E3D9C8] dark:border-[#1C374F] rounded-2xl p-6">
               <div className="space-y-1">
                 <div className="font-mono tabular-nums text-2xl font-bold text-[#1C1917] dark:text-[#F5C14A]">
-                  8 Classes
+                  8 Categories
                 </div>
                 <div className="text-xs font-bold text-[#1C1917] dark:text-[#F4F7FB]">
-                  Subcategory-Smart Forms
+                  Everything Your Family Owns
                 </div>
                 <div className="text-xs text-[#6B5E52] dark:text-[#9BB3C7]">
-                  Equity, MF, Gold/SGB, Fixed Income, Real Estate, Cash, Specialised, Loans
+                  Shares, Mutual Funds, Gold, PPF/FD, Property, Bank Cash &amp; Loans
                 </div>
               </div>
 
               <div className="space-y-1">
                 <div className="font-mono tabular-nums text-2xl font-bold text-[#1C1917] dark:text-[#2DD4BF]">
-                  5 Senders
+                  5 Issuers
                 </div>
                 <div className="text-xs font-bold text-[#1C1917] dark:text-[#F4F7FB]">
-                  On-Device CAS &amp; Gmail Sync
+                  Automatic Statement Import
                 </div>
                 <div className="text-xs text-[#6B5E52] dark:text-[#9BB3C7]">
-                  CAMS · KFintech · NSDL · CDSL · Protean NPS parsed locally
+                  Reads CAMS, KFintech, NSDL, CDSL &amp; NPS statements right on your phone
                 </div>
               </div>
 
               <div className="space-y-1">
                 <div className="font-mono tabular-nums text-2xl font-bold text-[#0F766E] dark:text-[#2DD4BF]">
-                  0 Cloud DBs
+                  100% Private
                 </div>
                 <div className="text-xs font-bold text-[#1C1917] dark:text-[#F4F7FB]">
-                  D57 Local-Only Vault
+                  Stored Only on Your Phone
                 </div>
                 <div className="text-xs text-[#6B5E52] dark:text-[#9BB3C7]">
-                  AES-256-GCM · allowBackup=false · Offline A4 Recovery PDF
+                  No cloud account, no ads, and no access to your SMS or contacts
                 </div>
               </div>
 
@@ -382,51 +340,50 @@ export default function App() {
                   After 90-Day Free Trial
                 </div>
                 <div className="text-xs text-[#6B5E52] dark:text-[#9BB3C7]">
-                  Zero upfront mandate · Free Forever (3 PDFs/FY) also included
+                  No card needed to try · Free Forever plan also included
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* SECTION 2: CAPABILITIES, FAMILY CUSTODY MAP & 8 ASSET CLASSES */}
+        {/* SECTION 2: FAMILY OWNERSHIP, NOMINEES & 8 ASSET CATEGORIES */}
         <section
           id="features"
           className="py-16 lg:py-24 bg-[#FBF8F2] dark:bg-[#0C1C2C] border-t border-[#E3D9C8] dark:border-[#1C374F]"
         >
           <div className="mx-auto max-w-[1200px] px-5 sm:px-8 space-y-14">
             <div className="max-w-2xl">
-              <p className="text-xs font-mono font-semibold text-[#0F766E] dark:text-[#2DD4BF] mb-2">
-                01 · Household Intelligence &amp; Accounting Engine
+              <p className="text-xs font-semibold text-[#0F766E] dark:text-[#2DD4BF] mb-2">
+                01 · Built for Indian Families
               </p>
               <h2 className="text-[clamp(1.85rem,3vw,2.55rem)] font-extrabold tracking-[-0.03em] leading-tight text-[#1C1917] dark:text-[#F4F7FB]">
-                Every owner, custody account, nominee, and rupee accounted for honestly.
+                Know who owns what, where it is kept, and whether a nominee is added.
               </h2>
               <p className="mt-3 text-base text-[#6B5E52] dark:text-[#9BB3C7] leading-relaxed">
-                Built natively for multi-generational Indian households — separating Self, Spouse,
-                Minor (with Guardian), and HUF without merging PANs, folios, or legal ownership.
+                Keep investments for yourself, your spouse, your children (with guardian details),
+                and your family HUF neatly separated — while seeing the combined family total
+                whenever you need it.
               </p>
             </div>
 
-            {/* Asymmetric Bento Row */}
+            {/* Asymmetric Two-Column Overview */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <article className="lg:col-span-2 rounded-2xl bg-[#F6EFE3] dark:bg-[#102536] border border-[#E3D9C8] dark:border-[#1C374F] p-6 sm:p-7 space-y-5">
                 <div>
                   <h3 className="text-lg font-bold text-[#1C1917] dark:text-[#F4F7FB]">
-                    Interactive Family Ownership &amp; Custody Map
+                    Interactive Family &amp; Nominee View
                   </h3>
                   <p className="mt-1.5 text-sm text-[#6B5E52] dark:text-[#9BB3C7] leading-relaxed">
-                    Mutual Fund folios display clean Indian AMC names (never generic folio
-                    placeholders), eCAS nominee compliance flags{' '}
+                    Every mutual fund shows its clear fund house name, nominee status clearly flags{' '}
                     <span className="font-semibold text-[#0F766E] dark:text-[#2DD4BF]">
                       Registered
                     </span>{' '}
-                    vs{' '}
+                    versus{' '}
                     <span className="font-semibold text-[#B87D0B] dark:text-[#F5C14A]">
                       Not Registered
                     </span>
-                    , and missing purchase costs stay honestly marked{' '}
-                    <span className="font-mono text-xs">UNKNOWN</span>.
+                    , and missing purchase prices are honestly marked instead of guessed.
                   </p>
                 </div>
                 <FamilyCustodyExplorer />
@@ -438,33 +395,32 @@ export default function App() {
                     <RefreshCw className="w-5 h-5" />
                   </div>
                   <h3 className="text-lg font-bold text-[#1C1917] dark:text-[#F4F7FB]">
-                    Official Market Feeds &amp; Fixed-Scale Ledger
+                    Official Daily Prices &amp; Honest Numbers
                   </h3>
                   <p className="text-sm text-[#6B5E52] dark:text-[#9BB3C7] leading-relaxed">
-                    No binary floating-point rounding drift and no fragile screen-scraping. All INR
-                    balances compute at exact <span className="font-mono">10⁴</span> integer scale
-                    and quantities at <span className="font-mono">10⁸</span> scale across an
-                    append-only 11-event ledger.
+                    Your share and mutual fund values stay up to date using official daily prices
+                    from Indian markets — with accurate rupee totals and no made-up profits when an
+                    old statement is missing your buy price.
                   </p>
                 </div>
 
                 <dl className="space-y-2.5 pt-5 border-t border-[#E3D9C8] dark:border-[#1C374F] text-xs">
                   <div className="flex justify-between gap-2">
                     <dt className="text-[#6B5E52] dark:text-[#9BB3C7]">Mutual Funds</dt>
-                    <dd className="font-mono font-semibold">AMFI NAVAll.txt</dd>
+                    <dd className="font-semibold">Official AMFI Daily NAV</dd>
                   </div>
                   <div className="flex justify-between gap-2">
-                    <dt className="text-[#6B5E52] dark:text-[#9BB3C7]">NSE Equities &amp; ETFs</dt>
-                    <dd className="font-mono font-semibold">NSE UDiFF Bhavcopy</dd>
+                    <dt className="text-[#6B5E52] dark:text-[#9BB3C7]">NSE Shares &amp; ETFs</dt>
+                    <dd className="font-semibold">Official NSE Daily Close</dd>
                   </div>
                   <div className="flex justify-between gap-2">
-                    <dt className="text-[#6B5E52] dark:text-[#9BB3C7]">BSE Equities</dt>
-                    <dd className="font-mono font-semibold">BSE UDiFF Bhavcopy</dd>
+                    <dt className="text-[#6B5E52] dark:text-[#9BB3C7]">BSE Shares</dt>
+                    <dd className="font-semibold">Official BSE Daily Close</dd>
                   </div>
                   <div className="flex justify-between gap-2">
-                    <dt className="text-[#6B5E52] dark:text-[#9BB3C7]">Cost Provenance</dt>
-                    <dd className="font-mono font-semibold text-[#B87D0B] dark:text-[#F5C14A]">
-                      Explicit UNKNOWN
+                    <dt className="text-[#6B5E52] dark:text-[#9BB3C7]">Missing Buy Price</dt>
+                    <dd className="font-semibold text-[#B87D0B] dark:text-[#F5C14A]">
+                      Marked Honestly (Never ₹0)
                     </dd>
                   </div>
                 </dl>
@@ -475,10 +431,11 @@ export default function App() {
             <div className="space-y-5">
               <div className="flex flex-wrap items-baseline justify-between gap-2">
                 <h3 className="text-lg font-bold text-[#1C1917] dark:text-[#F4F7FB]">
-                  All 8 Color-Coded Indian Asset Categories
+                  All 8 Family Wealth Categories
                 </h3>
                 <p className="text-xs text-[#6B5E52] dark:text-[#9BB3C7]">
-                  Subcategory-aware forms hide irrelevant fields &amp; artificial Units = 1 friction
+                  Simple, easy forms tailored to each investment — enter grams for gold, balance
+                  for PPF, or EMI date for loans
                 </p>
               </div>
 
@@ -499,7 +456,7 @@ export default function App() {
                             {cat.label}
                           </h4>
                         </div>
-                        <span className="font-mono text-[10px] text-[#6B5E52] dark:text-[#9BB3C7]">
+                        <span className="text-[11px] font-medium text-[#6B5E52] dark:text-[#9BB3C7]">
                           {cat.valuationMode}
                         </span>
                       </div>
@@ -517,90 +474,87 @@ export default function App() {
           </div>
         </section>
 
-        {/* SECTION 3: ON-DEVICE CAS ENGINE, READ-ONLY GMAIL SYNC & DEDUPLICATION */}
-        <section id="sync-cas" className="py-16 lg:py-24 bg-[#F6EFE3] dark:bg-[#07131F] border-t border-[#E3D9C8] dark:border-[#1C374F]">
+        {/* SECTION 3: EASY STATEMENT IMPORT & OPTIONAL GMAIL SYNC */}
+        <section
+          id="sync-cas"
+          className="py-16 lg:py-24 bg-[#F6EFE3] dark:bg-[#07131F] border-t border-[#E3D9C8] dark:border-[#1C374F]"
+        >
           <div className="mx-auto max-w-[1200px] px-5 sm:px-8 space-y-12">
             <div className="max-w-2xl">
-              <p className="text-xs font-mono font-semibold text-[#B87D0B] dark:text-[#F5C14A] mb-2">
-                02 · Zero-Upload Statement Engine &amp; Optional Gmail Sync
+              <p className="text-xs font-semibold text-[#B87D0B] dark:text-[#F5C14A] mb-2">
+                02 · Effortless Monthly Updates
               </p>
               <h2 className="text-[clamp(1.85rem,3vw,2.55rem)] font-extrabold tracking-[-0.03em] leading-tight text-[#1C1917] dark:text-[#F4F7FB]">
-                Import eCAS &amp; NPS PDFs on-device without duplicate holdings.
+                Import monthly PDF statements without typing everything by hand.
               </h2>
               <p className="mt-3 text-base text-[#6B5E52] dark:text-[#9BB3C7] leading-relaxed">
-                Pick PDFs manually or connect a family-wide pool of Gmail accounts over strictly
-                read-only OAuth (<span className="font-mono text-sm">gmail.readonly</span>). Every
-                statement is decrypted, verified, deduplicated, and linked to custody accounts right
-                on your phone.
+                Pick PDF statements from your phone or turn on optional read-only Gmail Sync to
+                fetch them automatically. Every PDF opens privately inside your phone and never
+                counts the same investment twice.
               </p>
             </div>
 
-            {/* 4-Stage Pipeline */}
+            {/* 4 Simple Steps */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <article className="rounded-xl bg-white dark:bg-[#102536] border border-[#E3D9C8] dark:border-[#1C374F] p-5 space-y-2.5">
-                <div className="flex items-center justify-between text-xs font-mono text-[#0F766E] dark:text-[#2DD4BF]">
-                  <span>01 · Discovery</span>
+                <div className="flex items-center justify-between text-xs font-semibold text-[#0F766E] dark:text-[#2DD4BF]">
+                  <span>Step 1 · Find</span>
                   <Mail className="w-4 h-4" />
                 </div>
-                <h3 className="text-base font-bold">Family-Wide Gmail Pool</h3>
+                <h3 className="text-base font-bold">Manual PDF or Gmail Sync</h3>
                 <p className="text-xs text-[#6B5E52] dark:text-[#9BB3C7] leading-relaxed">
-                  Link 1 to N Gmail accounts and toggle sync per member. First sync defaults to the
-                  Last 3 months (configurable 3m / 6m / 12m / Current FY) and imports only the
-                  latest statement month incrementally.
+                  Select PDFs manually anytime, or connect one or more family Gmail accounts to
+                  automatically check for your latest monthly statements (default last 3 months).
                 </p>
               </article>
 
               <article className="rounded-xl bg-white dark:bg-[#102536] border border-[#E3D9C8] dark:border-[#1C374F] p-5 space-y-2.5">
-                <div className="flex items-center justify-between text-xs font-mono text-[#B87D0B] dark:text-[#F5C14A]">
-                  <span>02 · Local Parse</span>
+                <div className="flex items-center justify-between text-xs font-semibold text-[#B87D0B] dark:text-[#F5C14A]">
+                  <span>Step 2 · Unlock</span>
                   <FileCheck2 className="w-4 h-4" />
                 </div>
-                <h3 className="text-base font-bold">Embedded Python Parser</h3>
+                <h3 className="text-base font-bold">Opens Right on Your Phone</h3>
                 <p className="text-xs text-[#6B5E52] dark:text-[#9BB3C7] leading-relaxed">
-                  Unlocks PDFs inside your device using Chaquopy + <span className="font-mono">casparser</span>{' '}
-                  (MIT) + <span className="font-mono">pypdfium2</span>. Auto-derives uppercase PAN
-                  for CAS and <span className="font-mono">first4+DDMM</span> for Protean NPS.
+                  Unlocks password-protected statements privately on your phone using your saved
+                  family PAN or NPS birth-date rule — nothing is ever uploaded to any server.
                 </p>
               </article>
 
               <article className="rounded-xl bg-white dark:bg-[#102536] border border-[#E3D9C8] dark:border-[#1C374F] p-5 space-y-2.5">
-                <div className="flex items-center justify-between text-xs font-mono text-[#0F766E] dark:text-[#2DD4BF]">
-                  <span>03 · Golden Record</span>
+                <div className="flex items-center justify-between text-xs font-semibold text-[#0F766E] dark:text-[#2DD4BF]">
+                  <span>Step 3 · Clean Up</span>
                   <ShieldCheck className="w-4 h-4" />
                 </div>
-                <h3 className="text-base font-bold">Cross-Source Deduplication</h3>
+                <h3 className="text-base font-bold">Zero Double-Counting</h3>
                 <p className="text-xs text-[#6B5E52] dark:text-[#9BB3C7] leading-relaxed">
-                  Separates SOA Folios from Demat DP/Client accounts, skips older back-dated rows (
-                  <span className="font-mono">Skipped (Older)</span>), backfills missing cost basis,
-                  and strips noisy RTA prefixes (<span className="font-mono">MCAG -</span>) into
-                  structured metadata.
+                  Importing both CAMS and CDSL won’t duplicate your mutual funds. Older statements
+                  are automatically skipped, and messy registrar codes are cleaned up for easy reading.
                 </p>
               </article>
 
               <article className="rounded-xl bg-white dark:bg-[#102536] border border-[#E3D9C8] dark:border-[#1C374F] p-5 space-y-2.5">
-                <div className="flex items-center justify-between text-xs font-mono text-[#B87D0B] dark:text-[#F5C14A]">
-                  <span>04 · Auto-Custody</span>
+                <div className="flex items-center justify-between text-xs font-semibold text-[#B87D0B] dark:text-[#F5C14A]">
+                  <span>Step 4 · Organise</span>
                   <Lock className="w-4 h-4" />
                 </div>
-                <h3 className="text-base font-bold">Auto-Commit &amp; Nominees</h3>
+                <h3 className="text-base font-bold">Updated &amp; Nominees Checked</h3>
                 <p className="text-xs text-[#6B5E52] dark:text-[#9BB3C7] leading-relaxed">
-                  100% owner-verified batches auto-commit and link Demat, NPS PRAN, and AMC-named MF
-                  Custody Accounts alongside eCAS Nominee status. Only genuine conflicts enter
-                  Review &amp; Commit.
+                  Verified statements update each family member’s portfolio and nominee status
+                  automatically. Only items needing your confirmation wait in a simple Review screen.
                 </p>
               </article>
             </div>
 
-            {/* 5 Official Senders Allowlist Table */}
+            {/* 5 Official Senders Table */}
             <div className="rounded-2xl bg-white dark:bg-[#0C1C2C] border border-[#E3D9C8] dark:border-[#1C374F] overflow-hidden">
               <div className="px-6 py-4 border-b border-[#E3D9C8] dark:border-[#1C374F] flex flex-wrap items-center justify-between gap-2">
                 <div>
                   <h3 className="text-sm font-bold text-[#1C1917] dark:text-[#F4F7FB]">
-                    Strict 5-Sender Gmail Allowlist (Read-Only · RAM-Only OAuth Tokens)
+                    Gmail Sync Only Checks These 5 Official Statement Senders
                   </h3>
                   <p className="text-xs text-[#6B5E52] dark:text-[#9BB3C7]">
-                    Optional Gmail Sync never queries personal correspondence — only these 5
-                    official Indian statement senders.
+                    Read-only access — GrowUrDhan never looks at personal emails, bank OTPs, or
+                    chats, and can never send or delete emails.
                   </p>
                 </div>
                 <button
@@ -608,17 +562,17 @@ export default function App() {
                   onClick={() => openLegalDoc('privacy')}
                   className="text-xs font-semibold text-[#0F766E] dark:text-[#2DD4BF] hover:underline cursor-pointer"
                 >
-                  Read Google API Limited Use Policy
+                  Read Privacy &amp; Gmail Policy
                 </button>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse min-w-[640px] text-xs">
                   <thead>
                     <tr className="border-b border-[#E3D9C8] dark:border-[#1C374F] text-[#6B5E52] dark:text-[#9BB3C7]">
-                      <th className="py-3 px-6 font-semibold">Issuer</th>
-                      <th className="py-3 px-6 font-semibold">Allowlisted Sender Email</th>
-                      <th className="py-3 px-6 font-semibold">Statement Coverage</th>
-                      <th className="py-3 px-6 font-semibold">On-Device Unlock Rule</th>
+                      <th className="py-3 px-6 font-semibold">Official Issuer</th>
+                      <th className="py-3 px-6 font-semibold">Official Email Address</th>
+                      <th className="py-3 px-6 font-semibold">What It Covers</th>
+                      <th className="py-3 px-6 font-semibold">How It Opens</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[#E3D9C8]/70 dark:divide-[#1C374F]">
@@ -645,7 +599,7 @@ export default function App() {
           </div>
         </section>
 
-        {/* SECTION 4: D57 SECURITY & ZERO-CLOUD VAULT ARCHITECTURE */}
+        {/* SECTION 4: PHONE-ONLY PRIVACY & SAFETY */}
         <section
           id="security"
           className="py-16 lg:py-24 bg-[#07131F] text-[#F4F7FB] border-t border-[#1C374F]"
@@ -654,16 +608,16 @@ export default function App() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-stretch">
               <div className="lg:col-span-7 flex flex-col justify-between gap-8">
                 <div>
-                  <p className="text-xs font-mono font-semibold text-[#F5C14A] mb-2">
-                    03 · D57 Zero-Cloud Vault Security
+                  <p className="text-xs font-semibold text-[#F5C14A] mb-2">
+                    03 · Complete Family Privacy
                   </p>
                   <h2 className="text-[clamp(1.85rem,3.1vw,2.6rem)] font-extrabold tracking-[-0.03em] leading-tight text-white">
-                    Encrypted on your Android device. Never backed up to any cloud.
+                    Locked safely on your phone. Never uploaded to any cloud.
                   </h2>
                   <p className="mt-3 text-base text-[#9BB3C7] leading-relaxed max-w-[58ch]">
-                    GrowUrDhan is engineered with zero cloud household storage and zero dangerous
-                    Android permissions. Every PAN, PRAN, CAS ID, folio, and rupee lives inside an
-                    AES-256-GCM encrypted vault on your phone.
+                    Your family’s wealth is deeply personal. GrowUrDhan keeps every PAN, folio,
+                    loan, and rupee locked right inside your Android phone — with no GrowUrDhan
+                    account, no cloud servers, and no sneaky phone permissions.
                   </p>
                 </div>
 
@@ -671,47 +625,46 @@ export default function App() {
                   <div className="rounded-xl bg-[#0C1C2C] border border-[#1C374F] p-5 space-y-2">
                     <div className="flex items-center gap-2 text-sm font-bold text-white">
                       <KeyRound className="w-4 h-4 text-[#F5C14A]" />
-                      <span>AES-256-GCM &amp; Keystore</span>
+                      <span>Bank-Grade Phone Lock</span>
                     </div>
                     <p className="text-xs text-[#9BB3C7] leading-relaxed">
-                      Local vault encryption backed by Android Keystore and PBKDF2-SHA256 passcode
-                      derivation.
+                      All your family’s records are encrypted with your personal passcode and
+                      protected by your Android phone’s built-in security hardware.
                     </p>
                   </div>
 
                   <div className="rounded-xl bg-[#0C1C2C] border border-[#1C374F] p-5 space-y-2">
                     <div className="flex items-center gap-2 text-sm font-bold text-white">
                       <ShieldAlert className="w-4 h-4 text-[#FB7185]" />
-                      <span>D57 No Cloud Backup</span>
+                      <span>Zero Cloud Backup by Design</span>
                     </div>
                     <p className="text-xs text-[#9BB3C7] leading-relaxed">
-                      <span className="font-mono text-[#F4F7FB]">allowBackup="false"</span> by
-                      design. Uninstalling or losing both Passcode and Offline Recovery Code
-                      permanently erases local books.
+                      Because we never keep a copy in the cloud, nobody can hack a server to see
+                      your wealth. Remember: uninstalling the app permanently removes your local
+                      records.
                     </p>
                   </div>
 
                   <div className="rounded-xl bg-[#0C1C2C] border border-[#1C374F] p-5 space-y-2">
                     <div className="flex items-center gap-2 text-sm font-bold text-white">
                       <FileCheck2 className="w-4 h-4 text-[#2DD4BF]" />
-                      <span>Offline Recovery Code PDF</span>
+                      <span>Printable Recovery Code PDF</span>
                     </div>
                     <p className="text-xs text-[#9BB3C7] leading-relaxed">
-                      During onboarding, save your <span className="font-mono">XXXX-XXXX-XXXX</span>{' '}
-                      recovery code as an A4 PDF via zero-permission Android SAF or print it for a
-                      home safe.
+                      During setup, save or print your unique 12-character Recovery Code PDF to
+                      keep in a safe home file in case you ever forget your passcode.
                     </p>
                   </div>
 
                   <div className="rounded-xl bg-[#0C1C2C] border border-[#1C374F] p-5 space-y-2">
                     <div className="flex items-center gap-2 text-sm font-bold text-white">
                       <Fingerprint className="w-4 h-4 text-[#F5C14A]" />
-                      <span>Privacy &amp; Opt-In Biometrics</span>
+                      <span>Everyday Privacy Controls</span>
                     </div>
                     <p className="text-xs text-[#9BB3C7] leading-relaxed">
-                      Hide Mode (<span className="font-mono">₹ •••••</span>), Auto-Lock (1/5/15
-                      min), screenshot blocking (<span className="font-mono">FLAG_SECURE</span>),
-                      and opt-in hardware BiometricPrompt (OFF by default).
+                      One-tap Hide Balances (<span className="font-mono">₹ •••••</span>) when
+                      others are nearby, automatic lock timer, screenshot blocking, and optional
+                      fingerprint or face unlock.
                     </p>
                   </div>
                 </div>
@@ -722,7 +675,7 @@ export default function App() {
                   {!vaultImgError ? (
                     <img
                       src={vaultStoneImg}
-                      alt="Deep obsidian slate and brushed brass architectural seam representing GrowUrDhan's local-first vault"
+                      alt="Obsidian stone and brass architectural detail representing GrowUrDhan's private phone vault"
                       referrerPolicy="no-referrer"
                       onError={() => setVaultImgError(true)}
                       className="w-full h-full object-cover"
@@ -734,13 +687,13 @@ export default function App() {
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#07131F]/92 via-[#07131F]/35 to-transparent" />
                   <div className="absolute bottom-0 inset-x-0 p-6 space-y-2.5">
-                    <p className="text-xs font-mono text-[#F5C14A]">Zero Dangerous Permissions</p>
+                    <p className="text-xs font-semibold text-[#F5C14A]">No Intrusive Permissions</p>
                     <p className="text-sm font-semibold text-white leading-snug">
-                      Only normal install-time <span className="font-mono">INTERNET</span> for
-                      official AMFI/NSE/BSE price feeds and optional read-only Gmail Sync.
+                      Only uses the internet to fetch official NSE, BSE &amp; AMFI daily prices and
+                      optional read-only Gmail Sync.
                     </p>
                     <p className="text-xs text-[#9BB3C7]">
-                      No Contacts · No SMS · No Storage Permissions · No Cloud Server Copy
+                      No SMS Access · No Contacts · No Photos · No Location · No Cloud Copy
                     </p>
                   </div>
                 </div>
@@ -749,22 +702,22 @@ export default function App() {
           </div>
         </section>
 
-        {/* SECTION 5: TRANSPARENT 3-TIER PRICING & FY PDF QUOTA CARRY-OVER */}
+        {/* SECTION 5: SIMPLE, HONEST PRICING */}
         <section
           id="pricing"
           className="py-16 lg:py-24 bg-[#F6EFE3] dark:bg-[#07131F] border-t border-[#E3D9C8] dark:border-[#1C374F]"
         >
           <div className="mx-auto max-w-[1200px] px-5 sm:px-8 space-y-10">
             <div className="max-w-2xl">
-              <p className="text-xs font-mono font-semibold text-[#0F766E] dark:text-[#2DD4BF] mb-2">
-                04 · Transparent Indian Licensing
+              <p className="text-xs font-semibold text-[#0F766E] dark:text-[#2DD4BF] mb-2">
+                04 · Simple, Honest Pricing
               </p>
               <h2 className="text-[clamp(1.85rem,3vw,2.55rem)] font-extrabold tracking-[-0.03em] leading-tight text-[#1C1917] dark:text-[#F4F7FB]">
-                90 days free with zero mandate. Then Free Forever or ₹20/month.
+                90 days completely free. Then Free Forever or ₹20/month.
               </h2>
               <p className="mt-3 text-base text-[#6B5E52] dark:text-[#9BB3C7] leading-relaxed">
-                No ads, no regular-plan fund commissions, and zero lock-in. All existing household
-                records remain 100% accessible on Free Forever even if you never subscribe or cancel
+                No ads, no fund commissions, and no surprise renewals. All your saved family
+                records stay 100% accessible on Free Forever even if you never subscribe or cancel
                 later.
               </p>
             </div>
@@ -774,21 +727,21 @@ export default function App() {
               <article className="rounded-2xl bg-white dark:bg-[#102536] border border-[#E3D9C8] dark:border-[#1C374F] p-6 sm:p-7 flex flex-col justify-between gap-6">
                 <div>
                   <p className="text-xs font-medium text-[#6B5E52] dark:text-[#9BB3C7]">
-                    First 90 days · Zero card or mandate
+                    First 90 days · No card or UPI mandate
                   </p>
                   <div className="mt-2 font-mono tabular-nums text-4xl font-extrabold text-[#1C1917] dark:text-[#F4F7FB]">
                     ₹0
                   </div>
                   <h3 className="mt-2 text-base font-bold">90-Day Free Trial</h3>
                   <p className="mt-2 text-sm text-[#6B5E52] dark:text-[#9BB3C7] leading-relaxed">
-                    Every Pro capability unlocked from Day 1. Transitions cleanly to Free Forever on
-                    Day 91 with zero surprise charge.
+                    Try every feature freely from Day 1. Moves smoothly to Free Forever on Day 91
+                    with zero automatic charges.
                   </p>
                 </div>
                 <ul className="space-y-2 pt-5 border-t border-[#E3D9C8] dark:border-[#1C374F] text-sm text-[#1C1917] dark:text-[#F4F7FB]">
-                  <li>Unlimited on-device CAS &amp; NPS PDF parsing</li>
-                  <li>Trial PDFs excluded from Free Forever FY cap</li>
-                  <li>Full automated read-only Gmail Statement Sync</li>
+                  <li>Unlimited PDF statement imports</li>
+                  <li>Trial imports don’t reduce your yearly free limit</li>
+                  <li>Full automatic read-only Gmail Sync included</li>
                 </ul>
               </article>
 
@@ -796,29 +749,29 @@ export default function App() {
               <article className="rounded-2xl bg-white dark:bg-[#102536] border border-[#E3D9C8] dark:border-[#1C374F] p-6 sm:p-7 flex flex-col justify-between gap-6">
                 <div>
                   <p className="text-xs font-medium text-[#6B5E52] dark:text-[#9BB3C7]">
-                    No ads · Zero lock-in
+                    No ads · Always accessible
                   </p>
                   <div className="mt-2 font-mono tabular-nums text-4xl font-extrabold text-[#1C1917] dark:text-[#F4F7FB]">
                     ₹0
                   </div>
                   <h3 className="mt-2 text-base font-bold">Free Forever</h3>
                   <p className="mt-2 text-sm text-[#6B5E52] dark:text-[#9BB3C7] leading-relaxed">
-                    Complete ad-free household tracking with unlimited manual entries, CSV/TXT
-                    imports, and official NSE/BSE/AMFI price updates.
+                    Complete ad-free family wealth tracking with unlimited manual entries, simple
+                    spreadsheet imports, and official daily market prices.
                   </p>
                 </div>
                 <ul className="space-y-2 pt-5 border-t border-[#E3D9C8] dark:border-[#1C374F] text-sm text-[#1C1917] dark:text-[#F4F7FB]">
-                  <li>3 manual PDF parses per Indian FY (Apr 1 – Mar 31)</li>
-                  <li>Unlimited manual holdings, Goals &amp; Family profiles</li>
-                  <li className="text-[#6B5E52] dark:text-[#9BB3C7]">No automated Gmail Sync</li>
+                  <li>3 free manual PDF imports every Financial Year (Apr–Mar)</li>
+                  <li>Unlimited manual holdings, Family profiles &amp; Goals</li>
+                  <li className="text-[#6B5E52] dark:text-[#9BB3C7]">Automatic Gmail Sync not included</li>
                 </ul>
               </article>
 
-              {/* Tier 3: Pro Monthly (Featured) */}
+              {/* Tier 3: Pro Monthly */}
               <article className="rounded-2xl bg-white dark:bg-[#102536] border-2 border-[#0F766E] dark:border-[#F5C14A] p-6 sm:p-7 flex flex-col justify-between gap-6">
                 <div>
                   <p className="text-xs font-bold text-[#0F766E] dark:text-[#F5C14A]">
-                    Inclusive of applicable taxes · Cancel anytime
+                    Inclusive of taxes · Cancel anytime
                   </p>
                   <div className="mt-2 font-mono tabular-nums text-4xl font-extrabold text-[#1C1917] dark:text-[#F4F7FB]">
                     ₹20
@@ -827,37 +780,37 @@ export default function App() {
                       / month
                     </span>
                   </div>
-                  <h3 className="mt-2 text-base font-bold">Pro Monthly Subscription</h3>
+                  <h3 className="mt-2 text-base font-bold">Pro Monthly</h3>
                   <p className="mt-2 text-sm text-[#6B5E52] dark:text-[#9BB3C7] leading-relaxed">
-                    Auto-renewing Google Play / UPI AutoPay mandate until cancelled anytime in
-                    Google Play Subscriptions.
+                    Keep your whole family’s monthly statements updated effortlessly. Manage or
+                    cancel anytime right inside Google Play.
                   </p>
                 </div>
                 <ul className="space-y-2 pt-5 border-t border-[#E3D9C8] dark:border-[#1C374F] text-sm text-[#1C1917] dark:text-[#F4F7FB]">
-                  <li>Unlimited manual &amp; synced CAS/NPS PDF parsing</li>
-                  <li>Full multi-account Gmail Statement Sync</li>
-                  <li className="font-mono text-xs text-[#6B5E52] dark:text-[#9BB3C7] pt-1">
-                    Google Play SKU: gud_pro_monthly_20
+                  <li>Unlimited manual &amp; automatic PDF statement imports</li>
+                  <li>Full family Gmail Statement Sync</li>
+                  <li className="text-xs text-[#6B5E52] dark:text-[#9BB3C7] pt-1">
+                    Billing as per Google Play policy
                   </li>
                 </ul>
               </article>
             </div>
 
-            {/* Interactive Indian FY PDF Quota Carry-Over Explainer */}
+            {/* Interactive Financial Year PDF Allowance Explainer */}
             <div className="rounded-2xl bg-white dark:bg-[#0C1C2C] border border-[#E3D9C8] dark:border-[#1C374F] p-6 sm:p-7 space-y-5">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                   <h3 className="text-base font-bold text-[#1C1917] dark:text-[#F4F7FB]">
-                    How the Indian Financial Year (Apr 1 – Mar 31) PDF Quota Works
+                    How the Yearly Free PDF Limit Works (April 1 – March 31)
                   </h3>
                   <p className="text-xs text-[#6B5E52] dark:text-[#9BB3C7] mt-1">
-                    Transparent anti-abuse rules disclosed clearly before you subscribe.
+                    Clear, upfront rules with no hidden fine print.
                   </p>
                 </div>
 
                 <div
                   role="tablist"
-                  aria-label="Inspect FY PDF quota scenarios"
+                  aria-label="Inspect yearly PDF limit scenarios"
                   className="inline-flex flex-wrap items-center gap-1 p-1 rounded-xl bg-[#F6EFE3] dark:bg-[#07131F] border border-[#E3D9C8] dark:border-[#1C374F]"
                 >
                   {(Object.keys(QUOTA_SCENARIOS) as QuotaScenario[]).map((key) => {
@@ -900,13 +853,14 @@ export default function App() {
             {/* Honest Pre-Launch Notice */}
             <div className="rounded-2xl bg-[#FBF8F2] dark:bg-[#0C1C2C] border border-[#E3D9C8] dark:border-[#1C374F] p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="space-y-1">
-                <p className="text-xs font-mono text-[#B87D0B] dark:text-[#F5C14A]">
-                  Android 8.0+ (minSdk 26 · arm64-v8a) · Package ID: in.growurdhan.app
+                <p className="text-xs font-semibold text-[#B87D0B] dark:text-[#F5C14A]">
+                  Coming Soon for Android Phones (Android 8.0 and above)
                 </p>
-                <h3 className="text-base font-bold">Google Play Release Preparation</h3>
+                <h3 className="text-base font-bold">Official Google Play Store Release</h3>
                 <p className="text-sm text-[#6B5E52] dark:text-[#9BB3C7] max-w-2xl leading-relaxed">
-                  GrowUrDhan will be distributed exclusively via Google Play. No sideloaded APKs and
-                  no email capture forms are hosted on www.growurdhan.com.
+                  GrowUrDhan will be available exclusively through the official Google Play Store.
+                  We never share unofficial download files or ask for your email address on this
+                  website.
                 </p>
               </div>
               <button
@@ -914,13 +868,13 @@ export default function App() {
                 onClick={() => openLegalDoc('terms')}
                 className="inline-flex items-center justify-center px-4 py-2.5 text-xs font-bold text-[#1C1917] dark:text-[#F4F7FB] bg-white dark:bg-[#102536] border border-[#E3D9C8] dark:border-[#1C374F] hover:border-[#B87D0B] dark:hover:border-[#F5C14A] rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer"
               >
-                Review Terms v2.1-LEGAL-RELEASE
+                Read Terms &amp; Conditions
               </button>
             </div>
           </div>
         </section>
 
-        {/* SECTION 6: PLAIN-LANGUAGE GUIDES & GROUPED FAQ HUB */}
+        {/* SECTION 6: PLAIN-LANGUAGE GUIDES & FAQ */}
         <section
           id="guides"
           className="py-16 lg:py-24 bg-white dark:bg-[#0C1C2C] border-t border-[#E3D9C8] dark:border-[#1C374F]"
@@ -928,15 +882,15 @@ export default function App() {
           <div className="mx-auto max-w-[1200px] px-5 sm:px-8 space-y-16">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
               <div className="lg:col-span-5 flex flex-col justify-center space-y-3">
-                <p className="text-xs font-mono font-semibold text-[#0F766E] dark:text-[#2DD4BF]">
-                  05 · Household Guides &amp; Documentation
+                <p className="text-xs font-semibold text-[#0F766E] dark:text-[#2DD4BF]">
+                  05 · Simple Family Guides
                 </p>
                 <h2 className="text-[clamp(1.85rem,3vw,2.5rem)] font-extrabold tracking-[-0.03em] leading-tight text-[#1C1917] dark:text-[#F4F7FB]">
-                  Plain-language architecture guides for Indian families.
+                  Easy guides to help your family get started.
                 </h2>
                 <p className="text-base text-[#6B5E52] dark:text-[#9BB3C7] leading-relaxed">
-                  Understand exactly how on-device CAS parsing, optional read-only Gmail Sync,
-                  cross-source deduplication, D57 local security, and fixed-scale accounting work.
+                  Short, jargon-free answers explaining how statement imports, optional Gmail Sync,
+                  duplicate checks, nominees, and your Recovery Code work.
                 </p>
               </div>
 
@@ -992,7 +946,7 @@ export default function App() {
             <div id="faq" className="pt-8 border-t border-[#E3D9C8] dark:border-[#1C374F]">
               <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-8">
                 <div>
-                  <p className="text-xs font-mono font-semibold text-[#0F766E] dark:text-[#2DD4BF] mb-1.5">
+                  <p className="text-xs font-semibold text-[#0F766E] dark:text-[#2DD4BF] mb-1.5">
                     Frequently Asked Questions
                   </p>
                   <h2 className="text-[clamp(1.65rem,2.6vw,2.2rem)] font-extrabold tracking-[-0.03em] text-[#1C1917] dark:text-[#F4F7FB]">
@@ -1002,7 +956,7 @@ export default function App() {
 
                 <div
                   role="tablist"
-                  aria-label="Filter FAQ by category"
+                  aria-label="Filter FAQ by topic"
                   className="flex items-center gap-1 p-1 rounded-xl bg-[#F6EFE3] dark:bg-[#07131F] border border-[#E3D9C8] dark:border-[#1C374F] overflow-x-auto"
                 >
                   {FAQ_GROUPS.map((group) => {
@@ -1039,7 +993,7 @@ export default function App() {
                         className="w-full py-4 sm:py-5 flex items-center justify-between gap-4 text-left cursor-pointer group"
                       >
                         <div className="space-y-0.5">
-                          <span className="text-xs font-mono text-[#6B5E52] dark:text-[#9BB3C7]">
+                          <span className="text-xs font-medium text-[#6B5E52] dark:text-[#9BB3C7]">
                             {item.group}
                           </span>
                           <div className="text-[15px] sm:text-base font-bold text-[#1C1917] dark:text-[#F4F7FB] group-hover:text-[#0F766E] dark:group-hover:text-[#F5C14A] transition-colors">
@@ -1073,19 +1027,11 @@ export default function App() {
             <div className="space-y-3">
               <BrandWordmark />
               <p className="text-sm text-[#6B5E52] dark:text-[#9BB3C7] leading-relaxed">
-                Your Private Family Wealth Intelligence Platform for Indian households. Encrypted on
-                Android, with every owner kept distinct.
+                One private place on your Android phone to organise your entire family’s
+                investments, loans, and nominees.
               </p>
-              <div className="flex items-center gap-3 text-xs font-mono text-[#6B5E52] dark:text-[#9BB3C7]">
-                <span>www.growurdhan.com</span>
-                <span aria-hidden="true">·</span>
-                <button
-                  type="button"
-                  onClick={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))}
-                  className="font-sans font-semibold text-[#0F766E] dark:text-[#2DD4BF] hover:underline cursor-pointer"
-                >
-                  {theme === 'dark' ? 'Switch to Ivory Light' : 'Switch to Navy Dark'}
-                </button>
+              <div className="text-xs font-mono text-[#6B5E52] dark:text-[#9BB3C7]">
+                www.growurdhan.com
               </div>
             </div>
 
@@ -1094,22 +1040,22 @@ export default function App() {
               <ul className="space-y-2 text-sm font-medium text-[#1C1917] dark:text-[#F4F7FB]">
                 <li>
                   <a href="#app-preview" className="hover:text-[#0F766E] dark:hover:text-[#F5C14A]">
-                    5-Destination App Preview
+                    Interactive App Preview
                   </a>
                 </li>
                 <li>
                   <a href="#features" className="hover:text-[#0F766E] dark:hover:text-[#F5C14A]">
-                    8 Asset Classes &amp; Custody Map
+                    Family &amp; 8 Asset Categories
                   </a>
                 </li>
                 <li>
                   <a href="#sync-cas" className="hover:text-[#0F766E] dark:hover:text-[#F5C14A]">
-                    On-Device CAS &amp; Gmail Sync
+                    Statement Import &amp; Gmail Sync
                   </a>
                 </li>
                 <li>
                   <a href="#pricing" className="hover:text-[#0F766E] dark:hover:text-[#F5C14A]">
-                    90-Day Trial &amp; ₹20/mo Pro
+                    90-Day Free Trial &amp; Pricing
                   </a>
                 </li>
               </ul>
@@ -1125,7 +1071,7 @@ export default function App() {
                       onClick={() => openGuideDoc(g)}
                       className="text-left hover:text-[#0F766E] dark:hover:text-[#F5C14A] cursor-pointer"
                     >
-                      {g.category}: {g.title.split(' ').slice(0, 4).join(' ')}…
+                      {g.category}: {g.title.split(' ').slice(0, 5).join(' ')}…
                     </button>
                   </li>
                 ))}
@@ -1134,7 +1080,7 @@ export default function App() {
 
             <div className="space-y-2.5">
               <h3 className="text-xs font-semibold text-[#6B5E52] dark:text-[#9BB3C7]">
-                Legal &amp; Compliance
+                Legal &amp; Policies
               </h3>
               <ul className="space-y-2 text-sm font-medium text-[#1C1917] dark:text-[#F4F7FB]">
                 <li>
@@ -1143,7 +1089,7 @@ export default function App() {
                     onClick={() => openLegalDoc('terms')}
                     className="hover:text-[#0F766E] dark:hover:text-[#F5C14A] cursor-pointer"
                   >
-                    Terms &amp; Conditions (v2.1)
+                    Terms &amp; Conditions
                   </button>
                 </li>
                 <li>
@@ -1152,7 +1098,7 @@ export default function App() {
                     onClick={() => openLegalDoc('privacy')}
                     className="hover:text-[#0F766E] dark:hover:text-[#F5C14A] cursor-pointer"
                   >
-                    Privacy &amp; Gmail Limited Use
+                    Privacy &amp; Gmail Policy
                   </button>
                 </li>
                 <li>
@@ -1161,7 +1107,7 @@ export default function App() {
                     onClick={() => openLegalDoc('open-source')}
                     className="hover:text-[#0F766E] dark:hover:text-[#F5C14A] cursor-pointer"
                   >
-                    Open-Source Notices (casparser)
+                    Open-Source Notices
                   </button>
                 </li>
                 <li>
@@ -1170,7 +1116,7 @@ export default function App() {
                     onClick={() => openLegalDoc('delete-account')}
                     className="hover:text-[#0F766E] dark:hover:text-[#F5C14A] cursor-pointer"
                   >
-                    Delete Account &amp; Local Data
+                    Delete Account &amp; Phone Data
                   </button>
                 </li>
               </ul>
@@ -1180,19 +1126,15 @@ export default function App() {
           <div className="pt-8 border-t border-[#E3D9C8] dark:border-[#1C374F] space-y-2 text-xs text-[#6B5E52] dark:text-[#9BB3C7] leading-relaxed">
             <p>
               <strong className="font-semibold text-[#1C1917] dark:text-[#F4F7FB]">
-                Regulatory Disclaimer:
+                Important Note:
               </strong>{' '}
-              GrowUrDhan (<span className="font-mono">in.growurdhan.app</span>) is a private
-              personal and household financial record-keeping application for users aged 18+. It is
-              not a SEBI-registered investment adviser, portfolio manager, stockbroker, depository,
-              RTA, bank, or ICAI Chartered Accountant / tax-filing service. Nothing on this site or
-              in the app constitutes financial, investment, legal, or tax advice.
+              GrowUrDhan is a private family financial record-keeping app for adults aged 18+. It is
+              not a SEBI-registered investment adviser, broker, bank, or Chartered Accountant /
+              tax-filing service, and does not provide financial, investment, legal, or tax advice.
             </p>
             <p>
-              All names, folios, PAN/PRAN masks, and rupee figures shown in the interactive preview
-              are synthetic sample records. On-device statement parsing uses open-source{' '}
-              <span className="font-mono">casparser</span> (MIT License) and{' '}
-              <span className="font-mono">pypdfium2</span>.
+              All names, account numbers, and rupee amounts shown in the interactive preview are
+              sample figures for demonstration only.
             </p>
           </div>
         </div>

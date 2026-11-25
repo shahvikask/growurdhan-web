@@ -104,7 +104,7 @@ export function MobileAppSimulator({
   }, [scopedHoldings, selectedCategory]);
 
   const activeOwnerLabel =
-    ownerLens === 'all' ? 'Household All' : memberMap.get(ownerLens)?.displayName ?? 'Household';
+    ownerLens === 'all' ? 'Whole Family' : memberMap.get(ownerLens)?.displayName ?? 'Whole Family';
 
   const categoryTotals = useMemo(() => {
     const map = new Map<AssetCategoryId, number>();
@@ -123,11 +123,11 @@ export function MobileAppSimulator({
 
   return (
     <div className="flex flex-col items-center w-full">
-      {/* Matte Obsidian Android Hardware Bezel */}
+      {/* Android Phone Frame */}
       <div className="relative w-full max-w-[348px] rounded-[2.6rem] bg-gradient-to-b from-[#1B2B3C] via-[#0E1A26] to-[#071019] p-[9px] shadow-[0_28px_70px_-18px_rgba(7,19,31,0.55)] ring-1 ring-[#1C374F]">
-        {/* Inner Phone Viewport matching Heritage Modern Wealth Light & Dark */}
+        {/* Inner Phone Screen */}
         <div className="relative flex flex-col h-[640px] w-full rounded-[2.05rem] bg-[#F6EFE3] dark:bg-[#07131F] overflow-hidden text-[#1C1917] dark:text-[#F4F7FB] border border-black/15 dark:border-[#1C374F]">
-          {/* Android Status Bar */}
+          {/* Phone Status Bar */}
           <div className="flex items-center justify-between px-5 pt-2.5 pb-1.5 bg-white dark:bg-[#0C1C2C] text-[11px] font-semibold text-[#6B5E52] dark:text-[#9BB3C7] shrink-0 select-none">
             <span className="font-mono tabular-nums">9:41</span>
             <span
@@ -137,11 +137,11 @@ export function MobileAppSimulator({
             <span className="font-mono text-[10px]">5G · 96%</span>
           </div>
 
-          {/* GrowUrDhan Native App Top Bar: Mark · Owner Lens · Hide Mode · Lock */}
+          {/* App Top Bar: Mark · Family Switcher · Hide Balances · Lock */}
           <div className="relative flex items-center gap-1.5 px-3 py-2 bg-white dark:bg-[#0C1C2C] border-b border-[#E3D9C8] dark:border-[#1C374F] shrink-0 z-20">
             <BrandMark size={24} />
 
-            {/* Owner Lens Selector */}
+            {/* Family Member Switcher */}
             <div className="relative flex-1 min-w-0">
               <button
                 type="button"
@@ -167,7 +167,7 @@ export function MobileAppSimulator({
                         : 'text-[#1C1917] dark:text-[#F4F7FB]'
                     }`}
                   >
-                    <span>Household All (4)</span>
+                    <span>Whole Family (4)</span>
                     {ownerLens === 'all' && <Check className="w-3.5 h-3.5" />}
                   </button>
                   {FAMILY_MEMBERS.map((m) => (
@@ -198,13 +198,13 @@ export function MobileAppSimulator({
               )}
             </div>
 
-            {/* Hide Mode Toggle */}
+            {/* Hide Balances Toggle */}
             <button
               type="button"
               onClick={() => setHideMode((h) => !h)}
               aria-pressed={hideMode}
-              title={hideMode ? 'Show INR balances' : 'Hide INR balances (Privacy Mode)'}
-              aria-label={hideMode ? 'Show INR balances' : 'Hide INR balances'}
+              title={hideMode ? 'Show amounts' : 'Hide amounts for privacy'}
+              aria-label={hideMode ? 'Show amounts' : 'Hide amounts'}
               className={`w-8 h-8 rounded-lg border flex items-center justify-center shrink-0 transition-colors cursor-pointer ${
                 hideMode
                   ? 'bg-[#0C2338] dark:bg-[#F5C14A] text-[#F6EFE3] dark:text-[#07131F] border-transparent'
@@ -214,33 +214,33 @@ export function MobileAppSimulator({
               {hideMode ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
             </button>
 
-            {/* Instant Vault Lock Button */}
+            {/* Instant Lock Button */}
             <button
               type="button"
               onClick={() => setVaultLocked(true)}
-              title="Lock Vault Now"
-              aria-label="Lock Vault Now"
+              title="Lock App Now"
+              aria-label="Lock App Now"
               className="w-8 h-8 rounded-lg bg-[#FBF8F2] dark:bg-[#102536] border border-[#E3D9C8] dark:border-[#1C374F] text-[#6B5E52] dark:text-[#9BB3C7] hover:text-[#1C1917] dark:hover:text-[#F4F7FB] flex items-center justify-center shrink-0 transition-colors cursor-pointer"
             >
               <Lock className="w-3.5 h-3.5" />
             </button>
           </div>
 
-          {/* Persistent Sample Data Transparency Bar (Exact Android Sample Mode behavior) */}
+          {/* Sample Data Banner */}
           <div className="px-3.5 py-1.5 bg-[#EFE6D6] dark:bg-[#0C1C2C] border-b border-[#E3D9C8] dark:border-[#1C374F] flex items-center justify-between text-[10px] font-medium text-[#6B5E52] dark:text-[#9BB3C7] shrink-0">
-            <span>Sample Mode · Synthetic Household Data</span>
-            <span className="font-mono text-[#B87D0B] dark:text-[#F5C14A]">D57 Local</span>
+            <span>Sample Family Preview</span>
+            <span className="font-semibold text-[#B87D0B] dark:text-[#F5C14A]">Phone-Only</span>
           </div>
 
           {/* Scrollable Content Viewport */}
           <div className="flex-1 overflow-y-auto px-3.5 py-3 space-y-3">
-            {/* DESTINATION 1: HOME COMMAND CENTER */}
+            {/* TAB 1: HOME */}
             {activeDestination === 'home' && (
               <>
                 <div className="rounded-xl bg-[#0C2338] dark:bg-[#102536] text-[#F4F7FB] p-4 border border-[#1C374F]">
                   <div className="flex items-center justify-between text-[11px] text-[#9BB3C7]">
                     <span>{activeOwnerLabel} · Net Worth</span>
-                    <span className="font-mono text-[#2DD4BF]">Exact 10⁴ scale</span>
+                    <span className="text-[#2DD4BF] font-medium">Updated Daily</span>
                   </div>
 
                   <div className="mt-1.5 font-mono tabular-nums text-[1.45rem] font-bold tracking-tight text-white">
@@ -248,35 +248,35 @@ export function MobileAppSimulator({
                   </div>
 
                   <div className="mt-1 text-[10px] text-[#9BB3C7]">
-                    Assets {formatInrLakhs(summary.assets, hideMode)} − Liabilities{' '}
+                    Assets {formatInrLakhs(summary.assets, hideMode)} − Loans{' '}
                     {formatInrLakhs(summary.liabilities, hideMode)}
                   </div>
 
                   <div className="mt-3 pt-3 border-t border-white/10 grid grid-cols-2 gap-2 text-[11px]">
                     <div>
-                      <div className="text-[#9BB3C7] text-[10px]">Cost Basis Provenance</div>
+                      <div className="text-[#9BB3C7] text-[10px]">Purchase Price</div>
                       <div className="font-semibold text-[#F4F7FB] mt-0.5">
-                        {summary.knownCostCount} Known · {summary.unknownCostCount} Unknown
+                        {summary.knownCostCount} Known · {summary.unknownCostCount} Not Shown
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-[#9BB3C7] text-[10px]">Market Pricing</div>
-                      <div className="font-mono text-[#F5C14A] mt-0.5">NSE · BSE · AMFI</div>
+                      <div className="text-[#9BB3C7] text-[10px]">Official Prices</div>
+                      <div className="font-semibold text-[#F5C14A] mt-0.5">NSE · BSE · AMFI</div>
                     </div>
                   </div>
                 </div>
 
-                {/* Net Property Equity Highlight (Real Estate - Linked Home Loan) */}
+                {/* Home Equity Highlight */}
                 {(ownerLens === 'all' || ownerLens === 'self') && (
                   <div className="rounded-xl bg-white dark:bg-[#102536] border border-[#E3D9C8] dark:border-[#1C374F] p-3">
                     <div className="flex items-center justify-between text-xs font-semibold">
-                      <span>Linked Property Net Equity</span>
+                      <span>Your True Home Equity</span>
                       <span className="font-mono tabular-nums text-[#0F766E] dark:text-[#2DD4BF]">
                         {formatInrLakhs(84.0 - 36.2, hideMode)}
                       </span>
                     </div>
                     <div className="mt-1 text-[10px] text-[#6B5E52] dark:text-[#9BB3C7]">
-                      Pune Residence ({formatInrLakhs(84.0, hideMode)}) − Linked Home Loan (
+                      Pune Home ({formatInrLakhs(84.0, hideMode)}) − Linked Home Loan (
                       {formatInrLakhs(36.2, hideMode)})
                     </div>
                   </div>
@@ -285,13 +285,13 @@ export function MobileAppSimulator({
                 {/* Asset Mix Bar */}
                 <div className="rounded-xl bg-white dark:bg-[#102536] border border-[#E3D9C8] dark:border-[#1C374F] p-3 space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold">Allocation by Category</span>
+                    <span className="text-xs font-semibold">Where Your Wealth Is</span>
                     <button
                       type="button"
                       onClick={() => onDestinationChange('portfolio')}
                       className="text-[11px] font-semibold text-[#0F766E] dark:text-[#2DD4BF] cursor-pointer"
                     >
-                      Portfolio
+                      View All
                     </button>
                   </div>
                   <div className="h-2 rounded-full overflow-hidden flex bg-[#EFE6D6] dark:bg-[#07131F]">
@@ -319,16 +319,16 @@ export function MobileAppSimulator({
                   </div>
                 </div>
 
-                {/* Quick Destination Actions */}
+                {/* Quick Actions */}
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     type="button"
                     onClick={() => onDestinationChange('statements')}
                     className="text-left p-3 rounded-xl bg-white dark:bg-[#102536] border border-[#E3D9C8] dark:border-[#1C374F] hover:border-[#B87D0B] dark:hover:border-[#F5C14A] transition-colors cursor-pointer"
                   >
-                    <div className="text-xs font-semibold">Statements &amp; Sync</div>
+                    <div className="text-xs font-semibold">Import Statements</div>
                     <div className="mt-0.5 text-[10px] text-[#6B5E52] dark:text-[#9BB3C7]">
-                      On-device CAS + Gmail
+                      PDF or Gmail Sync
                     </div>
                   </button>
                   <button
@@ -336,32 +336,32 @@ export function MobileAppSimulator({
                     onClick={() => onDestinationChange('family')}
                     className="text-left p-3 rounded-xl bg-white dark:bg-[#102536] border border-[#E3D9C8] dark:border-[#1C374F] hover:border-[#B87D0B] dark:hover:border-[#F5C14A] transition-colors cursor-pointer"
                   >
-                    <div className="text-xs font-semibold">Custody &amp; Nominees</div>
+                    <div className="text-xs font-semibold">Check Nominees</div>
                     <div className="mt-0.5 text-[10px] text-[#6B5E52] dark:text-[#9BB3C7]">
-                      AMC folios &amp; status
+                      Every family account
                     </div>
                   </button>
                 </div>
               </>
             )}
 
-            {/* DESTINATION 2: PORTFOLIO (8 COLOR-CODED CATEGORIES) */}
+            {/* TAB 2: PORTFOLIO */}
             {activeDestination === 'portfolio' && (
               <>
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="text-sm font-bold">Portfolio</div>
                     <div className="text-[10px] text-[#6B5E52] dark:text-[#9BB3C7]">
-                      Populated categories first · Tap row for metadata
+                      Tap any investment to see full details
                     </div>
                   </div>
-                  <span className="font-mono text-[10px] text-[#0F766E] dark:text-[#2DD4BF] flex items-center gap-1">
+                  <span className="text-[10px] font-semibold text-[#0F766E] dark:text-[#2DD4BF] flex items-center gap-1">
                     <RefreshCw className="w-3 h-3" />
-                    EOD Live
+                    Daily Prices
                   </span>
                 </div>
 
-                {/* Color-coded Category Filter Buttons (Populated highlighted, empty grayed) */}
+                {/* Color-coded Category Filter Buttons */}
                 <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
                   <button
                     type="button"
@@ -409,7 +409,7 @@ export function MobileAppSimulator({
                 <div className="space-y-2">
                   {visiblePortfolioHoldings.length === 0 ? (
                     <div className="rounded-xl bg-white dark:bg-[#102536] border border-[#E3D9C8] dark:border-[#1C374F] p-4 text-center text-xs text-[#6B5E52] dark:text-[#9BB3C7]">
-                      No holdings in this category for {activeOwnerLabel}.
+                      No items in this category for {activeOwnerLabel}.
                     </div>
                   ) : (
                     visiblePortfolioHoldings.map((h) => {
@@ -435,7 +435,7 @@ export function MobileAppSimulator({
                               {owner?.displayName} · {h.custodyLabel}
                             </div>
                             <div className="mt-1 flex items-center gap-2 text-[10px]">
-                              <span className="font-mono text-[#6B5E52] dark:text-[#9BB3C7]">
+                              <span className="text-[#6B5E52] dark:text-[#9BB3C7]">
                                 {h.priceSource}
                               </span>
                               <span aria-hidden="true">·</span>
@@ -446,7 +446,7 @@ export function MobileAppSimulator({
                                     : 'text-[#0F766E] dark:text-[#2DD4BF]'
                                 }
                               >
-                                {h.costBasis === 'UNKNOWN' ? 'Cost Unknown' : 'Known Cost'}
+                                {h.costBasis === 'UNKNOWN' ? 'Cost Not Shown' : 'Cost Saved'}
                               </span>
                             </div>
                           </div>
@@ -471,60 +471,60 @@ export function MobileAppSimulator({
               </>
             )}
 
-            {/* DESTINATION 3: STATEMENTS & RECONCILIATION */}
+            {/* TAB 3: STATEMENTS & GMAIL SYNC */}
             {activeDestination === 'statements' && (
               <>
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="text-sm font-bold">Statements &amp; Sync</div>
                     <div className="text-[10px] text-[#6B5E52] dark:text-[#9BB3C7]">
-                      On-device CAS parser · Optional Gmail Pool
+                      Reads PDFs privately on your phone
                     </div>
                   </div>
-                  <span className="font-mono text-[10px] text-[#0F766E] dark:text-[#2DD4BF]">
-                    gmail.readonly
+                  <span className="text-[10px] font-semibold text-[#0F766E] dark:text-[#2DD4BF]">
+                    Read-only Gmail
                   </span>
                 </div>
 
-                {/* Interactive Cross-Source CAMS + CDSL Deduplication Test */}
+                {/* Interactive Duplicate Protection Demo */}
                 <div className="rounded-xl bg-white dark:bg-[#102536] border border-[#E3D9C8] dark:border-[#1C374F] p-3 space-y-2">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-xs font-semibold">Cross-Source Dedup Engine</span>
+                    <span className="text-xs font-semibold">Auto Duplicate Check</span>
                     <button
                       type="button"
                       onClick={() => setDedupRan((v) => !v)}
                       className="px-2.5 py-1 rounded-md text-[10px] font-semibold bg-[#0C2338] dark:bg-[#F5C14A] text-white dark:text-[#07131F] cursor-pointer whitespace-nowrap"
                     >
-                      {dedupRan ? 'Reset Check' : 'Test CAMS + CDSL'}
+                      {dedupRan ? 'Reset Demo' : 'Try CAMS + CDSL'}
                     </button>
                   </div>
                   <p className="text-[10px] text-[#6B5E52] dark:text-[#9BB3C7] leading-relaxed">
-                    Simulate importing an older CAMS (Sep 2026) after CDSL (Oct 2026) on Folio{' '}
-                    <span className="font-mono">499278997181/0</span>.
+                    See what happens if you import an older CAMS file after your latest CDSL
+                    statement for the same mutual fund.
                   </p>
 
                   {dedupRan && (
                     <div className="rounded-lg bg-[#FBF8F2] dark:bg-[#07131F] border border-[#E3D9C8] dark:border-[#1C374F] p-2.5 space-y-1.5 text-[10px]">
                       <div className="flex items-center justify-between font-semibold text-[#0F766E] dark:text-[#2DD4BF]">
-                        <span>Skipped (Older) · 0 duplicate units</span>
+                        <span>Older copy skipped · No duplicates</span>
                         <ShieldCheck className="w-3.5 h-3.5" />
                       </div>
                       <div className="text-[#6B5E52] dark:text-[#9BB3C7]">
-                        Kept Oct 2026 CDSL valuation · Stripped <span className="font-mono">MCAG -</span>{' '}
-                        to RTA Scheme Code · Auto-linked{' '}
+                        Kept your latest Oct 2026 balance and neatly grouped it under{' '}
                         <span className="font-semibold text-[#1C1917] dark:text-[#F4F7FB]">
                           Nippon India Mutual Fund
                         </span>
+                        .
                       </div>
                     </div>
                   )}
                 </div>
 
-                {/* 5 Official Senders Allowlist */}
+                {/* 5 Official Senders */}
                 <div className="rounded-xl bg-white dark:bg-[#102536] border border-[#E3D9C8] dark:border-[#1C374F] p-3 space-y-1.5">
                   <div className="flex items-center gap-1.5 text-xs font-semibold">
                     <Mail className="w-3.5 h-3.5 text-[#B87D0B] dark:text-[#F5C14A]" />
-                    <span>5 Official Gmail Sync Senders</span>
+                    <span>Only 5 Official Statement Senders</span>
                   </div>
                   <div className="space-y-1 pt-0.5">
                     {OFFICIAL_SENDERS.map((s) => (
@@ -541,10 +541,10 @@ export function MobileAppSimulator({
                   </div>
                 </div>
 
-                {/* Compact Collapsible Import History (1 latest by default, matching Android spec) */}
+                {/* Recent Imports */}
                 <div className="rounded-xl bg-white dark:bg-[#102536] border border-[#E3D9C8] dark:border-[#1C374F] p-3 space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold">Recent Import History</span>
+                    <span className="text-xs font-semibold">Recent Statement Imports</span>
                     <button
                       type="button"
                       onClick={() => setHistoryExpanded((e) => !e)}
@@ -555,21 +555,21 @@ export function MobileAppSimulator({
                   </div>
                   <div className="space-y-1.5 text-[10px]">
                     <div className="flex items-center justify-between">
-                      <span className="font-mono">2026-10-31 · CDSL eCAS</span>
+                      <span>Oct 2026 · CDSL Statement</span>
                       <span className="text-[#0F766E] dark:text-[#2DD4BF] font-semibold">
-                        Committed
+                        Added
                       </span>
                     </div>
                     {historyExpanded && (
                       <>
                         <div className="flex items-center justify-between pt-1 border-t border-[#E3D9C8]/60 dark:border-[#1C374F]">
-                          <span className="font-mono">2026-10-31 · Protean NPS</span>
+                          <span>Oct 2026 · Protean NPS</span>
                           <span className="text-[#0F766E] dark:text-[#2DD4BF] font-semibold">
-                            Committed
+                            Added
                           </span>
                         </div>
                         <div className="flex items-center justify-between pt-1 border-t border-[#E3D9C8]/60 dark:border-[#1C374F]">
-                          <span className="font-mono">2026-09-16 · CAMS SOA</span>
+                          <span>Sep 2026 · CAMS Statement</span>
                           <span className="text-[#6B5E52] dark:text-[#9BB3C7] font-medium">
                             Skipped (Older)
                           </span>
@@ -581,19 +581,19 @@ export function MobileAppSimulator({
               </>
             )}
 
-            {/* DESTINATION 4: INSIGHTS & GOALS (Release 1: No Tax button) */}
+            {/* TAB 4: INSIGHTS & GOALS */}
             {activeDestination === 'insights' && (
               <>
                 <div>
-                  <div className="text-sm font-bold">Insights &amp; Goals</div>
+                  <div className="text-sm font-bold">Goals &amp; Upcoming Dates</div>
                   <div className="text-[10px] text-[#6B5E52] dark:text-[#9BB3C7]">
-                    Goals progress &amp; upcoming EMI / interest calendar
+                    Track family milestones, EMIs &amp; interest credits
                   </div>
                 </div>
 
                 {/* Goals */}
                 <div className="rounded-xl bg-white dark:bg-[#102536] border border-[#E3D9C8] dark:border-[#1C374F] p-3 space-y-2.5">
-                  <div className="text-xs font-semibold">Household Goals</div>
+                  <div className="text-xs font-semibold">Family Goals</div>
                   {SAMPLE_GOALS.map((g) => {
                     const pct = Math.min(100, Math.round((g.currentLakhs / g.targetLakhs) * 100));
                     return (
@@ -612,7 +612,7 @@ export function MobileAppSimulator({
                         </div>
                         <div className="flex justify-between text-[10px] text-[#6B5E52] dark:text-[#9BB3C7]">
                           <span>
-                            {g.ownerLabel} · Target {g.horizon}
+                            {g.ownerLabel} · By {g.horizon}
                           </span>
                           <span className="font-mono tabular-nums">
                             {formatInrLakhs(g.currentLakhs, hideMode)} /{' '}
@@ -624,9 +624,9 @@ export function MobileAppSimulator({
                   })}
                 </div>
 
-                {/* Upcoming EMI & Fixed Income Accrual Schedule */}
+                {/* Upcoming EMI & Interest Schedule */}
                 <div className="rounded-xl bg-white dark:bg-[#102536] border border-[#E3D9C8] dark:border-[#1C374F] p-3 space-y-2">
-                  <div className="text-xs font-semibold">Upcoming Cash Flows</div>
+                  <div className="text-xs font-semibold">Upcoming EMIs &amp; Interest</div>
                   {UPCOMING_SCHEDULE.map((ev) => (
                     <div
                       key={ev.id}
@@ -653,13 +653,13 @@ export function MobileAppSimulator({
               </>
             )}
 
-            {/* DESTINATION 5: FAMILY & OWNERSHIP / CUSTODY MAP */}
+            {/* TAB 5: FAMILY & NOMINEES */}
             {activeDestination === 'family' && (
               <>
                 <div>
-                  <div className="text-sm font-bold">Family &amp; Ownership</div>
+                  <div className="text-sm font-bold">Family &amp; Nominees</div>
                   <div className="text-[10px] text-[#6B5E52] dark:text-[#9BB3C7]">
-                    Individual · HUF · Minor + Guardian · eCAS Nominees
+                    Self · Spouse · Children · Family HUF
                   </div>
                 </div>
 
@@ -699,7 +699,7 @@ export function MobileAppSimulator({
                               {formatInrLakhs(memberAssets, hideMode)}
                             </div>
                             <div className="text-[10px] text-[#6B5E52] dark:text-[#9BB3C7]">
-                              Sync: {m.gmailSyncEnabled ? 'On' : 'Off'}
+                              Gmail Sync: {m.gmailSyncEnabled ? 'On' : 'Off'}
                             </div>
                           </div>
                         </div>
@@ -712,9 +712,9 @@ export function MobileAppSimulator({
                   })}
                 </div>
 
-                {/* Custody & Nominee Compliance Mini-Map */}
+                {/* Nominee Check List */}
                 <div className="rounded-xl bg-white dark:bg-[#102536] border border-[#E3D9C8] dark:border-[#1C374F] p-3 space-y-1.5">
-                  <div className="text-xs font-semibold">Ownership &amp; Nominee Map</div>
+                  <div className="text-xs font-semibold">Nominee Status Check</div>
                   {SYNTHETIC_HOLDINGS.slice(0, 4).map((h) => (
                     <div
                       key={h.id}
@@ -737,9 +737,9 @@ export function MobileAppSimulator({
             )}
           </div>
 
-          {/* 5-Destination Material 3 NavigationBar */}
+          {/* 5-Tab Bottom Navigation Bar */}
           <nav
-            aria-label="GrowUrDhan 5 primary destinations"
+            aria-label="GrowUrDhan 5 app tabs"
             className="grid grid-cols-5 bg-white dark:bg-[#0C1C2C] border-t border-[#E3D9C8] dark:border-[#1C374F] px-1 py-1.5 shrink-0"
           >
             {(
@@ -776,7 +776,7 @@ export function MobileAppSimulator({
               <div className="w-full rounded-t-2xl bg-white dark:bg-[#102536] border-t border-[#E3D9C8] dark:border-[#1C374F] p-4 space-y-3">
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0">
-                    <div className="text-[10px] font-mono text-[#6B5E52] dark:text-[#9BB3C7]">
+                    <div className="text-[10px] text-[#6B5E52] dark:text-[#9BB3C7]">
                       {selectedHolding.subcategory} · {selectedHolding.priceSource}
                     </div>
                     <div className="text-xs font-bold leading-snug mt-0.5">
@@ -786,7 +786,7 @@ export function MobileAppSimulator({
                   <button
                     type="button"
                     onClick={() => setSelectedHolding(null)}
-                    aria-label="Close holding detail"
+                    aria-label="Close investment details"
                     className="w-7 h-7 rounded-lg hover:bg-[#FBF8F2] dark:hover:bg-[#0C1C2C] flex items-center justify-center shrink-0 cursor-pointer"
                   >
                     <X className="w-4 h-4" />
@@ -804,11 +804,11 @@ export function MobileAppSimulator({
                   </div>
                   <div>
                     <div className="text-[10px] text-[#6B5E52] dark:text-[#9BB3C7]">
-                      Cost Basis
+                      Purchase Price
                     </div>
                     <div className="font-mono tabular-nums font-bold">
                       {selectedHolding.costBasis === 'UNKNOWN'
-                        ? 'UNKNOWN'
+                        ? 'Not Shown'
                         : formatInrLakhs(selectedHolding.investedLakhs ?? 0, hideMode)}
                     </div>
                   </div>
@@ -816,8 +816,12 @@ export function MobileAppSimulator({
 
                 <dl className="space-y-1.5 text-[11px]">
                   <div className="flex justify-between gap-2">
-                    <dt className="text-[#6B5E52] dark:text-[#9BB3C7]">Custody Account</dt>
+                    <dt className="text-[#6B5E52] dark:text-[#9BB3C7]">Held With</dt>
                     <dd className="font-semibold text-right">{selectedHolding.custodyLabel}</dd>
+                  </div>
+                  <div className="flex justify-between gap-2">
+                    <dt className="text-[#6B5E52] dark:text-[#9BB3C7]">Reference</dt>
+                    <dd className="font-mono text-right">{selectedHolding.folioOrRef}</dd>
                   </div>
                   <div className="flex justify-between gap-2">
                     <dt className="text-[#6B5E52] dark:text-[#9BB3C7]">Nominee Status</dt>
@@ -833,22 +837,10 @@ export function MobileAppSimulator({
                         : 'Not Registered'}
                     </dd>
                   </div>
-                  {selectedHolding.rtaSchemeCode && (
-                    <div className="flex justify-between gap-2">
-                      <dt className="text-[#6B5E52] dark:text-[#9BB3C7]">RTA Scheme Code</dt>
-                      <dd className="font-mono font-semibold">{selectedHolding.rtaSchemeCode}</dd>
-                    </div>
-                  )}
-                  {selectedHolding.isin && (
-                    <div className="flex justify-between gap-2">
-                      <dt className="text-[#6B5E52] dark:text-[#9BB3C7]">ISIN</dt>
-                      <dd className="font-mono">{selectedHolding.isin}</dd>
-                    </div>
-                  )}
                   {selectedHolding.emiDueDay && (
                     <div className="flex justify-between gap-2">
-                      <dt className="text-[#6B5E52] dark:text-[#9BB3C7]">EMI Due Day</dt>
-                      <dd className="font-mono font-semibold">Day {selectedHolding.emiDueDay} · Monthly</dd>
+                      <dt className="text-[#6B5E52] dark:text-[#9BB3C7]">Monthly EMI Date</dt>
+                      <dd className="font-semibold">Day {selectedHolding.emiDueDay} of every month</dd>
                     </div>
                   )}
                 </dl>
@@ -856,15 +848,15 @@ export function MobileAppSimulator({
             </div>
           )}
 
-          {/* Instant Vault Lock Screen Overlay */}
+          {/* Instant App Lock Screen */}
           {vaultLocked && (
             <div className="absolute inset-0 z-40 bg-[#07131F] text-[#F4F7FB] flex flex-col items-center justify-center p-6 text-center space-y-4">
               <BrandMark size={48} />
               <div className="space-y-1">
-                <div className="text-base font-bold">Vault Locked</div>
+                <div className="text-base font-bold">App Locked</div>
                 <p className="text-xs text-[#9BB3C7] leading-relaxed">
-                  Sensitive balances, PANs, PRANs, and volatile Gmail OAuth tokens are cleared from
-                  memory.
+                  All family balances, PAN numbers, and temporary Gmail access are cleared from
+                  screen memory.
                 </p>
               </div>
               <button
@@ -873,10 +865,10 @@ export function MobileAppSimulator({
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#F5C14A] hover:bg-[#EAB032] text-[#07131F] text-xs font-bold transition-colors cursor-pointer"
               >
                 <Unlock className="w-3.5 h-3.5" />
-                <span>Unlock Sample Vault</span>
+                <span>Unlock Sample Preview</span>
               </button>
-              <div className="text-[10px] font-mono text-[#9BB3C7]">
-                AES-256-GCM · Android Keystore · D57 Local
+              <div className="text-[10px] text-[#9BB3C7]">
+                Locked privately on your phone · Zero cloud copy
               </div>
             </div>
           )}
@@ -884,8 +876,8 @@ export function MobileAppSimulator({
       </div>
 
       <p className="mt-4 text-xs text-[#6B5E52] dark:text-[#9BB3C7] text-center max-w-[348px]">
-        Interactive 5-destination preview · Try Owner Lens, Hide Mode, Vault Lock, or CAMS+CDSL
-        deduplication
+        Interactive app preview · Try switching family members, hiding balances, locking the app,
+        or testing duplicate protection
       </p>
     </div>
   );

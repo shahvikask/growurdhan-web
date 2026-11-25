@@ -52,7 +52,7 @@ export interface SyntheticHolding {
   currentLakhs: number;
   investedLakhs?: number;
   costBasis: CostBasisType;
-  priceSource: 'AMFI NAVAll' | 'NSE UDiFF' | 'BSE UDiFF' | 'CAS Snapshot' | 'Manual Valuation';
+  priceSource: 'AMFI Official NAV' | 'NSE Daily Close' | 'BSE Daily Close' | 'From Statement' | 'Your Valuation';
   asOfDate: string;
   nomineeStatus: NomineeStatus;
   linkedPropertyId?: string;
@@ -83,7 +83,7 @@ export interface GuideArticle {
 
 export interface FaqItem {
   id: string;
-  group: 'Product' | 'Sync & CAS' | 'Privacy & D57' | 'Pricing & FY Quota' | 'Availability';
+  group: 'Basics' | 'Statements & Gmail' | 'Privacy & Safety' | 'Pricing & Plans' | 'Availability';
   question: string;
   answer: string;
 }
@@ -104,12 +104,12 @@ export interface LegalDocument {
 export const ASSET_CATEGORIES: AssetCategoryMeta[] = [
   {
     id: 'EQUITY',
-    label: 'Equity',
-    shortLabel: 'Equity',
+    label: 'Shares & ETFs',
+    shortLabel: 'Shares',
     colorHex: '#38BDF8',
-    valuationMode: 'Units × Price',
-    subcategories: ['Indian Listed Stocks', 'ETFs', 'Global / Direct'],
-    description: 'NSE & BSE listed shares and ETFs priced from official UDiFF CM Bhavcopy feeds.',
+    valuationMode: 'Shares × Price',
+    subcategories: ['Indian Listed Stocks', 'ETFs', 'Global Stocks'],
+    description: 'Track all NSE and BSE shares and ETFs with automatic official daily closing prices.',
   },
   {
     id: 'MUTUAL_FUNDS',
@@ -117,76 +117,74 @@ export const ASSET_CATEGORIES: AssetCategoryMeta[] = [
     shortLabel: 'Mutual Funds',
     colorHex: '#818CF8',
     valuationMode: 'Units × NAV',
-    subcategories: ['Equity Direct/Regular', 'Hybrid & Debt', 'ELSS', 'Index Funds'],
+    subcategories: ['Equity Direct & Regular', 'Hybrid & Debt', 'ELSS Tax Saver', 'Index Funds'],
     description:
-      'SOA folios and Demat MF units with AMC-first naming, RTA code extraction, and AMFI NAVAll.txt updates.',
+      'Keep both regular folios and Demat mutual funds neatly grouped by fund house with daily AMFI NAV updates.',
   },
   {
     id: 'GOLD_SGB',
     label: 'Gold & SGB',
     shortLabel: 'Gold & SGB',
     colorHex: '#F5C14A',
-    valuationMode: 'Grams × Rate/g',
+    valuationMode: 'Grams × Rate',
     subcategories: ['Sovereign Gold Bond', 'Physical Gold (24K/22K)', 'Digital Gold'],
     description:
-      'Weight-in-grams tracking for SGB series/coupons/maturity dates, HUID physical gold, and digital vaults.',
+      'Enter gold weight in grams and track Sovereign Gold Bond interest dates, maturity dates, and hallmark jewellery.',
   },
   {
     id: 'FIXED_INCOME',
-    label: 'Fixed Income',
+    label: 'Savings & Fixed Income',
     shortLabel: 'Fixed Income',
     colorHex: '#34D399',
     valuationMode: 'Balance & Rate',
     subcategories: [
-      'PPF',
-      'EPF',
-      'NPS Tier I/II',
+      'PPF & EPF',
+      'NPS Tier I & II',
       'Sukanya Samriddhi (SSY)',
       'Bank FD & RD',
-      'SCSS / POMIS / NSC / KVP',
-      'RBI Floating Rate & GOI Bonds',
+      'Post Office & RBI Bonds',
     ],
     description:
-      'Direct balance valuation with recorded interest rates driving automatic interest accrual schedules.',
+      'Simply record your current balance and interest rate — GrowUrDhan tracks upcoming interest dates for you.',
   },
   {
     id: 'REAL_ESTATE',
-    label: 'Real Estate',
-    shortLabel: 'Real Estate',
+    label: 'Property & Real Estate',
+    shortLabel: 'Property',
     colorHex: '#C084FC',
-    valuationMode: 'Property Value / Units',
-    subcategories: ['Residential', 'Commercial', 'Land', 'REIT', 'InvIT'],
+    valuationMode: 'Property Value',
+    subcategories: ['Home / Flat', 'Commercial', 'Plot / Land', 'REIT & InvIT'],
     description:
-      'Track ownership percentage, rental income schedules, and Net Property Equity alongside linked Home Loans.',
+      'Record your share of ownership, rental income, and see your true home equity after subtracting any linked home loan.',
   },
   {
     id: 'CASH_BANK',
-    label: 'Cash & Bank',
+    label: 'Cash & Bank Accounts',
     shortLabel: 'Cash & Bank',
     colorHex: '#22D3EE',
-    valuationMode: 'Current Balance',
-    subcategories: ['Savings Account', 'Current Account', 'Liquid / Overnight Fund'],
-    description: 'Clean direct balance tracking for liquid reserves without artificial unit fields.',
+    valuationMode: 'Account Balance',
+    subcategories: ['Savings Account', 'Current Account', 'Emergency Cash'],
+    description: 'Record bank and emergency balances directly in rupees — quick, clean, and fuss-free.',
   },
   {
     id: 'SPECIALISED',
-    label: 'Specialised',
+    label: 'Special Investments',
     shortLabel: 'Specialised',
     colorHex: '#F472B6',
-    valuationMode: 'Value / Units',
-    subcategories: ['AIF (Cat I / II / III)', 'PMS', 'Unlisted Equity', 'ESOP'],
+    valuationMode: 'Current Value',
+    subcategories: ['PMS', 'AIF', 'Unlisted Shares', 'Company ESOPs'],
     description:
-      'Subcategory-specific fields for AIF capital commitments/calls, PMS strategies, and ESOP vesting dates.',
+      'Simple tailored fields for PMS portfolios, AIF commitments, unlisted shares, and employee ESOPs.',
   },
   {
     id: 'LIABILITY',
-    label: 'Liabilities',
-    shortLabel: 'Liabilities',
+    label: 'Loans & Liabilities',
+    shortLabel: 'Loans',
     colorHex: '#FB7185',
-    valuationMode: 'Outstanding Principal',
+    valuationMode: 'Pending Balance',
     subcategories: ['Home Loan', 'Car Loan', 'Education Loan', 'Personal Loan'],
     description:
-      'Linked Property picker for Home Loans and EMI Due Day (1–31) feeding the upcoming EMI calendar.',
+      'Link a home loan to your property and save your monthly EMI date so upcoming payments appear on your calendar.',
   },
 ];
 
@@ -194,7 +192,7 @@ export const FAMILY_MEMBERS: FamilyMemberProfile[] = [
   {
     id: 'self',
     displayName: 'Aarav (Self)',
-    relationship: 'Primary Owner · Protected',
+    relationship: 'Primary Member',
     entityType: 'INDIVIDUAL',
     isPrimaryOwner: true,
     panMasked: 'ABCDE••••F',
@@ -218,7 +216,7 @@ export const FAMILY_MEMBERS: FamilyMemberProfile[] = [
   },
   {
     id: 'minor',
-    displayName: 'Kavya (Minor)',
+    displayName: 'Kavya (Child)',
     relationship: 'Minor · Guardian: Aarav',
     entityType: 'MINOR',
     guardianName: 'Aarav (Self)',
@@ -243,7 +241,7 @@ export const FAMILY_MEMBERS: FamilyMemberProfile[] = [
 export const SYNTHETIC_HOLDINGS: SyntheticHolding[] = [
   {
     id: 'sh-1',
-    name: 'NIPPON INDIA MNC FUND - DIRECT GROWTH',
+    name: 'Nippon India MNC Fund - Direct Growth',
     category: 'MUTUAL_FUNDS',
     subcategory: 'Equity Direct',
     ownerId: 'self',
@@ -254,7 +252,7 @@ export const SYNTHETIC_HOLDINGS: SyntheticHolding[] = [
     currentLakhs: 21.4,
     investedLakhs: 18.2,
     costBasis: 'KNOWN',
-    priceSource: 'AMFI NAVAll',
+    priceSource: 'AMFI Official NAV',
     asOfDate: '2026-10-31',
     nomineeStatus: 'REGISTERED',
     latestStatementSource: 'CDSL',
@@ -272,40 +270,40 @@ export const SYNTHETIC_HOLDINGS: SyntheticHolding[] = [
     currentLakhs: 16.8,
     investedLakhs: 13.4,
     costBasis: 'KNOWN',
-    priceSource: 'AMFI NAVAll',
+    priceSource: 'AMFI Official NAV',
     asOfDate: '2026-10-31',
     nomineeStatus: 'REGISTERED',
     latestStatementSource: 'CAMS',
   },
   {
     id: 'sh-3',
-    name: 'Direct Large-Cap Indian Equities',
+    name: 'Direct Large-Cap Indian Shares',
     category: 'EQUITY',
     subcategory: 'Indian Listed Stocks',
     ownerId: 'self',
-    custodyLabel: 'CDSL Demat · DP 12081600',
-    folioOrRef: 'BO 12081600••••4412',
+    custodyLabel: 'CDSL Demat Account',
+    folioOrRef: 'Demat ••••4412',
     isin: 'INE040A01034',
     currentLakhs: 32.5,
     investedLakhs: 26.0,
     costBasis: 'KNOWN',
-    priceSource: 'NSE UDiFF',
+    priceSource: 'NSE Daily Close',
     asOfDate: '2026-11-24',
     nomineeStatus: 'REGISTERED',
     latestStatementSource: 'CDSL',
   },
   {
     id: 'sh-4',
-    name: 'HUF Bluechip Demat Basket',
+    name: 'HUF Bluechip Demat Shares',
     category: 'EQUITY',
     subcategory: 'Indian Listed Stocks',
     ownerId: 'huf',
-    custodyLabel: 'NSDL Demat · IN300214',
+    custodyLabel: 'NSDL Demat Account',
     folioOrRef: 'Client ••••8819',
     isin: 'INE002A01018',
     currentLakhs: 24.6,
     costBasis: 'UNKNOWN',
-    priceSource: 'BSE UDiFF',
+    priceSource: 'BSE Daily Close',
     asOfDate: '2026-11-24',
     nomineeStatus: 'NOT_REGISTERED',
     latestStatementSource: 'NSDL',
@@ -316,13 +314,13 @@ export const SYNTHETIC_HOLDINGS: SyntheticHolding[] = [
     category: 'GOLD_SGB',
     subcategory: 'Sovereign Gold Bond',
     ownerId: 'spouse',
-    custodyLabel: 'CDSL Demat · DP 12081600',
-    folioOrRef: '110g · 2.50% coupon',
+    custodyLabel: 'CDSL Demat Account',
+    folioOrRef: '110g · 2.50% interest',
     isin: 'IN0020210111',
     currentLakhs: 9.2,
     investedLakhs: 6.1,
     costBasis: 'KNOWN',
-    priceSource: 'NSE UDiFF',
+    priceSource: 'NSE Daily Close',
     asOfDate: '2026-11-24',
     nomineeStatus: 'REGISTERED',
   },
@@ -333,27 +331,27 @@ export const SYNTHETIC_HOLDINGS: SyntheticHolding[] = [
     subcategory: 'PPF',
     ownerId: 'self',
     custodyLabel: 'State Bank of India',
-    folioOrRef: '7.10% p.a. · EEE',
+    folioOrRef: '7.10% p.a. · Tax-Free',
     currentLakhs: 14.2,
     investedLakhs: 11.5,
     costBasis: 'KNOWN',
-    priceSource: 'Manual Valuation',
+    priceSource: 'Your Valuation',
     asOfDate: '2026-10-15',
     nomineeStatus: 'REGISTERED',
     interestRatePercent: '7.10',
   },
   {
     id: 'sh-7',
-    name: 'NPS Tier I (Protean CRA)',
+    name: 'NPS Retirement Account (Tier I)',
     category: 'FIXED_INCOME',
     subcategory: 'NPS',
     ownerId: 'spouse',
-    custodyLabel: 'Protean CRA · Tier I',
+    custodyLabel: 'Protean NPS Account',
     folioOrRef: 'PRAN 1100••••9304',
     currentLakhs: 11.8,
     investedLakhs: 9.6,
     costBasis: 'KNOWN',
-    priceSource: 'CAS Snapshot',
+    priceSource: 'From Statement',
     asOfDate: '2026-10-31',
     nomineeStatus: 'REGISTERED',
     latestStatementSource: 'NPS',
@@ -365,58 +363,58 @@ export const SYNTHETIC_HOLDINGS: SyntheticHolding[] = [
     subcategory: 'Sukanya Samriddhi (SSY)',
     ownerId: 'minor',
     custodyLabel: 'India Post · Guardian: Aarav',
-    folioOrRef: '8.20% p.a. · 21-yr',
+    folioOrRef: '8.20% p.a. · 21-yr plan',
     currentLakhs: 9.8,
     investedLakhs: 8.1,
     costBasis: 'KNOWN',
-    priceSource: 'Manual Valuation',
+    priceSource: 'Your Valuation',
     asOfDate: '2026-10-01',
     nomineeStatus: 'REGISTERED',
     interestRatePercent: '8.20',
   },
   {
     id: 'sh-9',
-    name: 'Residential Apartment — Pune',
+    name: 'Family Home — Pune',
     category: 'REAL_ESTATE',
-    subcategory: 'Residential',
+    subcategory: 'Home / Flat',
     ownerId: 'self',
-    custodyLabel: 'Direct Registry · 100% Share',
+    custodyLabel: 'Self-Owned · 100% Share',
     folioOrRef: '1,420 sq ft · Self-occupied',
     currentLakhs: 84.0,
     investedLakhs: 68.0,
     costBasis: 'KNOWN',
-    priceSource: 'Manual Valuation',
+    priceSource: 'Your Valuation',
     asOfDate: '2026-09-30',
     nomineeStatus: 'REGISTERED',
   },
   {
     id: 'sh-10',
-    name: 'Household Emergency Savings',
+    name: 'Family Emergency Bank Savings',
     category: 'CASH_BANK',
     subcategory: 'Savings Account',
     ownerId: 'spouse',
-    custodyLabel: 'HDFC Bank · IFSC HDFC0000142',
-    folioOrRef: 'Liquid Reserve',
+    custodyLabel: 'HDFC Bank',
+    folioOrRef: 'Liquid Savings',
     currentLakhs: 7.4,
     investedLakhs: 7.4,
     costBasis: 'KNOWN',
-    priceSource: 'Manual Valuation',
+    priceSource: 'Your Valuation',
     asOfDate: '2026-11-20',
     nomineeStatus: 'REGISTERED',
     interestRatePercent: '3.50',
   },
   {
     id: 'sh-11',
-    name: 'Home Loan — Linked to Pune Residence',
+    name: 'Home Loan — Pune Apartment',
     category: 'LIABILITY',
     subcategory: 'Home Loan',
     ownerId: 'self',
-    custodyLabel: 'HDFC Home Loans · Floating',
-    folioOrRef: 'EMI Day 10 · 8.55% p.a.',
+    custodyLabel: 'HDFC Home Loans',
+    folioOrRef: 'EMI on 10th · 8.55% p.a.',
     currentLakhs: 36.2,
     investedLakhs: 52.0,
     costBasis: 'KNOWN',
-    priceSource: 'Manual Valuation',
+    priceSource: 'Your Valuation',
     asOfDate: '2026-11-10',
     nomineeStatus: 'NOT_REGISTERED',
     linkedPropertyId: 'sh-9',
@@ -429,47 +427,47 @@ export const OFFICIAL_SENDERS: OfficialSender[] = [
   {
     issuer: 'CAMS',
     email: 'donotreply@camsonline.com',
-    coverage: 'Mutual Fund SOA folios & consolidated RTA transactions',
-    unlockRule: 'Uppercase PAN (or custom KFintech/CAMS password fallback)',
+    coverage: 'Mutual fund statements & folios serviced by CAMS',
+    unlockRule: 'Opens automatically using your saved PAN (or asks if you set a custom password)',
   },
   {
     issuer: 'KFintech',
     email: 'samfS@kfintech.com',
-    coverage: 'KFintech-serviced Mutual Fund SOA statements',
-    unlockRule: 'Uppercase PAN or guided custom password prompt in Review Queue',
+    coverage: 'Mutual fund statements & folios serviced by KFintech',
+    unlockRule: 'Opens using your saved PAN or prompts neatly for your custom password',
   },
   {
     issuer: 'NSDL',
     email: 'NSDL-CAS@nsdl.co.in',
-    coverage: 'NSDL Demat equities, bonds, ETFs, SGBs & SOA MF summary',
-    unlockRule: 'Household uppercase PAN matching printed investor PAN',
+    coverage: 'NSDL Demat shares, bonds, ETFs, SGBs & mutual fund summary',
+    unlockRule: 'Opens automatically on your phone using the member’s PAN',
   },
   {
     issuer: 'CDSL',
     email: 'eCAS@cdslstatement.com',
-    coverage: 'CDSL Demat eCAS (_TXN preferred over _HLD) & MF folios',
-    unlockRule: 'Filename CAS ID + uppercase PAN verification',
+    coverage: 'CDSL monthly eCAS statements covering Demat & mutual funds',
+    unlockRule: 'Matches the member’s CAS ID and PAN automatically on your phone',
   },
   {
     issuer: 'Protean NPS',
     email: 'nps-statements@mailer.proteantech.in',
-    coverage: 'NPS Tier I & Tier II CRA valuation & contribution statements',
-    unlockRule: 'Auto-derived 4 lowercase letters of first name + DDMM DOB',
+    coverage: 'NPS Tier I & Tier II retirement balance statements',
+    unlockRule: 'Opens automatically using first 4 letters of name + birth day & month',
   },
 ];
 
 export const SAMPLE_GOALS = [
   {
     id: 'g-1',
-    title: 'Kavya Higher Education Corpus',
-    ownerLabel: 'Kavya (Minor)',
+    title: 'Kavya Higher Education Fund',
+    ownerLabel: 'Kavya (Child)',
     currentLakhs: 14.8,
     targetLakhs: 35.0,
     horizon: '2036',
   },
   {
     id: 'g-2',
-    title: 'Home Loan Prepayment Buffer',
+    title: 'Home Loan Prepayment Reserve',
     ownerLabel: 'Aarav (Self)',
     currentLakhs: 11.4,
     targetLakhs: 18.0,
@@ -477,8 +475,8 @@ export const SAMPLE_GOALS = [
   },
   {
     id: 'g-3',
-    title: 'Retirement Independence Base',
-    ownerLabel: 'Whole Household',
+    title: 'Family Retirement Corpus',
+    ownerLabel: 'Whole Family',
     currentLakhs: 98.6,
     targetLakhs: 250.0,
     horizon: '2042',
@@ -490,23 +488,23 @@ export const UPCOMING_SCHEDULE = [
     id: 'ev-1',
     date: '10 Dec 2026',
     title: 'Home Loan Monthly EMI',
-    detail: 'EMI Due Day 10 · Linked to Pune Residence',
+    detail: 'Due on 10th every month · Pune Apartment',
     amountLabel: '-₹46,850',
     type: 'EMI' as const,
   },
   {
     id: 'ev-2',
     date: '18 Dec 2026',
-    title: 'SGB 2029-30 Semi-Annual Coupon',
-    detail: '2.50% p.a. on 110g Sovereign Gold Bond',
+    title: 'Sovereign Gold Bond Interest',
+    detail: '2.50% half-yearly interest on 110g SGB',
     amountLabel: '+₹7,610',
     type: 'INTEREST' as const,
   },
   {
     id: 'ev-3',
     date: '31 Mar 2027',
-    title: 'PPF & SSY Annual Interest Accrual',
-    detail: '7.10% PPF · 8.20% Sukanya Samriddhi',
+    title: 'PPF & Sukanya Samriddhi Interest',
+    detail: 'Annual interest credit for PPF & SSY',
     amountLabel: '+₹1,81,200',
     type: 'INTEREST' as const,
   },
@@ -515,144 +513,141 @@ export const UPCOMING_SCHEDULE = [
 export const GUIDES: GuideArticle[] = [
   {
     id: 'on-device-cas-parsing',
-    title: 'How on-device CAS & NPS PDF parsing works without a cloud server',
-    category: 'Statement Engine',
-    readTime: '3 min read',
+    title: 'How GrowUrDhan reads your PDF statements safely on your phone',
+    category: 'Statements',
+    readTime: '2 min read',
     summary:
-      'GrowUrDhan bundles a local Python runtime (casparser + pypdfium2) directly inside the Android app so your statements and passwords never leave your device.',
+      'Your CAMS, KFintech, CDSL, NSDL, and NPS PDFs open directly inside your phone — you never have to forward statements or passwords to any company.',
     sections: [
       {
-        heading: 'Zero server upload for sensitive PDFs',
+        heading: 'Your statements never leave your phone',
         paragraphs: [
-          'Most Indian portfolio trackers ask you to forward your CAMS, KFintech, CDSL, NSDL, or NPS PDFs — along with your PAN password — to a remote backend server. GrowUrDhan eliminates that server hop entirely.',
-          'Using Chaquopy on arm64-v8a Android devices, GrowUrDhan unlocks and parses PDFs completely inside your phone’s private sandbox. Passwords are derived automatically from your encrypted family profiles: uppercase PAN for CAS files, and first 4 lowercase letters of first name plus DDMM date of birth for Protean NPS statements.',
+          'Many investment apps ask you to forward your monthly CAMS, CDSL, NSDL, or NPS PDFs — along with your PAN password — to their servers. GrowUrDhan works differently: everything happens privately right on your Android phone.',
+          'Once you save your family profiles in the app, GrowUrDhan can open standard password-protected statements automatically using each member’s PAN (or first name and birth date for NPS), without sending anything over the internet.',
         ],
       },
       {
-        heading: 'Review before committing',
+        heading: 'You stay in control before anything is saved',
         paragraphs: [
-          'Every parsed batch passes through PAN/PRAN/CAS ID owner verification and shows printed versus parsed totals before writing append-only ledger events to your encrypted local vault.',
+          'GrowUrDhan checks that each statement belongs to the right family member and verifies that the total matches what is printed on your statement before adding it to your records.',
         ],
       },
     ],
   },
   {
     id: 'read-only-gmail-sync',
-    title: 'Optional read-only Gmail Statement Sync across family inboxes',
+    title: 'How optional Gmail Sync finds your monthly statements automatically',
     category: 'Gmail Sync',
-    readTime: '3 min read',
+    readTime: '2 min read',
     summary:
-      'Connect one or multiple Gmail accounts into a family-wide inbox pool with per-member toggles, strict 5-sender allowlisting, and volatile RAM-only OAuth tokens.',
+      'Connect one or more family Gmail accounts if you want GrowUrDhan to fetch official monthly statements automatically — strictly read-only and strictly from 5 official issuers.',
     sections: [
       {
-        heading: 'Designed for real Indian household inboxes',
+        heading: 'Built for how Indian families actually use email',
         paragraphs: [
-          'Indian families rarely follow a 1-person-to-1-email model. Often one shared family Gmail receives eCAS PDFs for Self, Spouse, and HUF, or one person receives CDSL statements on a personal address and NPS on another.',
-          'GrowUrDhan’s Family-Wide Inbox Pool supports both topologies simultaneously. You link 1 to N Gmail accounts via Android Google Identity Services using strictly the gmail.readonly scope, and toggle Gmail Sync per Family Member.',
+          'In many Indian households, one shared family email receives statements for Self, Spouse, and HUF — or one person gets Demat emails on one Gmail and NPS emails on another.',
+          'GrowUrDhan lets you connect one or several Gmail accounts and choose which family members should sync automatically. You can turn it on or off anytime.',
         ],
       },
       {
-        heading: 'Strict allowlist, bounded lookback & zero token persistence',
+        heading: 'Strictly limited to 5 official statement senders',
         paragraphs: [
-          'Sync queries only the 5 official Indian statement senders (CAMS, KFintech, NSDL, CDSL, Protean NPS) within a configurable lookback window (default Last 3 months) and imports only the latest statement month per (member, issuer) stream.',
+          'GrowUrDhan only checks emails from 5 official issuers (CAMS, KFintech, NSDL, CDSL, and Protean NPS) from the last few months (default 3 months). It never looks at personal emails, OTPs, bank alerts, or chats.',
         ],
         bullets: [
-          'OAuth access tokens live strictly in volatile RAM and are wiped immediately when the vault locks.',
-          'Clean, owner-verified batches auto-commit silently; any PAN/PRAN mismatch, custom password, or reconciliation conflict routes cleanly to the Review Queue.',
-          '3-layer idempotency (seen ledger + SHA-256 content hash + pending queue deduplication) prevents already-committed or pending statements from looping.',
+          'Read-only access only: the app can never send, edit, move, or delete any email.',
+          'Your Gmail sign-in permission is cleared from phone memory the moment you lock the app.',
+          'Clean statements update automatically; if a statement needs a custom password or review, it waits neatly in your Review Queue.',
         ],
       },
     ],
   },
   {
     id: 'cross-source-deduplication',
-    title: 'Preventing CAMS + CDSL duplicate mutual funds automatically',
-    category: 'Reconciliation',
-    readTime: '3 min read',
+    title: 'Why importing both CAMS and CDSL will never double-count your mutual funds',
+    category: 'Accuracy',
+    readTime: '2 min read',
     summary:
-      'How GrowUrDhan separates SOA folios from Demat accounts, skips back-dated statements, backfills missing cost basis, and strips noisy RTA scheme codes.',
+      'Many families receive both a CAMS email and a CDSL/NSDL eCAS email every month. GrowUrDhan matches your folios automatically so nothing is ever counted twice.',
     sections: [
       {
-        heading: 'Why depository and RTA statements collide',
+        heading: 'No more doubled mutual fund totals',
         paragraphs: [
-          'CDSL eCAS and NSDL CAS include both Demat holdings and non-demat Statement of Account (SOA) Mutual Fund folios serviced by CAMS and KFintech. Naive trackers match only on ISIN or raw title, causing 2× inflated portfolios when you import both.',
-          'GrowUrDhan resolves every holding to a canonical (Owner, ISIN, Custody Mode) identity — normalizing SOA folio numbers (e.g., 499278997181 / 0 == 499278997181/0) separately from Demat DP/Client accounts.',
+          'CDSL and NSDL monthly statements often include the same mutual funds that also appear in your CAMS or KFintech statement. In ordinary spreadsheets or apps, importing both makes your wealth look twice as big by mistake.',
+          'GrowUrDhan matches each mutual fund by family member, scheme, and folio number — while keeping regular folios separate from Demat mutual funds — so every investment is counted once.',
         ],
       },
       {
-        heading: 'Latest-date survivorship & canonical scheme titles',
+        heading: 'Smart handling of older statements and missing purchase prices',
         paragraphs: [
-          'Back-dated holdings older than a position’s recorded statement date are automatically marked Skipped (Older) so older files never double-count units. When one source omits purchase cost and (ISIN, Folio, Quantity) match, GrowUrDhan backfills the missing cost without regressing your latest valuation date.',
-          'Registrar prefixes like MCAG - or 101G - and suffixes like (Non Demat) are stripped from titles (protecting real AMC names like SBI, HDFC, ICICI, UTI) and stored cleanly as structured RTA Scheme Code metadata.',
+          'If you accidentally import an older month’s statement after a newer one, GrowUrDhan automatically skips the older copy instead of overwriting your latest numbers. And if one statement shows your purchase cost while another leaves it blank, GrowUrDhan fills in the missing purchase cost cleanly.',
         ],
       },
     ],
   },
   {
     id: 'd57-vault-and-recovery',
-    title: 'Understanding D57 local-only vault security & your Offline Recovery Code',
-    category: 'Security',
-    readTime: '3 min read',
+    title: 'Why there is no cloud backup — and how to keep your Recovery Code PDF safe',
+    category: 'Privacy & Safety',
+    readTime: '2 min read',
     summary:
-      'Why GrowUrDhan disables cloud vault backups (allowBackup=false) by design, and how your A4 Offline Recovery Code PDF protects access on your device.',
+      'Your family’s wealth stays locked strictly on your phone so no outsider can ever hack a server to see it. Here is how your printable Recovery Code protects you.',
     sections: [
       {
-        heading: 'No cloud vault means zero server breach surface',
+        heading: 'Private means nobody else holds a copy',
         paragraphs: [
-          'Per GrowUrDhan’s D57 architecture policy, android:allowBackup is disabled and there is no cloud backup, export, or restore of your financial vault. Your household holdings, PANs, PRANs, and ledger live exclusively in AES-256-GCM encrypted local storage backed by Android Keystore.',
+          'GrowUrDhan does not store your family’s wealth on any cloud server and does not create cloud backups. Every PAN, folio number, loan, and rupee stays locked on your own phone.',
         ],
       },
       {
-        heading: 'Your Offline Recovery Code (XXXX-XXXX-XXXX)',
+        heading: 'Save or print your 12-character Recovery Code',
         paragraphs: [
-          'During onboarding, GrowUrDhan generates a unique Offline Recovery Code and lets you save a clean A4 Recovery Code PDF directly to your device via zero-permission Android SAF or print it for a physical safe.',
-          'Because GrowUrDhan never holds a copy of your data or keys, uninstalling the app or losing both your Vault Passcode and Offline Recovery Code permanently erases your local records.',
+          'When you first set up GrowUrDhan, the app creates a unique Recovery Code (like XXXX-XXXX-XXXX) and lets you save it as a neat A4 PDF or print a copy to keep in your home file or locker.',
+          'Because GrowUrDhan has no cloud copy of your records, please keep that Recovery Code safe. Uninstalling the app or forgetting both your passcode and Recovery Code will permanently erase your saved records.',
         ],
       },
     ],
   },
   {
     id: 'family-huf-nominees',
-    title: 'Family Ownership, HUF, Minor Guardians & eCAS Nominee Tracking',
-    category: 'Family & Ownership',
-    readTime: '3 min read',
+    title: 'Tracking Self, Spouse, Children, HUF & Nominees in one place',
+    category: 'Family',
+    readTime: '2 min read',
     summary:
-      'Keep Individual, HUF, and Minor books separate while monitoring AMC-first custody accounts, Home Loan Net Property Equity, and Registered / Not Registered nominee compliance.',
+      'See the full household picture while keeping every person’s legal ownership, child guardian details, and nominee status crystal clear.',
     sections: [
       {
-        heading: 'Built for multi-generational Indian ownership',
+        heading: 'Clear ownership for every family member',
         paragraphs: [
-          'Every holding distinguishes Legal Owner, Beneficial Owner, Guardian (for Minors), and linked Custody Account. Your primary Self profile created at sign-up is permanently protected from accidental deletion.',
+          'Instead of mixing everyone’s investments into one confusing list, GrowUrDhan lets you add profiles for Yourself, your Spouse, Parents, Children (with a named Guardian), and your family HUF. Switch between the whole family view or any single member with one tap.',
         ],
       },
       {
-        heading: 'Automatic custody linking & nominee status',
+        heading: 'Spot missing nominees in seconds',
         paragraphs: [
-          'Importing an eCAS automatically creates and links Demat accounts, NPS PRANs, and Mutual Fund folios labeled by clean Indian AMC names (such as Nippon India Mutual Fund or HDFC Mutual Fund) rather than generic folio placeholders.',
-          'Folio nomination lines are parsed on-device so the Family Ownership & Custody Map immediately highlights Registered versus Not Registered nominee status across your entire household.',
+          'When you import monthly statements, GrowUrDhan automatically groups mutual funds under familiar Indian fund house names (like HDFC Mutual Fund or Nippon India Mutual Fund) and highlights which accounts have a nominee Registered and which ones are Not Registered — so your family never faces surprises later.',
         ],
       },
     ],
   },
   {
     id: 'honest-math-and-official-feeds',
-    title: 'Fixed-scale accounting, truthful Unknown cost & official NSE/BSE/AMFI feeds',
-    category: 'Financial Engine',
+    title: 'Honest profit tracking & official Indian market prices',
+    category: 'Accuracy',
     readTime: '2 min read',
     summary:
-      'Why GrowUrDhan rejects floating-point math, refuses to fake ₹0 purchase cost, and refreshes valuations from official Indian public market feeds.',
+      'Why GrowUrDhan never guesses missing purchase prices and updates your shares and mutual funds using official NSE, BSE, and AMFI prices.',
     sections: [
       {
-        heading: 'Exact arithmetic & append-only audit trail',
+        heading: 'Honest numbers, never fake profits',
         paragraphs: [
-          'GrowUrDhan stores money at fixed 10⁴ integer scale and quantities at 10⁸ integer scale — never binary floating-point Doubles — backed by an append-only 11-event ledger (BUY, SELL, OPENING_BALANCE, BONUS, SPLIT, DIVIDEND, INTEREST, VALUATION_UPDATE, REPAYMENT, CORRECTION, SNAPSHOT_ADJUSTMENT).',
-          'If a statement omits acquisition cost, GrowUrDhan explicitly preserves Cost Unknown rather than silently setting cost to ₹0 and fabricating fake gains.',
+          'Sometimes an old Demat or mutual fund statement does not mention how much you originally paid. Instead of quietly assuming ₹0 cost and showing an inflated fake profit, GrowUrDhan clearly marks it as "Purchase Price Not Shown" until you enter it or import a statement that includes it.',
         ],
       },
       {
-        heading: 'Official Indian exchange end-of-day data',
+        heading: 'Official daily prices from Indian exchanges',
         paragraphs: [
-          'Valuations refresh directly from AMFI NAVAll.txt (ISIN-matched for Growth & IDCW mutual funds) and official NSE & BSE UDiFF CM Bhavcopy end-of-day archives with weekend and holiday lookback.',
+          'Mutual fund NAVs refresh from official AMFI daily data and Indian shares refresh from official NSE and BSE daily closing prices — without sending your personal portfolio anywhere.',
         ],
       },
     ],
@@ -662,66 +657,66 @@ export const GUIDES: GuideArticle[] = [
 export const FAQS: FaqItem[] = [
   {
     id: 'faq-1',
-    group: 'Product',
-    question: 'What asset classes can my household track in GrowUrDhan?',
+    group: 'Basics',
+    question: 'What investments and loans can my family track in GrowUrDhan?',
     answer:
-      'GrowUrDhan tracks all 8 Indian household asset categories with subcategory-smart forms: Equity, Mutual Funds, Gold & SGB, Fixed Income (PPF, EPF, NPS, SSY, SCSS, Bank FD, Post Office RD, NSC, KVP, POMIS, RBI Floating Rate & GOI Bonds), Real Estate (Residential, Commercial, Land, REIT, InvIT), Cash & Bank, Specialised (AIF, PMS, Unlisted Equity, ESOP), and Liabilities (Home, Car, Education, Personal Loans with Linked Property Net Equity and EMI Due Day calendars).',
+      'You can track almost everything an Indian household owns or owes across 8 simple categories: Shares & ETFs, Mutual Funds, Gold & Sovereign Gold Bonds, Savings & Fixed Income (PPF, EPF, NPS, Sukanya Samriddhi, Bank FDs/RDs, Post Office schemes, RBI Bonds), Property & Real Estate, Cash & Bank Accounts, Special Investments (PMS, AIF, Unlisted Shares, ESOPs), and Loans (Home, Car, Education, Personal Loans with monthly EMI reminders).',
   },
   {
     id: 'faq-2',
-    group: 'Product',
-    question: 'Is GrowUrDhan a broker, SEBI-registered adviser, or tax-filing app?',
+    group: 'Basics',
+    question: 'Is GrowUrDhan a broker, investment adviser, or tax-filing app?',
     answer:
-      'No. GrowUrDhan is strictly a private, offline-first personal and household financial record-keeping tool. It does not execute trades, hold funds, offer investment or tax advice, or file returns. Capital gains tax screens are also held back from Release 1 pending tax-planner review.',
+      'No. GrowUrDhan is purely a private family record-keeping app. It does not buy or sell investments, hold your money, suggest what to buy, or file income tax returns.',
   },
   {
     id: 'faq-3',
-    group: 'Sync & CAS',
-    question: 'How does optional Gmail Statement Sync work and is it safe?',
+    group: 'Statements & Gmail',
+    question: 'Is optional Gmail Sync safe? Will it read my personal emails?',
     answer:
-      'Gmail Sync is 100% optional and uses Android Google Identity OAuth with strictly read-only scope (gmail.readonly). It scans only 5 official Indian senders (CAMS, KFintech, NSDL, CDSL, Protean NPS) within a configurable lookback window (default Last 3 months), keeps OAuth tokens strictly in volatile RAM (wiped immediately when the vault locks), and decrypts/parses PDFs entirely on your phone.',
+      'Gmail Sync is completely optional and strictly read-only. If you turn it on, GrowUrDhan only checks emails from 5 official Indian statement senders (CAMS, KFintech, NSDL, CDSL, and Protean NPS). It can never read personal emails, never send or delete emails, and your statement PDFs are opened right on your phone without touching any server.',
   },
   {
     id: 'faq-4',
-    group: 'Sync & CAS',
-    question: 'What happens if I import both CAMS and CDSL statements for the same mutual fund?',
+    group: 'Statements & Gmail',
+    question: 'What if I import both CAMS and CDSL statements for the same mutual fund?',
     answer:
-      'GrowUrDhan’s cross-source deduplication engine identifies SOA Mutual Fund folios by normalized (Owner, ISIN, Folio) separately from Demat accounts. Same-month overlaps never double-count units, older back-dated rows are safely marked Skipped (Older), and missing acquisition cost is automatically backfilled when the other statement prints it.',
+      'GrowUrDhan checks your folio numbers and dates automatically so the same mutual fund is never counted twice. If you accidentally add an older month’s statement, it safely skips the older file while keeping your latest numbers.',
   },
   {
     id: 'faq-5',
-    group: 'Privacy & D57',
-    question: 'Does GrowUrDhan back up my financial vault to the cloud?',
+    group: 'Privacy & Safety',
+    question: 'Does GrowUrDhan back up my family’s data to the cloud?',
     answer:
-      'No. Under our D57 local-only security policy (android:allowBackup="false"), there is no cloud financial vault backup, export, or restore. Your records remain strictly on your device in AES-256-GCM encrypted storage backed by Android Keystore. Always store your A4 Offline Recovery Code PDF safely, because uninstalling the app or losing both your passcode and recovery code permanently deletes local data.',
+      'No. To keep your household’s wealth truly private, GrowUrDhan stores everything strictly on your phone with no cloud account and no cloud backup. Please save or print your Recovery Code PDF during setup, because uninstalling the app or losing both your passcode and Recovery Code permanently deletes your saved data.',
   },
   {
     id: 'faq-6',
-    group: 'Privacy & D57',
-    question: 'Are biometrics enabled automatically and what Android permissions are requested?',
+    group: 'Privacy & Safety',
+    question: 'Does the app ask for access to my SMS, contacts, or photos?',
     answer:
-      'Biometric unlock is disabled by default — you opt in from Settings, where hardware BiometricPrompt binds to Android Keystore CryptoObject. GrowUrDhan requests zero dangerous runtime permissions (only install-time INTERNET for official AMFI/NSE/BSE feeds and optional Gmail Sync).',
+      'No. GrowUrDhan never asks for your SMS messages, contacts, call logs, location, or photo gallery. It only uses the internet when fetching official NSE/BSE/AMFI daily prices or when you choose to run optional Gmail Sync. Fingerprint or face unlock is also optional and turned off by default.',
   },
   {
     id: 'faq-7',
-    group: 'Pricing & FY Quota',
-    question: 'Does the 90-Day Free Trial require a credit card or UPI AutoPay mandate?',
+    group: 'Pricing & Plans',
+    question: 'Do I need to enter a credit card or UPI AutoPay to start the 90-day free trial?',
     answer:
-      'No. The 90-Day Free Trial starts automatically with zero payment details and zero mandate upfront. On Day 91, you transition cleanly to Free Forever with zero surprise charges and all your existing household data intact.',
+      'No. Your 90-day free trial starts right away with no card, no UPI mandate, and no automatic charges. On Day 91, the app simply moves to the Free Forever plan and all your saved family records stay safe and accessible.',
   },
   {
     id: 'faq-8',
-    group: 'Pricing & FY Quota',
-    question: 'How does the ₹20/month Pro Monthly subscription and Financial Year PDF quota carry-over work?',
+    group: 'Pricing & Plans',
+    question: 'How does the ₹20/month Pro Monthly plan and yearly free PDF limit work?',
     answer:
-      'Pro Monthly costs ₹20/month (inclusive of applicable taxes, Google Play SKU gud_pro_monthly_20) via an auto-renewing Google Play / UPI AutoPay mandate that you can cancel anytime in Google Play Subscriptions. Free Forever includes 3 manual PDF parses per Indian Financial Year (April 1 – March 31). PDFs parsed during the 90-day trial do NOT consume Free Forever quota, whereas PDFs parsed while subscribed to Pro Monthly DO count toward that Financial Year’s tally if you later cancel to Free Forever (resetting cleanly to 0 on April 1).',
+      'Pro Monthly is ₹20/month (inclusive of applicable taxes), with billing handled as per Google Play policy — and you can cancel anytime in Google Play Subscriptions. On Free Forever, you get 3 free manual PDF statement imports every Indian Financial Year (April 1 to March 31) plus unlimited manual entries. PDFs imported during your 90-day free trial do not reduce your Free Forever limit. If you subscribe to Pro Monthly, import 3 or more PDFs, and later cancel back to Free Forever in the same Financial Year, free PDF imports pause until the automatic April 1 reset.',
   },
   {
     id: 'faq-9',
     group: 'Availability',
-    question: 'Where can I get GrowUrDhan for Android?',
+    question: 'Where can I download GrowUrDhan for Android?',
     answer:
-      'GrowUrDhan for Android (package ID: in.growurdhan.app, Android 8.0+ / minSdk 26, arm64-v8a) is preparing for public Google Play Store launch. We do not host unofficial APKs or email waitlists on this website; the official Google Play link will be published here once live.',
+      'GrowUrDhan is preparing for its official Google Play Store launch for Android phones (Android 8.0 and above). We never offer unofficial download files on this website — the official Google Play link will be added right here once it goes live.',
   },
 ];
 
@@ -729,130 +724,130 @@ export const LEGAL_DOCUMENTS: Record<LegalDocument['id'], LegalDocument> = {
   terms: {
     id: 'terms',
     title: 'Terms & Conditions',
-    versionTag: 'v2.1-LEGAL-RELEASE · Republic of India',
+    versionTag: 'v2.1 · Republic of India',
     subtitle:
-      'Binding legal agreement governing use of the GrowUrDhan Android application (in.growurdhan.app) and www.growurdhan.com.',
+      'Simple, clear legal terms governing your use of the GrowUrDhan Android app and www.growurdhan.com.',
     sections: [
       {
-        heading: '1. Acceptance, Eligibility & Family / Minor / HUF Authority',
+        heading: '1. Eligibility & Adding Family, Child, or HUF Details',
         paragraphs: [
-          'By creating a local vault or using GrowUrDhan, you confirm that you are at least 18 years of age and legally competent to contract under the Indian Contract Act, 1872. Where you record information belonging to a spouse, adult family member, minor child (as lawful guardian), or Hindu Undivided Family (as Karta or authorised coparcener), you represent that you hold lawful authority and consent under applicable Indian law including the Digital Personal Data Protection Act, 2023 (DPDP Act).',
+          'By using GrowUrDhan, you confirm that you are at least 18 years old and legally able to enter into a contract under the Indian Contract Act, 1872. When you enter details for a spouse, adult family member, minor child (as lawful guardian), or Hindu Undivided Family (as Karta or authorised member), you confirm that you have lawful permission and consent under applicable Indian law including the Digital Personal Data Protection Act, 2023 (DPDP Act).',
         ],
       },
       {
-        heading: '2. Informational Tool Only — No Financial, Tax, or Legal Advice',
+        heading: '2. Record-Keeping App Only — Not Financial, Tax, or Legal Advice',
         paragraphs: [
-          'GrowUrDhan is strictly a private household financial record-keeping and organisation tool. GrowUrDhan is NOT a SEBI-registered investment adviser, portfolio manager, stockbroker, depository participant, Registrar & Transfer Agent (RTA), bank, or ICAI Chartered Accountant / tax-filing service. Nothing displayed constitutes investment, financial, legal, or tax advice.',
+          'GrowUrDhan is strictly a private personal and family financial record-keeping app. GrowUrDhan is NOT a SEBI-registered investment adviser, portfolio manager, stockbroker, depository, Registrar & Transfer Agent (RTA), bank, or Chartered Accountant / tax-filing service. Nothing in the app or on this website is investment, financial, legal, or tax advice.',
         ],
       },
       {
-        heading: '3. Local-Only Storage, Zero Cloud Backup & Permanent Data-Loss Warning (D57)',
+        heading: '3. Phone-Only Storage, No Cloud Backup & Data-Loss Warning',
         paragraphs: [
-          'All household portfolios, PAN/PRAN/CAS IDs, custody records, and ledger events reside strictly in encrypted local device storage (android:allowBackup="false"). GrowUrDhan operates no cloud household database and provides no cloud vault backup or restore. Uninstalling the app, wiping device storage, losing the device, or losing both your Vault Passcode and Offline Recovery Code (XXXX-XXXX-XXXX) will permanently and irreversibly delete your local records.',
+          'All family records, PAN/PRAN/CAS IDs, accounts, and investment history are stored strictly in encrypted storage on your Android phone. GrowUrDhan does not operate a cloud database for your household wealth and does not offer cloud backup or cloud restore. Uninstalling the app, clearing app storage, losing your phone, or losing both your Passcode and Offline Recovery Code (XXXX-XXXX-XXXX) will permanently erase your saved records.',
         ],
       },
       {
-        heading: '4. Platform Security Controls, Permissions & Play Release Disclosures',
+        heading: '4. Device Security, Permissions & Google Play Billing',
         paragraphs: [
-          'GrowUrDhan uses AES-256-GCM local encryption backed by Android Keystore, PBKDF2-SHA256 passcode derivation, embedded on-device Chaquopy CPython + pypdfium2 parsing (arm64-v8a), Android SAF / PrintManager for zero-permission Offline Recovery PDF export, optional FLAG_SECURE screenshot blocking, and opt-in hardware BiometricPrompt (disabled by default). GrowUrDhan requests zero dangerous Android runtime permissions. Subscriptions are processed exclusively via Google Play Billing (SKU: gud_pro_monthly_20).',
+          'GrowUrDhan protects your data on your phone with strong local encryption, optional screenshot blocking, optional fingerprint/face unlock (off by default), and a printable Offline Recovery Code PDF. GrowUrDhan does not request SMS, Contacts, Location, or general Storage permissions. Paid subscriptions are billed through Google Play as per Google Play policy.',
         ],
       },
       {
-        heading: '5. Market Data & Third-Party Sources Disclaimer',
+        heading: '5. Official Market Prices Disclaimer',
         paragraphs: [
-          'End-of-day valuations fetched from official public sources — including AMFI NAVAll.txt, NSE UDiFF CM Bhavcopy, and BSE UDiFF CM Bhavcopy — are provided strictly "AS IS" without warranty of completeness, timeliness, or uninterrupted availability.',
+          'Daily end-of-day prices fetched from official public sources — including AMFI, NSE, and BSE — are shown strictly "AS IS" without guarantee of uninterrupted availability or completeness.',
         ],
       },
       {
         heading: '6. Optional Read-Only Gmail Statement Sync & Google API Limited Use',
         paragraphs: [
-          'If enabled by you, Gmail Statement Sync requests strictly the read-only scope (https://www.googleapis.com/auth/gmail.readonly) via Android Google Identity Services, scans only the 5 official Indian statement sender addresses (CAMS, KFintech, NSDL, CDSL, Protean NPS), holds OAuth access tokens solely in volatile RAM (wiped immediately upon vault lock), and never transfers Gmail data to GrowUrDhan or third-party servers. GrowUrDhan’s use of Google Workspace APIs adheres to the Google API Services User Data Policy, including the Limited Use requirements.',
+          'If you choose to turn on Gmail Statement Sync, GrowUrDhan requests strictly read-only Gmail permission, looks only for emails from the 5 official Indian statement issuers (CAMS, KFintech, NSDL, CDSL, and Protean NPS), keeps your Gmail session token only in temporary phone memory (cleared immediately when the app locks), and never sends any Gmail data to GrowUrDhan or third-party servers. GrowUrDhan’s use of Google APIs strictly follows the Google API Services User Data Policy, including the Limited Use requirements.',
         ],
       },
       {
-        heading: '7. 90-Day Trial, Free Forever & Pro Monthly Subscription (₹20/month) + FY PDF Quota',
+        heading: '7. 90-Day Free Trial, Free Forever & ₹20/month Pro Plan',
         paragraphs: [
-          'New vaults receive a 90-Day Free Trial with all features unlocked and zero payment details or payment mandate required upfront. Upon expiry, the vault transitions cleanly to Free Forever with all existing records intact and zero surprise charges.',
-          'Pro Monthly Subscription is priced at ₹20/month (inclusive of applicable taxes) via Google Play Billing (gud_pro_monthly_20) using an auto-renewing payment mandate (e.g., UPI AutoPay, card, or supported Play method) that renews monthly until cancelled directly in Google Play → Payments & Subscriptions → Subscriptions. Refunds follow Google Play policies.',
-          'Free Forever includes up to 3 manual PDF parses per Indian Financial Year (April 1 – March 31) and no Gmail Sync. PDFs parsed during the 90-Day Free Trial do not consume Free Forever quota; PDFs parsed while subscribed to Pro Monthly DO count toward that Financial Year’s tally — if you parse 3 or more PDFs while subscribed and cancel to Free Forever in the same FY, Free Forever PDF parsing pauses until April 1 reset.',
+          'Every new user starts with a 90-Day Free Trial with all features unlocked and no payment details or mandate required upfront. After 90 days, the app moves smoothly to the Free Forever plan with zero surprise charges and all your existing family records intact.',
+          'The optional Pro Monthly plan costs ₹20/month (inclusive of applicable taxes), billed through Google Play as per Google Play policy. You can manage or cancel your subscription anytime directly in Google Play → Payments & Subscriptions → Subscriptions. Refunds are governed by Google Play policy.',
+          'Free Forever includes up to 3 manual PDF statement imports per Indian Financial Year (April 1 – March 31) and excludes automatic Gmail Sync. PDFs imported during the 90-Day Free Trial do not use up your Free Forever yearly allowance. PDFs imported while on Pro Monthly do count toward that Financial Year’s tally — if you import 3 or more PDFs on Pro Monthly and cancel back to Free Forever in the same Financial Year, free PDF imports pause until the April 1 reset.',
         ],
       },
       {
-        heading: '8. On-Device Statement Parsing & Open-Source Attribution',
+        heading: '8. Statement Reading & Open-Source Libraries',
         paragraphs: [
-          'On-device PDF statement extraction incorporates the open-source casparser library (MIT License, Copyright © Sandeep Somasekharan / codereverser/casparser) and pypdfium2 (Apache License 2.0 / BSD-3-Clause). Both libraries and parsed outputs are provided "AS IS" without warranty. Because registrar PDF layouts may change without notice, users must inspect and verify printed vs. parsed totals and owner attribution in Review & Commit.',
+          'On-device PDF statement reading uses open-source libraries (casparser under the MIT License and pypdfium2 under Apache 2.0 / BSD-3-Clause), provided "AS IS". Because registrar PDF formats can change without notice, please review statement totals and family member assignments before confirming imports.',
         ],
       },
       {
-        heading: '9. Intellectual Property, Limited License & Prohibited Conduct',
+        heading: '9. Personal Use Licence',
         paragraphs: [
-          'GrowUrDhan grants a personal, non-exclusive, non-transferable, revocable licence to use the application for lawful private household record-keeping. Reverse-engineering licensing gates, tampering with billing entitlements, or commercial redistribution is prohibited.',
+          'GrowUrDhan grants you a personal, non-transferable licence to use the app for private household record-keeping. Commercial redistribution or tampering with app billing controls is not permitted.',
         ],
       },
       {
-        heading: '10. Disclaimer of Warranties ("AS IS" / "AS AVAILABLE")',
+        heading: '10. Disclaimer of Warranties',
         paragraphs: [
-          'To the fullest extent permitted by Indian law, GrowUrDhan is provided "AS IS" and "AS AVAILABLE" without express or implied warranties of merchantability, fitness for a particular purpose, accuracy of calculations, or uninterrupted operation.',
+          'To the fullest extent permitted by Indian law, GrowUrDhan is provided "AS IS" and "AS AVAILABLE" without express or implied warranties of accuracy, fitness for a particular purpose, or uninterrupted operation.',
         ],
       },
       {
-        heading: '11. Limitation of Liability, Indemnification & Force Majeure',
+        heading: '11. Limitation of Liability & Responsibility',
         paragraphs: [
-          'To the maximum extent permitted by law, GrowUrDhan’s aggregate liability arising from or relating to use of the application shall not exceed the subscription fees actually paid by you to GrowUrDhan in the 12 months preceding the claim (or ₹500 if on Free Forever or Trial). You agree to indemnify GrowUrDhan against claims arising from unauthorised entry of third-party personal data. Neither party is liable for delays caused by force majeure events.',
+          'To the maximum extent permitted by law, GrowUrDhan’s total liability relating to use of the app shall not exceed the subscription fees actually paid by you in the 12 months before the claim (or ₹500 if on Free Forever or Trial). You remain responsible for having permission to enter any other family member’s personal details.',
         ],
       },
       {
-        heading: '12. Modifications, Severability, Governing Law & Indian Jurisdiction',
+        heading: '12. Updates & Governing Law',
         paragraphs: [
-          'Material updates to these Terms require explicit review and re-acceptance inside the app upon vault unlock. If any clause is held unenforceable, remaining provisions stay in effect. These Terms are governed by the laws of the Republic of India, subject to the exclusive jurisdiction of competent courts in India.',
+          'Important updates to these Terms will be shown clearly inside the app for your review and acceptance. These Terms are governed by the laws of the Republic of India, subject to the jurisdiction of competent courts in India.',
         ],
       },
     ],
   },
   privacy: {
     id: 'privacy',
-    title: 'Privacy Policy & Google API Limited Use',
-    versionTag: 'Aligned with Android App v2.1-LEGAL-RELEASE & DPDP Act 2023',
+    title: 'Privacy Policy & Gmail Limited Use',
+    versionTag: 'Aligned with Indian DPDP Act 2023 & Google API Policy',
     subtitle:
-      'How GrowUrDhan protects your family’s financial records entirely on-device and complies with Google API Services User Data Policy.',
+      'How GrowUrDhan keeps your family’s financial life private on your phone and complies with Google’s Gmail security rules.',
     sections: [
       {
-        heading: '1. Zero Cloud Household Database & Zero Website Tracking',
+        heading: '1. No Cloud Database & No Website Tracking',
         paragraphs: [
-          'www.growurdhan.com is a static product website. It collects no email addresses, phone numbers, PANs, cookies for ad targeting, or financial files.',
-          'Inside the GrowUrDhan Android app, all family profiles (names, relationships, PAN, DOB, PRAN, CAS ID), holdings, custody accounts, goals, and append-only ledger events are stored exclusively on your Android device inside AES-256-GCM encrypted storage (growurdhan_vault.enc) protected by Android Keystore.',
+          'www.growurdhan.com is a simple informational website. It does not ask for your email, phone number, PAN, or financial files, and uses no advertising trackers.',
+          'Inside the GrowUrDhan Android app, all family member profiles, investments, loans, nominees, and goals are stored strictly on your own phone inside an encrypted local vault.',
         ],
       },
       {
-        heading: '2. D57 Strict Local-Only Policy (No Cloud Backup)',
+        heading: '2. Strict Phone-Only Policy (No Cloud Backup)',
         paragraphs: [
-          'GrowUrDhan sets android:allowBackup="false" and exposes zero cloud backup, sync, or restore features for your financial vault. GrowUrDhan has no server-side access to your records and cannot recover lost passcodes or deleted vaults.',
+          'GrowUrDhan deliberately disables cloud backups for your financial vault. GrowUrDhan never receives a copy of your records and cannot reset forgotten passcodes or restore deleted vaults.',
         ],
       },
       {
-        heading: '3. On-Device CAS & NPS Statement Parsing',
+        heading: '3. Private On-Device Statement Reading',
         paragraphs: [
-          'PDF statements from CAMS, KFintech, NSDL, CDSL, and Protean NPS are unlocked and parsed entirely inside an embedded local Python runtime on your device. Neither the raw PDF nor your PDF password (PAN / DOB-derived NPS password) is ever transmitted to any GrowUrDhan server.',
+          'Monthly PDF statements from CAMS, KFintech, NSDL, CDSL, and Protean NPS are unlocked and read right inside your phone. Neither the PDF file nor your password ever leaves your device.',
         ],
       },
       {
-        heading: '4. Optional Gmail Statement Sync — Google API Services User Data Policy (Limited Use)',
+        heading: '4. Optional Gmail Statement Sync — Google API Services Limited Use Policy',
         paragraphs: [
-          'Gmail Statement Sync is strictly opt-in. If you choose to connect one or more Gmail accounts via Android Google Identity Services:',
+          'Gmail Statement Sync is completely optional. If you choose to connect one or more Gmail accounts:',
         ],
         bullets: [
-          'Read-Only Minimal Scope: GrowUrDhan requests only https://www.googleapis.com/auth/gmail.readonly. It can never send, edit, move, or delete emails.',
-          'Strict 5-Sender Allowlist: Queries filter exclusively for donotreply@camsonline.com, samfS@kfintech.com, NSDL-CAS@nsdl.co.in, eCAS@cdslstatement.com, and nps-statements@mailer.proteantech.in within your configured lookback window (default Last 3 months).',
-          'Direct Device-to-Google Communication: Attachments download directly to your phone’s local memory for on-device parsing; zero Gmail content, metadata, or OAuth tokens ever touch a GrowUrDhan server.',
-          'Volatile RAM-Only OAuth Tokens: Access tokens are held solely in memory and wiped immediately when the vault locks.',
-          'Limited Use Compliance: GrowUrDhan’s use and transfer of information received from Google APIs strictly adheres to the Google API Services User Data Policy, including the Limited Use requirements — never used for advertising, profiling, data brokerage, or training AI/ML models.',
+          'Read-Only Access: GrowUrDhan only asks for read-only Gmail access. It can never send, edit, move, or delete your emails.',
+          'Only 5 Official Senders: The app strictly searches only for donotreply@camsonline.com, samfS@kfintech.com, NSDL-CAS@nsdl.co.in, eCAS@cdslstatement.com, and nps-statements@mailer.proteantech.in within your chosen date range (default last 3 months).',
+          'Direct Phone-to-Google Connection: Statement attachments are read directly on your phone — no email content or sign-in tokens ever pass through a GrowUrDhan server.',
+          'Cleared on Lock: Your temporary Gmail sign-in token is kept only in active memory and cleared immediately when you lock the app.',
+          'Google Limited Use Compliance: GrowUrDhan’s use of information received from Google APIs strictly adheres to the Google API Services User Data Policy, including the Limited Use requirements — never used for ads, profiling, selling data, or training AI models.',
         ],
       },
       {
-        heading: '5. Public Market Feeds & Google Play Billing',
+        heading: '5. Official Market Prices & Google Play Billing',
         paragraphs: [
-          'When you refresh valuations, the app makes read-only HTTPS requests to official public Indian end-of-day price files (AMFI NAVAll.txt, NSE & BSE UDiFF CM Bhavcopy) without sending your portfolio holdings or personal identifiers.',
-          'Optional Pro Monthly subscriptions (₹20/month, SKU gud_pro_monthly_20) are processed exclusively by Google Play Billing; GrowUrDhan never receives your card or UPI credentials.',
+          'When you tap refresh, the app downloads official public end-of-day prices from AMFI, NSE, and BSE without sending your holdings or personal details.',
+          'Optional Pro Monthly subscriptions (₹20/month) are billed through Google Play as per Google Play policy; GrowUrDhan never sees your bank card or UPI details.',
         ],
       },
     ],
@@ -860,48 +855,48 @@ export const LEGAL_DOCUMENTS: Record<LegalDocument['id'], LegalDocument> = {
   'open-source': {
     id: 'open-source',
     title: 'Open-Source Notices & Attributions',
-    versionTag: 'On-Device Parsing Engine & Native Runtime',
+    versionTag: 'Licences & Credits',
     subtitle:
-      'GrowUrDhan acknowledges and complies with the open-source licences powering on-device Indian statement parsing.',
+      'GrowUrDhan gratefully acknowledges the open-source libraries that help read Indian financial statements privately on your phone.',
     sections: [
       {
         heading: 'casparser — MIT License',
         paragraphs: [
-          'Copyright © Sandeep Somasekharan (codereverser/casparser). Used on-device inside GrowUrDhan’s embedded local Python runtime to extract structured mutual fund, depository, and valuation records from CAMS, KFintech, NSDL, and CDSL CAS PDFs.',
+          'Copyright © Sandeep Somasekharan (codereverser/casparser). Used privately inside the Android app to read mutual fund and Demat statements from CAMS, KFintech, NSDL, and CDSL.',
           'Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files to deal in the Software without restriction, subject to inclusion of the copyright and permission notice. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.',
         ],
       },
       {
         heading: 'pypdfium2 — Apache License 2.0 / BSD-3-Clause',
         paragraphs: [
-          'Used on-device for fast, native arm64-v8a PDF decryption and text/layout extraction inside the local parsing sandbox, provided "AS IS" without warranty of any kind.',
+          'Used on-device to unlock and read password-protected PDF statements locally inside the app, provided "AS IS" without warranty of any kind.',
         ],
       },
       {
-        heading: 'Typography & Platform Libraries',
+        heading: 'Fonts & Android Components',
         paragraphs: [
-          'Uses Plus Jakarta Sans (SIL Open Font License 1.1), JetBrains Mono (SIL Open Font License 1.1), AndroidX Jetpack Compose & Material 3 (Apache License 2.0), and Chaquopy Python SDK for Android.',
+          'Uses Plus Jakarta Sans (SIL Open Font License 1.1), JetBrains Mono (SIL Open Font License 1.1), and AndroidX Jetpack libraries (Apache License 2.0).',
         ],
       },
     ],
   },
   'delete-account': {
     id: 'delete-account',
-    title: 'Delete Account & Local Data',
-    versionTag: 'Zero Cloud Account · Full User Control',
+    title: 'Delete Account & Phone Data',
+    versionTag: 'No Cloud Account · Instant Control',
     subtitle:
-      'Because GrowUrDhan maintains no cloud user account or remote financial database, data erasure is immediate and completely under your control.',
+      'Because GrowUrDhan never creates a cloud account or stores your wealth on any server, deleting your data is instant and completely in your hands.',
     sections: [
       {
-        heading: 'How to permanently erase all GrowUrDhan data',
+        heading: 'How to permanently delete all your GrowUrDhan data',
         paragraphs: [
-          'Follow these steps on your Android device and Google Account to remove every local record, optional Gmail link, and optional subscription:',
+          'Follow these simple steps on your Android phone and Google Account to remove everything completely:',
         ],
         steps: [
-          'Clear local encrypted vault: Open Android Settings → Apps → GrowUrDhan → Storage & Cache → Clear Storage (or uninstall GrowUrDhan). This permanently destroys growurdhan_vault.enc and growurdhan_auth.enc.',
-          'Remove Offline Recovery PDF: Delete any A4 Recovery Code PDF you saved to your device storage or destroy any printed physical copy.',
-          'Revoke optional Gmail Sync (if connected): Disconnect accounts inside GrowUrDhan Settings → Gmail Sync before uninstalling, or revoke access anytime at Google Account → Security → Third-party apps & services.',
-          'Cancel optional Pro Monthly subscription (if subscribed): Open Google Play → Payments & Subscriptions → Subscriptions → GrowUrDhan and cancel the auto-renewing ₹20/month mandate.',
+          'Delete app data on your phone: Open Android Settings → Apps → GrowUrDhan → Storage → Clear Storage (or simply uninstall GrowUrDhan). This permanently erases all saved family records from your phone.',
+          'Delete your Recovery Code PDF: Delete any Recovery Code PDF you saved on your phone or shred any printed paper copy.',
+          'Disconnect optional Gmail Sync (if you turned it on): Disconnect inside GrowUrDhan Settings → Gmail Sync before uninstalling, or remove permission anytime in Google Account → Security → Third-party apps & services.',
+          'Cancel optional Pro Monthly plan (if subscribed): Open Google Play → Payments & Subscriptions → Subscriptions → GrowUrDhan and cancel as per Google Play policy.',
         ],
       },
     ],

@@ -38,7 +38,7 @@ export function FamilyCustodyExplorer() {
               : 'bg-white dark:bg-[#0C1C2C] border border-[#E3D9C8] dark:border-[#1C374F] text-[#6B5E52] dark:text-[#9BB3C7] hover:text-[#1C1917] dark:hover:text-[#F4F7FB]'
           }`}
         >
-          Household All
+          Whole Family
         </button>
         {FAMILY_MEMBERS.map((m) => (
           <button
@@ -56,15 +56,15 @@ export function FamilyCustodyExplorer() {
         ))}
       </div>
 
-      {/* Ownership & Custody Map Table */}
+      {/* Ownership & Nominee Map Table */}
       <div className="overflow-x-auto rounded-xl border border-[#E3D9C8] dark:border-[#1C374F] bg-white dark:bg-[#0C1C2C]">
         <table className="w-full text-left border-collapse min-w-[560px]">
           <thead>
             <tr className="border-b border-[#E3D9C8] dark:border-[#1C374F] text-[11px] font-semibold text-[#6B5E52] dark:text-[#9BB3C7]">
-              <th className="py-2.5 px-3.5">Holding &amp; Owner</th>
-              <th className="py-2.5 px-3.5">Custody (AMC-First)</th>
+              <th className="py-2.5 px-3.5">Investment &amp; Owner</th>
+              <th className="py-2.5 px-3.5">Where It Is Held</th>
               <th className="py-2.5 px-3.5">Nominee Status</th>
-              <th className="py-2.5 px-3.5 text-right">Value / Cost</th>
+              <th className="py-2.5 px-3.5 text-right">Current Value</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-[#E3D9C8]/70 dark:divide-[#1C374F] text-xs">
@@ -86,7 +86,7 @@ export function FamilyCustodyExplorer() {
                     </div>
                     <div className="text-[11px] text-[#6B5E52] dark:text-[#9BB3C7] pl-4">
                       {owner?.displayName}
-                      {owner?.guardianName ? ` · Guard: ${owner.guardianName}` : ''}
+                      {owner?.guardianName ? ` · Guardian: ${owner.guardianName}` : ''}
                     </div>
                   </td>
                   <td className="py-2.5 px-3.5">
@@ -120,7 +120,7 @@ export function FamilyCustodyExplorer() {
                       {formatInrLakhs(h.currentLakhs)}
                     </div>
                     <div className="text-[10px] text-[#6B5E52] dark:text-[#9BB3C7]">
-                      {h.costBasis === 'UNKNOWN' ? 'Cost Unknown' : h.priceSource}
+                      {h.costBasis === 'UNKNOWN' ? 'Purchase Price Not Shown' : h.priceSource}
                     </div>
                   </td>
                 </tr>
@@ -136,7 +136,7 @@ export function FamilyCustodyExplorer() {
           <span className="font-semibold text-[#1C1917] dark:text-[#F4F7FB]">
             {registeredCount}/{rows.length}
           </span>{' '}
-          rows nominee-registered · Assets{' '}
+          items have a nominee registered · Assets{' '}
           <span className="font-mono tabular-nums font-semibold text-[#1C1917] dark:text-[#F4F7FB]">
             {formatInrLakhs(totalAssets)}
           </span>{' '}
